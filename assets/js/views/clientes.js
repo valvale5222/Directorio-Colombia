@@ -511,67 +511,26 @@ export const ready = (async function init() {
   (function () {
     let currentData = CLI_TM_HIST;
 
-    function squarify(items, W, H) {
-      const sorted = [...items].sort((a, b) => b.v - a.v);
-      const total = sorted.reduce((s, i) => s + i.v, 0);
-      const rects = [];
-      function layout(items, x, y, w, h, sub) {
-        if (!items.length) return;
-        if (items.length === 1) { rects.push({ ...items[0], x, y, w, h }); return; }
-        const isW = w >= h, sh = isW ? h : w;
-        function worst(row, rs) {
-          if (!row.length) return Infinity;
-          const ra = rs / sub * w * h, rl = ra / sh;
-          if (rl <= 0) return Infinity;
-          let mx = 0;
-          for (const it of row) {
-            const is = sh * it.v / rs;
-            if (is <= 0) continue;
-            const a = Math.max(rl / is, is / rl);
-            if (a > mx) mx = a;
-          }
-          return mx;
-        }
-        let row = [], rs = 0, idx = 0;
-        while (idx < items.length) {
-          const nr = [...row, items[idx]], ns = rs + items[idx].v;
-          if (!row.length || worst(nr, ns) <= worst(row, rs)) { row = nr; rs = ns; idx++; }
-          else break;
-        }
-        const frac = rs / sub, rl = (isW ? w : h) * frac;
-        let pos = isW ? y : x;
-        for (const it of row) {
-          const is = sh * it.v / rs;
-          if (isW) rects.push({ ...it, x, y: pos, w: rl, h: is });
-          else rects.push({ ...it, x: pos, y, w: is, h: rl });
-          pos += is;
-        }
-        const rem = items.slice(idx);
-        if (rem.length) {
-          const ns2 = sub - rs;
-          if (isW) layout(rem, x + rl, y, w - rl, h, ns2);
-          else layout(rem, x, y + rl, w, h - rl, ns2);
-        }
-      }
-      layout(sorted, 0, 0, W, H, total);
-      return rects;
-    }
-
+    // Lista de filas-barra (mismo patrón que el Ranking de Clientes de la vista
+    // Ventas): el nombre siempre ocupa el ancho completo de la fila — nunca
+    // depende del monto — así se ve completo sin importar cuán chico sea un
+    // cliente frente al líder. La magnitud se representa con el ancho de la
+    // barra de fondo, no con área 2D.
     function render(data) {
       const wrap = document.getElementById('treemapWrap');
       if (!wrap) return;
-      const W = wrap.clientWidth;
-      if (W < 20) return;
-      const H = wrap.clientHeight || 360, G = 2;
-      const rects = squarify(data, W, H);
-      wrap.innerHTML = rects.map(r => {
-        const area = r.w * r.h;
-        const big = area > 18000, med = area > 7000;
+      const maxV = data.reduce((m, r) => Math.max(m, r.v), 0) || 1;
+      wrap.innerHTML = data.map((r, i) => {
         const c1 = SEG_COL[r.s] || '#0a0a1e', c2 = SEG_COL2[r.s] || '#1a2a5e';
-        const cls = big ? 'tm-big' : med ? 'tm-med' : '';
-        const nm = r.n;
-        const vl = med ? (fmtEjecutivo(r.v) + ' · ' + r.p + '%') : '';
-        return `<div class="tm-cell ${cls}" style="left:${r.x + G}px;top:${r.y + G}px;width:${r.w - G * 2}px;height:${r.h - G * 2}px;background:linear-gradient(135deg,${c1},${c2})" title="${r.n} — ${fmtEjecutivo(r.v)} (${r.p}%)"><div><div class="tm-nm">${nm}</div>${vl ? `<div class="tm-vl">${vl}</div>` : ''}</div></div>`;
+        const barW = Math.max(4, Math.round(r.v / maxV * 100));
+        return `<div class="cli-top5-row" title="${r.n} — ${fmtEjecutivo(r.v)} (${r.p}%)">`
+          + `<div class="cli-top5-fill" style="width:${barW}%;background:linear-gradient(90deg,${c1},${c2})"></div>`
+          + `<span class="cli-top5-rank">${i + 1}</span>`
+          + `<span class="cli-top5-name">${r.n}</span>`
+          + `<div class="cli-top5-metrics">`
+          + `<span class="cli-top5-val">${fmtEjecutivo(r.v)}</span>`
+          + `<span class="cli-top5-pct">${r.p}%</span>`
+          + `</div></div>`;
       }).join('');
     }
 
@@ -584,12 +543,7 @@ export const ready = (async function init() {
       };
     });
 
-    window.addEventListener('resize', () => {
-      const wrap = document.getElementById('treemapWrap');
-      if (wrap && wrap.offsetParent) render(currentData);
-    });
-
-    // lazy: se renderiza al visitar la sección (resize event en go())
+    // lazy: se renderiza al visitar la sección (ver renderTreemap() en router.js)
     _tmRenderCurrent = () => render(currentData);
   })();
 
