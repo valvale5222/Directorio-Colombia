@@ -511,26 +511,80 @@ export const ready = (async function init() {
   (function () {
     let currentData = CLI_TM_HIST;
 
-    // Lista de filas-barra (mismo patrón que el Ranking de Clientes de la vista
-    // Ventas): el nombre siempre ocupa el ancho completo de la fila — nunca
-    // depende del monto — así se ve completo sin importar cuán chico sea un
-    // cliente frente al líder. La magnitud se representa con el ancho de la
-    // barra de fondo, no con área 2D.
+    function squarify(items, W, H) {
+      const sorted = [...items].sort((a, b) => b.v - a.v);
+      const total = sorted.reduce((s, i) => s + i.v, 0);
+      const rects = [];
+      function layout(items, x, y, w, h, sub) {
+        if (!items.length) return;
+        if (items.length === 1) { rects.push({ ...items[0], x, y, w, h }); return; }
+        const isW = w >= h, sh = isW ? h : w;
+        function worst(row, rs) {
+          if (!row.length) return Infinity;
+          const ra = rs / sub * w * h, rl = ra / sh;
+          if (rl <= 0) return Infinity;
+          let mx = 0;
+          for (const it of row) {
+            const is = sh * it.v / rs;
+            if (is <= 0) continue;
+            const a = Math.max(rl / is, is / rl);
+            if (a > mx) mx = a;
+          }
+          return mx;
+        }
+        let row = [], rs = 0, idx = 0;
+        while (idx < items.length) {
+          const nr = [...row, items[idx]], ns = rs + items[idx].v;
+          if (!row.length || worst(nr, ns) <= worst(row, rs)) { row = nr; rs = ns; idx++; }
+          else break;
+        }
+        const frac = rs / sub, rl = (isW ? w : h) * frac;
+        let pos = isW ? y : x;
+        for (const it of row) {
+          const is = sh * it.v / rs;
+          if (isW) rects.push({ ...it, x, y: pos, w: rl, h: is });
+          else rects.push({ ...it, x: pos, y, w: is, h: rl });
+          pos += is;
+        }
+        const rem = items.slice(idx);
+        if (rem.length) {
+          const ns2 = sub - rs;
+          if (isW) layout(rem, x + rl, y, w - rl, h, ns2);
+          else layout(rem, x, y + rl, w, h - rl, ns2);
+        }
+      }
+      layout(sorted, 0, 0, W, H, total);
+      return rects;
+    }
+
+    // Tamaño de letra y cantidad de líneas visibles se calculan por celda
+    // (según su ancho/alto real) en vez de 2-3 tamaños fijos — así el nombre
+    // completo (nunca solo la primera palabra) siempre alcanza a mostrarse,
+    // recortado con "…" solo si de verdad no entra, y el contenido se ancla
+    // arriba (no abajo) para que lo que se recorta sea el final, no el inicio.
     function render(data) {
       const wrap = document.getElementById('treemapWrap');
       if (!wrap) return;
-      const maxV = data.reduce((m, r) => Math.max(m, r.v), 0) || 1;
-      wrap.innerHTML = data.map((r, i) => {
+      const W = wrap.clientWidth;
+      if (W < 20) return;
+      const H = wrap.clientHeight || 360, G = 2;
+      const rects = squarify(data, W, H);
+      const PAD = 6;
+      wrap.innerHTML = rects.map(r => {
+        const w = r.w - G * 2, h = r.h - G * 2;
         const c1 = SEG_COL[r.s] || '#0a0a1e', c2 = SEG_COL2[r.s] || '#1a2a5e';
-        const barW = Math.max(4, Math.round(r.v / maxV * 100));
-        return `<div class="cli-top5-row" title="${r.n} — ${fmtEjecutivo(r.v)} (${r.p}%)">`
-          + `<div class="cli-top5-fill" style="width:${barW}%;background:linear-gradient(90deg,${c1},${c2})"></div>`
-          + `<span class="cli-top5-rank">${i + 1}</span>`
-          + `<span class="cli-top5-name">${r.n}</span>`
-          + `<div class="cli-top5-metrics">`
-          + `<span class="cli-top5-val">${fmtEjecutivo(r.v)}</span>`
-          + `<span class="cli-top5-pct">${r.p}%</span>`
-          + `</div></div>`;
+        const fsName = Math.max(9, Math.min(15, Math.round(Math.min(w, h) * 0.16)));
+        const fsVal = Math.max(8, fsName - 2);
+        const availH = h - PAD * 2;
+        const nameLH = fsName * 1.25;
+        const clampLines = Math.max(1, Math.min(2, Math.floor(availH / nameLH)));
+        const valLH = fsVal * 1.3 + 2;
+        const showVal = (availH - clampLines * nameLH) >= valLH;
+        const vl = showVal ? (fmtEjecutivo(r.v) + ' · ' + r.p + '%') : '';
+        return `<div class="tm-cell" style="left:${r.x + G}px;top:${r.y + G}px;width:${w}px;height:${h}px;background:linear-gradient(135deg,${c1},${c2})" title="${r.n} — ${fmtEjecutivo(r.v)} (${r.p}%)">`
+          + `<div class="tm-nm" style="font-size:${fsName}px;-webkit-line-clamp:${clampLines};line-clamp:${clampLines}">${r.n}</div>`
+          + (vl ? `<div class="tm-vl" style="font-size:${fsVal}px">${vl}</div>` : '')
+          + `</div>`;
       }).join('');
     }
 
@@ -543,7 +597,12 @@ export const ready = (async function init() {
       };
     });
 
-    // lazy: se renderiza al visitar la sección (ver renderTreemap() en router.js)
+    window.addEventListener('resize', () => {
+      const wrap = document.getElementById('treemapWrap');
+      if (wrap && wrap.offsetParent) render(currentData);
+    });
+
+    // lazy: se renderiza al visitar la sección (resize event en go())
     _tmRenderCurrent = () => render(currentData);
   })();
 
