@@ -514,9 +514,12 @@ export const ready = (async function init() {
   (function () {
     let currentData = CLI_TM_HIST;
 
+    // squarify recibe el "peso" de layout en it.wt (no en it.v) — ver render()
+    // más abajo, donde wt se calcula amortiguando el importe real (it.v) para
+    // que un cliente dominante no deje sin espacio legible a los demás.
     function squarify(items, W, H) {
-      const sorted = [...items].sort((a, b) => b.v - a.v);
-      const total = sorted.reduce((s, i) => s + i.v, 0);
+      const sorted = [...items].sort((a, b) => b.wt - a.wt);
+      const total = sorted.reduce((s, i) => s + i.wt, 0);
       const rects = [];
       function layout(items, x, y, w, h, sub) {
         if (!items.length) return;
@@ -528,7 +531,7 @@ export const ready = (async function init() {
           if (rl <= 0) return Infinity;
           let mx = 0;
           for (const it of row) {
-            const is = sh * it.v / rs;
+            const is = sh * it.wt / rs;
             if (is <= 0) continue;
             const a = Math.max(rl / is, is / rl);
             if (a > mx) mx = a;
@@ -537,14 +540,14 @@ export const ready = (async function init() {
         }
         let row = [], rs = 0, idx = 0;
         while (idx < items.length) {
-          const nr = [...row, items[idx]], ns = rs + items[idx].v;
+          const nr = [...row, items[idx]], ns = rs + items[idx].wt;
           if (!row.length || worst(nr, ns) <= worst(row, rs)) { row = nr; rs = ns; idx++; }
           else break;
         }
         const frac = rs / sub, rl = (isW ? w : h) * frac;
         let pos = isW ? y : x;
         for (const it of row) {
-          const is = sh * it.v / rs;
+          const is = sh * it.wt / rs;
           if (isW) rects.push({ ...it, x, y: pos, w: rl, h: is });
           else rects.push({ ...it, x: pos, y, w: is, h: rl });
           pos += is;
@@ -565,13 +568,24 @@ export const ready = (async function init() {
     // completo (nunca solo la primera palabra) siempre alcanza a mostrarse,
     // recortado con "…" solo si de verdad no entra, y el contenido se ancla
     // arriba (no abajo) para que lo que se recorta sea el final, no el inicio.
+    //
+    // El peso de cada celda (wt) amortigua el importe real con raíz cuadrada
+    // y además nunca deja que una celda pese menos del 40% del líder — sin
+    // esto, un cliente que concentra ~90% del monto (común en "2026") deja a
+    // los demás en franjas de pocos píxeles, sin espacio para nombre+importe.
+    // El % y el importe que se muestran siguen siendo los reales (r.v/r.p),
+    // solo el área de la celda se calcula sobre el peso amortiguado.
     function render(data) {
       const wrap = document.getElementById('treemapWrap');
       if (!wrap) return;
       const W = wrap.clientWidth;
       if (W < 20) return;
       const H = wrap.clientHeight || 360, G = 2;
-      const rects = squarify(data, W, H);
+      const maxV = data.reduce((m, r) => Math.max(m, r.v), 0) || 1;
+      const maxWt = Math.sqrt(maxV) || 1;
+      const minWt = maxWt * 0.4;
+      const weighted = data.map((r) => ({ ...r, wt: Math.max(Math.sqrt(r.v) || 0, minWt) }));
+      const rects = squarify(weighted, W, H);
       const PAD = 6;
       wrap.innerHTML = rects.map(r => {
         const w = r.w - G * 2, h = r.h - G * 2;
