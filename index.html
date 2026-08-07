@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Directorio – Gerencia Comercial</title>
+<script>
+(function(){
+  var saved = localStorage.getItem('dc-theme');
+  var theme = (saved === 'light' || saved === 'dark') ? saved
+    : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', theme);
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300..600,0..1,-25..0&display=swap">
 <link rel="stylesheet" href="assets/css/base.css">
@@ -28,6 +36,9 @@
       <span class="t1">Directorio - Informe Ejecutivo</span>
       <span class="t2">Desempeño actual, pipeline de oportunidades y objetivos estratégicos</span>
     </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo oscuro">
+      <span class="material-symbols-rounded" aria-hidden="true">dark_mode</span>
+    </button>
     <svg class="hdr-flag" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bandera de Colombia">
       <rect width="3" height="2" fill="#FCD116"/>
       <rect width="3" height="1" y="1" fill="#003893"/>

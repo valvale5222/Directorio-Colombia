@@ -3,6 +3,9 @@
 
 import { getParticipacion } from '../core/data.js';
 import { fmtEjecutivo } from '../core/utils.js';
+import { isDarkTheme } from '../core/theme.js';
+
+const INK = () => (isDarkTheme() ? '#e7ebf6' : '#0a0a1e');
 
 let PART_DATA = null;
 
@@ -153,7 +156,7 @@ function partRenderEvolChart(){
         }
       },
       scales:{
-        x:{grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:'#0a0a1e'}},
+        x:{grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:INK()}},
         y:{grid:{color:'rgba(10,10,30,.05)'}, border:{display:false}, min:0, ticks:{font:{size:11},color:'#94a3b8', callback:function(v){ return v+'%'; }}}
       }
     }
@@ -271,7 +274,7 @@ function partRenderMarketChart(){
         }
       },
       scales:{
-        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:'#0a0a1e'}},
+        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'600'},color:INK()}},
         y:{stacked:true, grid:{color:'rgba(10,10,30,.05)'}, border:{display:false}, ticks:{font:{size:11},color:'#94a3b8', callback:function(v){ return fmtEjecutivo(v); }}}
       }
     }
@@ -537,7 +540,7 @@ function partRenderRefrStack(){
       },
       plugins:{ legend:{display:false}, tooltip:{ enabled:false, external:partRefrExternalTooltip } },
       scales:{
-        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'700'},color:'#0a0a1e'}},
+        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'700'},color:INK()}},
         y:{stacked:true, min:0, max:100, grid:{color:'rgba(10,10,30,.05)'}, border:{display:false},
            ticks:{font:{size:11},color:'#94a3b8', stepSize:20, callback:function(v){ return v+'%'; }}}
       }
@@ -623,7 +626,7 @@ function partRenderSectorStack(){
       },
       plugins:{ legend:{display:false}, tooltip:{ enabled:false, external:partExternalTooltip } },
       scales:{
-        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'700'},color:'#0a0a1e'}},
+        x:{stacked:true, grid:{display:false}, border:{display:false}, ticks:{font:{size:12,weight:'700'},color:INK()}},
         y:{stacked:true, min:0, max:100, grid:{color:'rgba(10,10,30,.05)'}, border:{display:false},
            ticks:{font:{size:11},color:'#94a3b8', stepSize:20, callback:function(v){ return v+'%'; }}}
       }

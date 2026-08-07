@@ -569,7 +569,7 @@ export const ready = (async function init() {
         const big = area > 18000, med = area > 7000;
         const c1 = SEG_COL[r.s] || '#0a0a1e', c2 = SEG_COL2[r.s] || '#1a2a5e';
         const cls = big ? 'tm-big' : med ? 'tm-med' : '';
-        const nm = med ? r.n : (r.n.split(' ')[0] + '…');
+        const nm = r.n;
         const vl = med ? (fmtEjecutivo(r.v) + ' · ' + r.p + '%') : '';
         return `<div class="tm-cell ${cls}" style="left:${r.x + G}px;top:${r.y + G}px;width:${r.w - G * 2}px;height:${r.h - G * 2}px;background:linear-gradient(135deg,${c1},${c2})" title="${r.n} — ${fmtEjecutivo(r.v)} (${r.p}%)"><div><div class="tm-nm">${nm}</div>${vl ? `<div class="tm-vl">${vl}</div>` : ''}</div></div>`;
       }).join('');

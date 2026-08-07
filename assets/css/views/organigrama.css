@@ -21,21 +21,19 @@
   --og-t:var(--t); --og-tm:var(--tm); --og-ts:var(--ts);
   --og-sh:var(--sh); --og-sh2:var(--sh2);
 }
-@media(prefers-color-scheme:dark){
-  :root{
-    --og-green:#4ade80; --og-green-bg:rgba(74,222,128,.1); --og-green-bd:rgba(74,222,128,.32);
-    --og-red:#f87171; --og-red-bg:rgba(248,113,113,.08); --og-red-bd:rgba(248,113,113,.35);
-    --og-purple:#a78bfa; --og-purple-bg:rgba(167,139,250,.1); --og-purple-bd:rgba(167,139,250,.32);
-    --og-amber:#fbbf24; --og-amber-bg:rgba(251,191,36,.1); --og-amber-bd:rgba(251,191,36,.32);
-    --og-cyan:#38bdf8; --og-cyan-bg:rgba(56,189,248,.1); --og-cyan-bd:rgba(56,189,248,.32);
-    --og-navy:#e7ecff; --og-brand:#5be0c6; --og-brand-d:#3EC6AC;
-    --og-card:#161a2e; --og-bg:#0d0f1e; --og-border:rgba(148,163,214,.16);
-    --og-t:#f1f4fd; --og-tm:#b7c0e0; --og-ts:#8891b8;
-    --og-sh:0 2px 14px rgba(0,0,0,.35); --og-sh2:0 14px 44px rgba(0,0,0,.5);
-  }
-  #organigrama{background:var(--og-bg);border-radius:16px}
-  .org-modal-overlay{background:rgba(0,0,2,.72)}
+:root[data-theme="dark"]{
+  --og-green:#4ade80; --og-green-bg:rgba(74,222,128,.1); --og-green-bd:rgba(74,222,128,.32);
+  --og-red:#f87171; --og-red-bg:rgba(248,113,113,.08); --og-red-bd:rgba(248,113,113,.35);
+  --og-purple:#a78bfa; --og-purple-bg:rgba(167,139,250,.1); --og-purple-bd:rgba(167,139,250,.32);
+  --og-amber:#fbbf24; --og-amber-bg:rgba(251,191,36,.1); --og-amber-bd:rgba(251,191,36,.32);
+  --og-cyan:#38bdf8; --og-cyan-bg:rgba(56,189,248,.1); --og-cyan-bd:rgba(56,189,248,.32);
+  --og-navy:#e7ecff; --og-brand:#5be0c6; --og-brand-d:#3EC6AC;
+  --og-card:#161a2e; --og-bg:#0d0f1e; --og-border:rgba(148,163,214,.16);
+  --og-t:#f1f4fd; --og-tm:#b7c0e0; --og-ts:#8891b8;
+  --og-sh:0 2px 14px rgba(0,0,0,.35); --og-sh2:0 14px 44px rgba(0,0,0,.5);
 }
+:root[data-theme="dark"] #organigrama{background:var(--og-bg);border-radius:16px}
+:root[data-theme="dark"] .org-modal-overlay{background:rgba(0,0,2,.72)}
 #organigrama{color:var(--og-t)}
 
 /* dept color helper attr → custom props consumidos por cards/tabs/modal */
@@ -54,7 +52,7 @@
 .og-tab{display:flex;align-items:center;gap:7px;padding:9px 16px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--og-ts);cursor:pointer;border:none;background:none;font-family:inherit;border-radius:8px;transition:color .18s,background .18s;white-space:nowrap;position:relative}
 .og-tab .material-symbols-rounded{font-size:16px;opacity:.85;transition:opacity .18s}
 .og-tab:hover{color:var(--og-t);background:rgba(62,198,172,.08)}
-.og-tab.active{color:#fff;background:var(--og-navy)}
+.og-tab.active{color:#fff;background:var(--navy)}
 .og-tab.active .material-symbols-rounded{opacity:1;color:var(--og-brand)}
 .og-tab-badge{font-size:9.5px;font-weight:800;background:rgba(125,140,180,.16);color:inherit;border-radius:20px;padding:2px 7px;margin-left:2px}
 .og-tab.active .og-tab-badge{background:rgba(62,198,172,.22);color:var(--og-brand)}
@@ -77,7 +75,7 @@
    sin competir con las cards; se desvanece hacia los bordes con mask. */
 .og-tree::before{content:'';position:absolute;top:-24px;left:0;right:0;height:360px;background-image:radial-gradient(circle,var(--dc,var(--og-brand)) 1px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 62% 100% at 50% 0%,#000 35%,transparent 88%);mask-image:radial-gradient(ellipse 62% 100% at 50% 0%,#000 35%,transparent 88%);opacity:.22;pointer-events:none;z-index:0}
 .og-tree>*{position:relative;z-index:1}
-@media(prefers-color-scheme:dark){.og-tree::before{opacity:.3}}
+:root[data-theme="dark"] .og-tree::before{opacity:.3}
 
 /* Conector vertical genérico */
 .og-connector{width:2px;height:30px;background:linear-gradient(to bottom,var(--og-brand),rgba(62,198,172,.15));flex-shrink:0}
@@ -88,7 +86,7 @@
 .og-sheen{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;border-radius:inherit}
 .og-sheen::before{content:'';position:absolute;top:-70%;bottom:-70%;left:-45%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-260%) rotate(10deg);transition:transform .9s cubic-bezier(.2,.8,.2,1);mix-blend-mode:overlay}
 .og-hero:hover .og-sheen::before,.og-mini:hover .og-sheen::before{transform:translateX(430%) rotate(10deg)}
-@media(prefers-color-scheme:dark){.og-sheen::before{background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent)}}
+:root[data-theme="dark"] .og-sheen::before{background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent)}
 
 /* Hero card — Gerente General / Gerente de Proyecto */
 .og-hero{display:flex;align-items:center;gap:24px;background:linear-gradient(135deg,var(--og-card) 0%,var(--og-bg) 130%);border:1px solid var(--og-border);border-top:3px solid var(--og-brand-d);border-radius:20px;padding:26px 34px;max-width:540px;width:100%;position:relative;overflow:hidden;cursor:pointer;box-shadow:var(--og-sh);transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,border-color .28s}
@@ -118,7 +116,7 @@
 .og-hero-role{font-size:12.5px;color:var(--og-ts);font-weight:500}
 
 .og-col-count{background:rgba(255,255,255,.5);border-radius:20px;padding:0 6px;font-size:9px}
-@media(prefers-color-scheme:dark){.og-col-count{background:rgba(255,255,255,.08)}}
+:root[data-theme="dark"] .og-col-count{background:rgba(255,255,255,.08)}
 
 /* Rama lateral de Soporte directo (Valeria), a la derecha de Gerencia
    General: conector horizontal punteado en vez del árbol vertical. */
@@ -322,7 +320,7 @@
 .og-costo-btn{display:flex;align-items:center;gap:7px;width:100%;justify-content:center;margin-bottom:18px;padding:10px 18px;border-radius:20px;border:1px solid var(--og-green-bd,rgba(21,128,61,.28));background:linear-gradient(135deg,var(--og-green-bg,rgba(21,128,61,.08)),rgba(255,255,255,0));color:var(--og-green,#15803d);font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s,background .2s}
 .og-costo-btn .material-symbols-rounded{font-size:16px}
 .og-costo-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,128,61,.18);background:linear-gradient(135deg,var(--og-green-bg,rgba(21,128,61,.08)),var(--og-green-bg,rgba(21,128,61,.08)))}
-@media(prefers-color-scheme:dark){.og-costo-btn{background:linear-gradient(135deg,var(--og-green-bg),transparent)}}
+:root[data-theme="dark"] .og-costo-btn{background:linear-gradient(135deg,var(--og-green-bg),transparent)}
 
 .og-modal-back{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--og-bg,#f0f4f9);border:.5px solid var(--og-border,#e2e8f4);border-radius:10px;cursor:pointer;color:var(--og-tm,#3d4a6a);transition:background .15s,color .15s}
 .og-modal-back:hover{background:var(--og-border,#e2e8f4);color:var(--og-t,#0a0a1e)}

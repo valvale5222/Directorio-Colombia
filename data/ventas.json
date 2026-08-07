@@ -7,7 +7,7 @@
     "fruta": "OTROS",
     "refrigerante": "Freón",
     "vendedor": "Oficina FP",
-    "margen": 0.18,
+    "margen": 0.20,
     "importe": 697232.9600000001,
     "tipoVenta": "AD",
     "nombreProyecto": "AMPLIACIÓN PACKING DE CARTAMA PEREIRA"
@@ -20,7 +20,7 @@
     "fruta": "PALTA",
     "refrigerante": "Amoniaco/ Glicol",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.20,
     "importe": 48000,
     "tipoVenta": "VS",
     "nombreProyecto": "INGENIERÍA DE REFRIGERACIÓN"
@@ -33,7 +33,7 @@
     "fruta": "PALTA",
     "refrigerante": "Amoniaco/ Glicol",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.20,
     "importe": 39900,
     "tipoVenta": "VS",
     "nombreProyecto": "ARQUITECTURA"
@@ -46,7 +46,7 @@
     "fruta": "PALTA",
     "refrigerante": "Amoniaco/ Glicol",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.20,
     "importe": 5167633.9,
     "tipoVenta": "PR",
     "nombreProyecto": "EQUIPO DE REFRIGERACIÓN E INSTALACIÓN"
@@ -59,7 +59,7 @@
     "fruta": "LIMON / PALTA",
     "refrigerante": "Freón",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.17,
     "importe": 149637,
     "tipoVenta": "PR",
     "nombreProyecto": "AMPLIACIÓN PACKING AGUACATE Y LIMON"
@@ -72,7 +72,7 @@
     "fruta": "LIMON / PALTA",
     "refrigerante": "Freón",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.17,
     "importe": 261514.72,
     "tipoVenta": "PR",
     "nombreProyecto": "AMPLIACIÓN PACKING AGUACATE Y LIMON"
@@ -85,7 +85,7 @@
     "fruta": "ARANDANOS",
     "refrigerante": "Otros",
     "vendedor": "Misael Estrada",
-    "margen": 0.18,
+    "margen": 0.17,
     "importe": 130209.7,
     "tipoVenta": "AD",
     "nombreProyecto": "TUNELES DE PREFRIO Y MODIFICACIÓN DE RECEPCIÓN"
@@ -215,7 +215,7 @@
     "fruta": "GULUPA",
     "refrigerante": "Freón",
     "vendedor": "Alvaro Chavez",
-    "margen": 0.18,
+    "margen": 0.17,
     "importe": 92832,
     "tipoVenta": "PR",
     "nombreProyecto": "AMPLIACION PACKING"
@@ -228,7 +228,7 @@
     "fruta": "ARANDANOS",
     "refrigerante": "Freón",
     "vendedor": "Eduardo Narro",
-    "margen": 0.18,
+    "margen": 0.17,
     "importe": 749045,
     "tipoVenta": "PR",
     "nombreProyecto": "EMPACADORA DE ARÁNDANOS"

@@ -5,6 +5,10 @@ import { getVentas } from '../core/data.js';
 import { computeVentasAggregates, vtYearTotal } from '../core/ventas-agg.js';
 import { meses, fmtPct, fmtEjecutivo, tbl } from '../core/utils.js';
 import { openModal, setModalChartInstance } from '../core/modal.js';
+import { isDarkTheme } from '../core/theme.js';
+
+const INK = () => (isDarkTheme() ? '#e7ebf6' : '#0a0a1e');
+const INK_MUTED = () => (isDarkTheme() ? '#c3cbe6' : '#3d4a6a');
 
 let agg = null; // se llena en ready()
 
@@ -92,7 +96,7 @@ const _vtBarValuePlugin = {
     const { ctx } = chart;
     ctx.save();
     ctx.font = "700 10.5px 'Inter',sans-serif";
-    ctx.fillStyle = opts.color || '#3d4a6a';
+    ctx.fillStyle = opts.color || INK_MUTED();
     meta.data.forEach((bar, i) => {
       const v = data[i];
       if (v === null || v === undefined) return;
@@ -774,7 +778,7 @@ export const ready = (async function init() {
             x: { grid: { color: 'rgba(10,10,30,.05)' }, border: { display: false },
               ticks: { font: { size: 10 }, color: '#94a3b8', callback: (v) => v + '%' } },
             y: { grid: { display: false }, border: { display: false },
-              ticks: { font: { size: 11, weight: '600' }, color: '#3d4a6a' } }
+              ticks: { font: { size: 11, weight: '600' }, color: INK_MUTED() } }
           }
         }
       });
@@ -790,7 +794,7 @@ export const ready = (async function init() {
           labels: ['Q1 · Ene-Mar', 'Q2 · Abr-Jun', 'Q3 · Jul-Sep', 'Q4 · Oct-Dic'],
           datasets: [{
             data: agg.VT_SEAS_Q_PCT,
-            backgroundColor: ['#3EC6AC', '#0a0a1e', 'rgba(62,198,172,.55)', '#94a3b8'],
+            backgroundColor: ['#3EC6AC', INK(), 'rgba(62,198,172,.55)', '#94a3b8'],
             borderRadius: 7,
             barPercentage: 0.65
           }]
@@ -801,7 +805,7 @@ export const ready = (async function init() {
           animation: { duration: 900, easing: 'easeInOutQuart' },
           plugins: {
             legend: { display: false },
-            vtBarValue: { fmt: (v) => v.toFixed(1) + '%', color: '#0a0a1e' },
+            vtBarValue: { fmt: (v) => v.toFixed(1) + '%', color: INK() },
             tooltip: {
               backgroundColor: 'rgba(10,10,30,.92)', padding: 10, cornerRadius: 8,
               titleColor: '#c4cbe4', bodyColor: '#fff',
@@ -812,7 +816,7 @@ export const ready = (async function init() {
           },
           scales: {
             x: { grid: { display: false }, border: { display: false },
-              ticks: { font: { size: 11, weight: '800' }, color: '#0a0a1e' } },
+              ticks: { font: { size: 11, weight: '800' }, color: INK() } },
             y: { grid: { color: 'rgba(10,10,30,.05)' }, border: { display: false },
               ticks: { font: { size: 10 }, color: '#94a3b8', callback: (v) => v + '%' } }
           }

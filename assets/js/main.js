@@ -3,8 +3,9 @@
 // no existe en el DOM (las vistas se cargan siempre completas, igual que el
 // original: se ocultan/muestran con CSS, no se desmontan al cambiar de tab).
 
-import { applyChartDefaults } from './core/charts.js';
+import { applyChartDefaults, syncChartsTheme } from './core/charts.js';
 import { closeModal } from './core/modal.js';
+import { initTheme } from './core/theme.js';
 
 const VIEWS = ['portada', 'resumen', 'ventas', 'moventas', 'pipeline', 'clientes', 'participacion', 'objetivos', 'organigrama'];
 
@@ -16,6 +17,7 @@ async function loadPartials() {
 }
 
 async function boot() {
+  initTheme();
   applyChartDefaults();
   await loadPartials();
 
@@ -30,6 +32,7 @@ async function boot() {
     import('./views/objetivos.js'),
   ]);
   await Promise.all([organigrama.ready, ventas.ready, pipeline.ready, clientes.ready, participacion.ready, objetivos.ready]);
+  syncChartsTheme(document.documentElement.getAttribute('data-theme'));
 
   const { initRouter, go } = await import('./core/router.js');
   initRouter();

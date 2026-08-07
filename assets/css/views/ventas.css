@@ -77,15 +77,15 @@
   display:flex;
   flex-direction:column;        /* children fill via flex */
 }
-.mdl-flip-back{transform:rotateY(180deg);background:#fff}
+.mdl-flip-back{transform:rotateY(180deg);background:var(--card)}
 
 /* Premium table inside flip modal — navy headers */
 .mdl-flip-back table.dt th{
   background:var(--navy);color:rgba(255,255,255,.72);font-size:10.5px;
   font-weight:600;letter-spacing:.7px;border-bottom:none;padding:10px 13px}
 .mdl-flip-back table.dt td{font-size:12px;padding:9px 13px}
-.mdl-flip-back table.dt tr:hover td{background:#f7faff}
-.mdl-flip-back table.dt tr.tot td{background:#f0f4f9;font-weight:700;border-top:1.5px solid rgba(62,198,172,.3)}
+.mdl-flip-back table.dt tr:hover td{background:var(--soft)}
+.mdl-flip-back table.dt tr.tot td{background:var(--bg);font-weight:700;border-top:1.5px solid rgba(62,198,172,.3)}
 .mdl-flip-back .mnote{font-size:10.5px;margin-top:6px}
 
 /* Modales con tabla flip (Análisis Detallado 2021–2026): más ancho y menos padding
@@ -98,8 +98,8 @@
 
 /* Modal action buttons */
 .btn-det-v2{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;
-  color:var(--navy);padding:6px 13px;border-radius:7px;border:1.5px solid var(--border);
-  background:#fff;cursor:pointer;transition:all .15s;text-transform:uppercase;
+  color:var(--t);padding:6px 13px;border-radius:7px;border:1.5px solid var(--border);
+  background:var(--card);cursor:pointer;transition:all .15s;text-transform:uppercase;
   letter-spacing:.5px;white-space:nowrap;flex-shrink:0}
 .btn-det-v2:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 .btn-back-v2{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;
@@ -118,7 +118,7 @@
 .vt-nodata-txt{font-size:11.5px;color:var(--ts);line-height:1.55}
 
 /* ── Ventas: tabs internos (Ventas 2026 / Evolución / Análisis) ── */
-.vt-tabs{display:flex;gap:4px;padding:5px;margin-bottom:22px;background:linear-gradient(180deg,#fff,#f8fafd);
+.vt-tabs{display:flex;gap:4px;padding:5px;margin-bottom:22px;background:linear-gradient(180deg,var(--card),var(--bg));
   border:1px solid var(--border);border-radius:14px;box-shadow:var(--sh);position:relative}
 .vt-tab-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
   padding:10px 16px;border-radius:10px;font-size:12.5px;font-weight:700;letter-spacing:.2px;
@@ -206,7 +206,7 @@
 .vt-rank-pct{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);min-width:42px;text-align:right}
 .vt-rank-total{display:flex;align-items:center;justify-content:space-between;
   margin:2px 16px 0;padding:11px 2px;border-top:2px solid #3aabef;
-  font-size:12px;font-weight:800;color:var(--navy)}
+  font-size:12px;font-weight:800;color:var(--t)}
 @media(max-width:480px){
   .vt-rank-metrics{gap:9px}
   .vt-rank-mg{display:none}
@@ -231,7 +231,7 @@
 .vt-tipo-item:last-child{border-bottom:none}
 .vt-tipo-item .vt-tipo-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
 .vt-tipo-item .lbl{flex:1;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vt-tipo-item .val{font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.vt-tipo-item .val{font-weight:800;color:var(--t);font-variant-numeric:tabular-nums}
 .vt-tipo-total{padding:9px 16px;background:transparent;border-top:1px solid var(--border);
   font-size:10px;color:var(--ts);font-weight:700;text-align:center;flex-shrink:0;letter-spacing:.2px}
 
@@ -240,7 +240,7 @@
 .mg-warn{color:#b45309;background:rgba(250,199,117,.24)}
 .mg-crit{color:#D85A30;background:rgba(216,90,48,.14)}
 /* Fila de totales — estándar corporativo (fondo tenue + borde superior de acento) */
-tr.tbl-total-row td{background:#f7faff;font-weight:700;border-top:2px solid #3aabef}
+tr.tbl-total-row td{background:var(--soft);font-weight:700;border-top:2px solid #3aabef}
 
 /* ── Etiqueta de sub-sección (Evolución de Ventas: "Ventas" / "Margen comercial") ── */
 .vt-evol-lbl{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
@@ -272,9 +272,7 @@ tr.tbl-total-row td{background:#f7faff;font-weight:700;border-top:2px solid #3aa
 .vt-hmap-scale{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:10px;color:var(--ts);justify-content:flex-end}
 .vt-hmap-scale-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;width:130px;box-shadow:0 1px 4px rgba(10,10,30,.1)}
 .vt-seas-grid{margin-top:2px;margin-bottom:0}
-@media(prefers-color-scheme:dark){
-  .vt-panel::before{opacity:.7}
-}
+:root[data-theme="dark"] .vt-panel::before{opacity:.7}
 
 /* ── Entrada suave para cards de Ventas — respeta prefers-reduced-motion ── */
 #ventas .vt-anim{animation:vtCardIn .5s cubic-bezier(.4,0,.2,1) both}
@@ -306,24 +304,12 @@ tr.tbl-total-row td{background:#f7faff;font-weight:700;border-top:2px solid #3aa
   border-color:rgba(62,198,172,.35);box-shadow:0 10px 30px rgba(10,10,30,.10);transform:translateY(-2px)
 }
 
-/* ── Tema oscuro — sólo dentro de la vista Ventas (no afecta otras secciones) ── */
-@media(prefers-color-scheme:dark){
-  #ventas{
-    --bg:#0b0f1e; --card:#121729; --border:#232b45;
-    --t:#eef1f8; --tm:#c3ccdf; --ts:#8a94b8;
-    /* `body{color:var(--t)}` ya resolvió su color heredado usando el --t de
-       :root antes de llegar aquí — sin esto, cualquier texto que no declare
-       su propio `color:var(--t)` (ej. .kpi .val, .sec-head h1) se queda con
-       ese color oscuro heredado y resulta ilegible sobre fondo oscuro. */
-    background:var(--bg);color:var(--t);
-  }
-  #ventas .vt26-tbl tr:hover td,
-  #ventas .mdl-flip-back table.dt tr:hover td{background:rgba(62,198,172,.07)}
-  #ventas tr.tbl-total-row td{background:rgba(62,198,172,.09)}
-  #ventas .vt-nodata{background:var(--card)}
-  #ventas .vt-tabs{background:linear-gradient(180deg,#121729,#0b0f1e)}
-  #ventas .hmap-cell{box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
-}
+/* ── Tema oscuro — variables ya resueltas globalmente en :root[data-theme="dark"] (base.css); aquí solo ajustes finos propios de Ventas ── */
+:root[data-theme="dark"] #ventas .vt26-tbl tr:hover td,
+:root[data-theme="dark"] #ventas .mdl-flip-back table.dt tr:hover td{background:rgba(62,198,172,.07)}
+:root[data-theme="dark"] #ventas tr.tbl-total-row td{background:rgba(62,198,172,.09)}
+:root[data-theme="dark"] #ventas .hmap-cell{box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
+:root[data-theme="dark"] .hmap-yr-th{color:var(--t)}
 
 /* Premium heatmap — Sección 2 Estacionalidad */
 .hmap-table{width:100%;border-collapse:separate;border-spacing:2px;table-layout:fixed}

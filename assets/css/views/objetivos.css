@@ -48,7 +48,7 @@
 .o5-meta-lbl{font-size:clamp(7px,.55vw,9.5px);color:var(--ts);display:block;margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
 /* ── Progress bar ── */
 .o5-prog{flex-shrink:0}
-.o5-prog-track{height:clamp(8px,.62vw,11px);background:#eaeff7;border-radius:7px;overflow:hidden;margin-bottom:7px;position:relative}
+.o5-prog-track{height:clamp(8px,.62vw,11px);background:var(--border);border-radius:7px;overflow:hidden;margin-bottom:7px;position:relative}
 .o5-prog-fill{height:100%;border-radius:7px;width:0;transition:width 1.15s cubic-bezier(.4,0,.2,1),filter .25s ease;position:relative}
 .o5-prog-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
   transform:translateX(-100%);animation:o5Shimmer 2.6s ease-in-out .9s infinite}
@@ -58,10 +58,10 @@
 .o5-prog-pct{font-size:clamp(13px,1.02vw,16px);font-weight:900;transition:color .2s ease}
 /* ── Stats chips — apiladas verticalmente, una fila por stat ── */
 .o5-stats{display:flex;flex-direction:column;gap:clamp(5px,.4vw,7px)}
-.o5-stat{background:#f5f7fc;border-radius:8px;padding:clamp(6px,.5vw,9px) clamp(9px,.75vw,12px);border:1px solid var(--border);
+.o5-stat{background:var(--soft);border-radius:8px;padding:clamp(6px,.5vw,9px) clamp(9px,.75vw,12px);border:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;gap:8px;
   transition:transform .18s ease,background .18s ease,border-color .18s ease}
-.obj5:hover .o5-stat{background:#eef1fa}
+.obj5:hover .o5-stat{background:rgba(62,198,172,.08)}
 .o5-stat-lbl{order:1;font-size:clamp(7.5px,.56vw,10px);color:var(--ts);font-weight:600;text-transform:uppercase;letter-spacing:.4px;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .o5-stat-val{order:2;font-size:clamp(10.5px,.86vw,13.5px);font-weight:800;line-height:1.2;flex-shrink:0;white-space:nowrap;padding-left:8px}
@@ -94,7 +94,7 @@
 
 .obj-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
 .obj-tab{padding:8px 18px;border-radius:9px;border:1.5px solid var(--border);font-size:12px;font-weight:700;
-  cursor:pointer;transition:.15s;background:#fff;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;
+  cursor:pointer;transition:.15s;background:var(--card);color:var(--ts);text-transform:uppercase;letter-spacing:.4px;
   user-select:none;display:inline-flex;align-items:center;gap:6px}
 .obj-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
 .obj-tab:not(.active):hover{border-color:var(--brand);color:var(--brand-d)}
@@ -110,7 +110,7 @@
 /* Detail view */
 .od{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);flex-direction:column}
 .od.open{display:flex;animation:slideInRight .3s ease}
-.od-tb{background:#fff;border-bottom:1px solid var(--border);padding:0 26px;height:50px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(10,10,30,.05)}
+.od-tb{background:var(--card);border-bottom:1px solid var(--border);padding:0 26px;height:50px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(10,10,30,.05)}
 .od-back{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;cursor:pointer;padding:5px 11px;border-radius:7px;border:1.5px solid;transition:.15s;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;background:transparent}
 .od-tb-title{font-size:13px;font-weight:800;color:var(--t)}
 .od-tb-chip{margin-left:auto;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0}
@@ -122,21 +122,21 @@
 .od-kv{font-size:clamp(18px,2.2vw,30px);font-weight:900;color:#fff;display:block;line-height:1}
 .od-ks{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;display:block}
 .od-tabs{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap}
-.od-tab{padding:7px 16px;border-radius:8px;border:2px solid var(--border);font-size:11.5px;font-weight:600;cursor:pointer;transition:.15s;background:#fff;color:var(--ts)}
+.od-tab{padding:7px 16px;border-radius:8px;border:2px solid var(--border);font-size:11.5px;font-weight:600;cursor:pointer;transition:.15s;background:var(--card);color:var(--ts)}
 .od-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
-.od-tab:not(.active):hover{border-color:#3d4a6a;color:#3d4a6a}
+.od-tab:not(.active):hover{border-color:var(--tm);color:var(--tm)}
 .od-pane{display:none}
 .od-pane.active{display:block;animation:fadeUp .25s ease}
 .od-g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.od-card{background:#fff;border:1px solid var(--border);border-radius:11px;padding:15px 16px;box-shadow:var(--sh);margin-bottom:14px}
+.od-card{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:15px 16px;box-shadow:var(--sh);margin-bottom:14px}
 .od-card h4{font-size:12px;font-weight:700;margin-bottom:10px;color:var(--t);text-transform:uppercase;letter-spacing:.5px}
-.od-note{font-size:11px;color:var(--ts);background:#f7f9fc;border-radius:7px;padding:9px 13px;line-height:1.6;border-left:3px solid var(--border);margin-top:10px}
-.sc{width:100%;background:#fff;border-radius:11px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--border);border-collapse:collapse;margin-bottom:14px}
+.od-note{font-size:11px;color:var(--ts);background:var(--soft);border-radius:7px;padding:9px 13px;line-height:1.6;border-left:3px solid var(--border);margin-top:10px}
+.sc{width:100%;background:var(--card);border-radius:11px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--border);border-collapse:collapse;margin-bottom:14px}
 .sc th{background:var(--navy);color:rgba(255,255,255,.75);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;padding:10px 13px;text-align:left}
 .sc th.r,.sc td.r{text-align:right}
 .sc td{padding:9px 13px;font-size:12px;border-bottom:1px solid var(--border);color:var(--t)}
 .sc tr:last-child td{border-bottom:none}
-.sc tr:hover td{background:#f7faff}
+.sc tr:hover td{background:var(--soft)}
 .sb-ok{background:#dcfce7;color:#16a34a;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
 .sb-warn{background:#fef9c3;color:#ca8a04;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
 .sb-crit{background:#fee2e2;color:#dc2626;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}

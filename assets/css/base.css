@@ -1,10 +1,18 @@
 :root{
+  color-scheme:light;
   --navy:#0a0a1e; --navy2:#12122e; --brand:#3EC6AC; --brand-d:#0F6E56;
-  --bg:#f0f4f9; --card:#fff; --border:#e2e8f4;
+  --bg:#f0f4f9; --card:#fff; --border:#e2e8f4; --soft:#f4f8fb;
   --t:#0a0a1e; --tm:#3d4a6a; --ts:#7b8db0;
   --ok:#3EC6AC; --ok-d:#0F6E56; --warn:#d97706; --attn:#D85A30;
   --r:12px; --sh:0 2px 12px rgba(10,10,30,.06); --sh2:0 8px 32px rgba(10,10,30,.14);
 }
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b0f1e; --card:#121729; --border:#232b45; --soft:#182140;
+  --t:#eef1f8; --tm:#c3ccdf; --ts:#8a94b8;
+  --sh:0 2px 14px rgba(0,0,0,.35); --sh2:0 14px 44px rgba(0,0,0,.5);
+}
+body{transition:background-color .2s ease,color .2s ease}
 *{box-sizing:border-box;margin:0;padding:0}
 .material-symbols-rounded{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;
   font-size:inherit;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;
@@ -25,8 +33,17 @@ header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:50;box-sh
 .hdr-live{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(196,203,228,.7);font-weight:500;letter-spacing:.5px}
 .hdr-live-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:pulse-dot 2s infinite;flex-shrink:0}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.5)}}
-.hdr-flag{
+.theme-toggle{
   margin-left:auto;
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;flex-shrink:0;
+  border:1px solid rgba(255,255,255,.14);border-radius:50%;
+  background:rgba(255,255,255,.06);color:#c4cbe4;cursor:pointer;
+  font-family:inherit;padding:0;transition:background .15s,color .15s,border-color .15s
+}
+.theme-toggle:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.22)}
+.theme-toggle .material-symbols-rounded{font-size:19px}
+.hdr-flag{
   width:clamp(24px,2.6vw,36px);
   height:auto;
   flex-shrink:0;
