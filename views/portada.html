@@ -1,0 +1,46 @@
+  <div class="cover">
+    <div class="cover-bgimg" id="coverImg" style="background-image:url('assets/img/cover-cartama.jpg')"></div>
+    <div class="cover-overlay"></div>
+    <button class="changeimg" onclick="document.getElementById('imgInput').click()">
+      <svg class="svgic"><use href="#i-image"/></svg> Cambiar imagen
+    </button>
+    <input type="file" id="imgInput" accept="image/*" style="display:none">
+    <div class="cover-inner">
+      <div class="cover-title">
+        <span class="ct-line1">Gerencia Comercial - <span class="ct-colombia">Colombia</span></span>
+      </div>
+      <div class="cover-period">Ventas Enero – Julio 2026</div>
+      <div class="cover-cards">
+        <div class="ccard" onclick="go('ventas','y2026')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('ventas','y2026');}">
+          <div class="cc-lbl">💰 Ventas 2026</div>
+          <div class="cc-val">US$ 846.6<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">K</span></div>
+          <div class="cc-sub">16.9% de la meta anual de US$ 5MM</div>
+          <div class="cc-go">Ver ventas 2026 <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard" onclick="go('pipeline','forecast')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('pipeline','forecast');}">
+          <div class="cc-lbl">📊 Forecast</div>
+          <div class="cc-val">US$ 1.38<span style="font-size:clamp(13px,1.2vw,17px);font-weight:600;opacity:.7">MM</span></div>
+          <div class="cc-sub">3 oportunidades en análisis y negociación</div>
+          <div class="cc-go">Ver forecast <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard" onclick="go('clientes')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('clientes');}">
+          <div class="cc-lbl">👥 Clientes atendidos</div>
+          <div class="cc-val">11<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7"> clientes</span></div>
+          <div class="cc-sub">Base comercial construida desde el inicio de operaciones</div>
+          <div class="cc-go">Ver clientes <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+        <div class="ccard" onclick="go('ventas','evol')" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('ventas','evol');}">
+          <div class="cc-lbl">🗂️ Ventas acumuladas</div>
+          <div class="cc-val">US$ 8.70<span style="font-size:clamp(13px,1.3vw,18px);font-weight:600;opacity:.7">MM</span></div>
+          <div class="cc-sub">Generadas durante los primeros 3 años de operación</div>
+          <div class="cc-go">Ver evolución <svg class="svgic"><use href="#i-arr"/></svg></div>
+        </div>
+      </div>
+      <div class="cover-brand">
+        <img id="coverBrandLogo" class="cb-logo-fp" alt="FrioPacking Colombia" src="assets/img/logo-friopacking-colombia.png">
+        <span class="cb-sep">Una empresa perteneciente al</span>
+        <img id="coverBrandLogo2" class="cb-logo-fp" alt="FrioPackingGroup" src="assets/img/logo-friopacking-group.png">
+
+      </div>
+    </div>
+  </div>

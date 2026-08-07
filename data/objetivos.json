@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "num": "01",
+    "cat": "Ventas",
+    "name": "Ventas 2026",
+    "full": "Lograr objetivo de ventas de $5MM con margen operativo 18%",
+    "icon": "📈",
+    "pct": 16.93,
+    "pctLabel": "16.93",
+    "color": "#185fa5",
+    "colorBg": "#dbeef9",
+    "colorDark": "#0e4a7a",
+    "status": "warn",
+    "stxt": "En progreso",
+    "metaLabel": "$5.00M",
+    "stats": [
+      { "lbl": "Ventas 2026", "val": "$846.56K", "cls": "" },
+      { "lbl": "Brecha vs meta", "val": "$4.15M", "cls": "c-warn" },
+      { "lbl": "Margen operativo", "val": "18.00%", "cls": "" },
+      { "lbl": "Cobertura de margen", "val": "100%", "cls": "" }
+    ]
+  },
+  {
+    "id": 2,
+    "num": "02",
+    "cat": "Refrigerantes CO₂ / NH₃",
+    "name": "Proyectos CO₂ / NH₃",
+    "full": "Ejecutar 4 proyectos con refrigerantes CO₂ / NH₃",
+    "icon": "❄️",
+    "pct": 0,
+    "pctLabel": "0.00",
+    "color": "#10b981",
+    "colorBg": "#d1fae5",
+    "colorDark": "#065f46",
+    "status": "crit",
+    "stxt": "Sin cierres 2026",
+    "metaLabel": "4 proyectos",
+    "stats": [
+      { "lbl": "Proyectos cerrados", "val": "0 / 4", "cls": "c-crit" },
+      { "lbl": "Pipeline bruto", "val": "$1.22M", "cls": "" },
+      { "lbl": "Pipeline ponderado", "val": "$812.65K", "cls": "" },
+      { "lbl": "Oportunidades activas", "val": "4", "cls": "" }
+    ]
+  },
+  {
+    "id": 3,
+    "num": "03",
+    "cat": "Diversificación",
+    "name": "Clientes No Agro",
+    "full": "Incorporar 4 nuevos clientes fuera del Agro",
+    "icon": "🏭",
+    "pct": 0,
+    "pctLabel": "0.00",
+    "color": "#0891b2",
+    "colorBg": "#e0f7fa",
+    "colorDark": "#164e63",
+    "status": "crit",
+    "stxt": "Sin cierres 2026",
+    "metaLabel": "4 clientes",
+    "stats": [
+      { "lbl": "Clientes incorporados", "val": "0 / 4", "cls": "c-crit" },
+      { "lbl": "Pipeline No Agro bruto", "val": "$2.79M", "cls": "" },
+      { "lbl": "Pipeline ponderado", "val": "$1.59M", "cls": "" },
+      { "lbl": "Oportunidades activas", "val": "12", "cls": "" }
+    ]
+  },
+  {
+    "id": 4,
+    "num": "04",
+    "cat": "Sin frío",
+    "name": "OOCC + EEMM",
+    "full": "Alcanzar USD 500K en proyectos sin frío (OOCC + EEMM)",
+    "icon": "🏗️",
+    "pct": 0,
+    "pctLabel": "0.00",
+    "color": "#0d9488",
+    "colorBg": "#ccfbf1",
+    "colorDark": "#115e59",
+    "status": "crit",
+    "stxt": "Sin cierres 2026",
+    "metaLabel": "$500K",
+    "stats": [
+      { "lbl": "Facturado sin frío", "val": "$0", "cls": "c-crit" },
+      { "lbl": "Brecha vs meta", "val": "$500,000", "cls": "c-crit" },
+      { "lbl": "Pipeline en negociación", "val": "$122.37K", "cls": "" },
+      { "lbl": "Prob. de cierre", "val": "80%", "cls": "" }
+    ]
+  }
+]

@@ -1,0 +1,131 @@
+
+  <!-- Hero Header (fijo — no reacciona a filtros ni a la etapa seleccionada) -->
+  <div class="pipe-hero">
+    <div class="pipe-hero-inner">
+      <div class="pipe-hero-left">
+        <div class="pipe-hero-eye"><span class="material-symbols-rounded" aria-hidden="true">track_changes</span>Pipeline Comercial</div>
+        <h2 class="pipe-hero-title">Pipeline de Oportunidades</h2>
+        <div class="pipe-hero-sub">Embudo comercial, forecast por año/mes y detalle de clientes por etapa</div>
+      </div>
+      <div class="pipe-hero-right" id="pipeHeroKpis"></div>
+    </div>
+  </div>
+
+  <!-- Mini-tabs internos -->
+  <div class="pipe-tabs pipe-tabs-main" id="pipeViewTabs">
+    <div class="pipe-tab active" data-view="resumen"><span class="material-symbols-rounded" aria-hidden="true">donut_large</span>Resumen Embudo</div>
+    <div class="pipe-tab" data-view="forecast"><span class="material-symbols-rounded" aria-hidden="true">insights</span>Forecast</div>
+    <div class="pipe-tab" data-view="clientes"><span class="material-symbols-rounded" aria-hidden="true">folder_shared</span>Clientes por Etapa</div>
+  </div>
+
+  <!-- ===== VISTA 1 · RESUMEN EMBUDO ===== -->
+  <div class="pipe-view active" id="pipeViewResumen">
+    <div class="kpis k4" id="pipeKpiFixed"></div>
+    <div class="grid2 pipe-fs-grid">
+      <div class="card pipe-card-anim">
+        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">filter_alt</span>Embudo de Oportunidades</div>
+        <div class="pipe-card-sub">Estado actual · cantidad e importe total por etapa</div>
+        <div class="funnel-v2" id="funnelV2"></div>
+      </div>
+      <div class="card pipe-card-anim" id="pipeStageDetailCard">
+        <div id="pipeStageDetail"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VISTA 2 · FORECAST ===== -->
+  <div class="pipe-view" id="pipeViewForecast">
+    <div class="pf-panel pf-panel-collapsible" id="pfFilterPanel">
+      <div class="pf-panel-hdr" id="pfFilterToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="pfFilterBody">
+        <span class="material-symbols-rounded pf-panel-chevron" aria-hidden="true">expand_more</span>
+        <span class="pf-panel-ttl"><span class="material-symbols-rounded" aria-hidden="true">tune</span>Filtros</span>
+        <div class="pf-panel-summary" id="pfFilterSummary"></div>
+        <button type="button" class="pf-panel-clear" id="pfFilterClear"><span class="material-symbols-rounded" aria-hidden="true">filter_alt_off</span>Limpiar</button>
+      </div>
+      <div class="pf-collapse collapsed" id="pfFilterBody">
+        <div class="pf-collapse-inner">
+          <div class="pf-row ym-row">
+            <span class="pf-lbl"><span class="material-symbols-rounded" aria-hidden="true">event</span>Periodo</span>
+            <div id="pfYearMonth"></div>
+          </div>
+          <div class="pf-sep-h"></div>
+          <div class="pf-row">
+            <span class="pf-lbl"><span class="material-symbols-rounded" aria-hidden="true">percent</span>Probabilidad</span>
+            <div class="pf-chips" id="pfProb"></div>
+          </div>
+          <div class="pf-sep-h"></div>
+          <div class="pf-row">
+            <span class="pf-lbl"><span class="material-symbols-rounded" aria-hidden="true">flag</span>Estado</span>
+            <div class="pf-chips" id="pfEstado"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kpis k4" id="pipeKpiForecast"></div>
+
+    <div class="grid2 pipe-fs-grid">
+      <div class="card pipe-card-anim">
+        <div class="vt-card-ttl"><span class="material-symbols-rounded" aria-hidden="true">bar_chart</span>Forecast mensual por etapa</div>
+        <div class="vt-card-sub" style="margin-bottom:14px">Importe de oportunidades según mes estimado de cierre</div>
+        <div class="chart-wrap" id="pipeSeasChartWrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPipeSeas"></canvas></div>
+        <div class="pipe-empty" id="pipeSeasEmpty" hidden>
+          <span class="material-symbols-rounded" aria-hidden="true">event_busy</span>
+          <div class="pipe-empty-ttl">Sin meses seleccionados</div>
+          <div class="pipe-empty-sub">Elige al menos un mes en el segmentador de periodo para ver el forecast.</div>
+        </div>
+      </div>
+      <div class="card pipe-card-anim" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:14px 16px 10px">
+          <div class="vt-card-ttl"><span class="material-symbols-rounded" aria-hidden="true">table_rows</span>Resumen mensual</div>
+          <div class="vt-card-sub" id="pipeForecastTblInfo"></div>
+        </div>
+        <div class="vt26-wrap" style="max-height:360px;border-radius:0;border-left:none;border-right:none;border-bottom:none;flex:1">
+          <table class="vt26-tbl" style="font-size:11px">
+            <thead>
+              <tr>
+                <th>Mes</th>
+                <th class="r">Oport.</th>
+                <th class="r">Importe</th>
+                <th>Etapa dominante</th>
+                <th class="r">Prob.</th>
+              </tr>
+            </thead>
+            <tbody id="pipeForecastTblBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-stage-grid" id="pfStageGrid"></div>
+  </div>
+
+  <!-- ===== VISTA 3 · CLIENTES POR ETAPA ===== -->
+  <div class="pipe-view" id="pipeViewClientes">
+    <div class="pf-panel pf-panel-collapsible" id="pipeClienteFilterPanel">
+      <div class="pf-panel-hdr" id="pipeClienteFilterToggle" role="button" tabindex="0" aria-expanded="false" aria-controls="pipeClienteFilterBody">
+        <span class="material-symbols-rounded pf-panel-chevron" aria-hidden="true">expand_more</span>
+        <span class="pf-panel-ttl"><span class="material-symbols-rounded" aria-hidden="true">event</span>Periodo</span>
+        <div class="pf-panel-summary" id="pipeClienteFilterSummary"></div>
+        <button type="button" class="pf-panel-clear" id="pipeClienteFilterClear"><span class="material-symbols-rounded" aria-hidden="true">filter_alt_off</span>Limpiar</button>
+      </div>
+      <div class="pf-collapse collapsed" id="pipeClienteFilterBody">
+        <div class="pf-collapse-inner">
+          <div class="pf-row ym-row">
+            <span class="pf-lbl"><span class="material-symbols-rounded" aria-hidden="true">calendar_month</span>Año / Meses</span>
+            <div id="pipeClienteYM"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pf-sep-h"></div>
+      <div class="pf-row" style="flex-wrap:wrap;gap:14px">
+        <div class="pipe-search-wrap">
+          <span class="material-symbols-rounded" aria-hidden="true">search</span>
+          <input class="pipe-search" id="pipeClienteSearch" placeholder="Buscar por cliente o proyecto…">
+        </div>
+        <div class="pipe-tabs" id="pipeClienteTabs" style="margin-bottom:0;flex:1"></div>
+      </div>
+    </div>
+    <div id="pipeEtapaGroups"></div>
+  </div>
+

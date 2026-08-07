@@ -1,0 +1,163 @@
+  <div class="cli-hero">
+    <div class="cli-hero-left">
+      <span class="cli-hero-icon">👥</span>
+      <div>
+        <div class="cli-hero-eye">Directorio Ejecutivo &middot; Clientes</div>
+        <div class="cli-hero-ttl">Inteligencia de Clientes</div>
+      </div>
+    </div>
+    <div class="cli-hero-right" id="cliHeroRight">Cartera hist&oacute;rica 2023&ndash;2026 &middot; 2026 frente al hist&oacute;rico</div>
+  </div>
+
+  <!-- KPI Cards v3 Premium -->
+  <div class="kpis k4" style="margin-bottom:20px" id="cliKpiGrid">
+    <!-- KPI 1: Clientes activos -->
+    <div class="kpi-v3" onclick="openCliModal('activos')" style="--accent:#3EC6AC">
+      <div class="kv3-icon" style="font-size:20px">👥</div>
+      <div class="kv3-lbl">Clientes activos 2026</div>
+      <div class="kv3-val" style="color:#0F6E56" id="kpiActivosVal">6</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:50%;background:#3EC6AC" id="kpiActivosBar"></div></div>
+      <div class="kv3-ctx" id="kpiActivosCtx">50.00% de la cartera hist&oacute;rica &middot; 12 clientes totales</div>
+      <div class="kv3-delta" style="color:#0F6E56">&#8599; Ver top 5 por facturaci&oacute;n</div>
+    </div>
+
+    <!-- KPI 2: Clientes nuevos -->
+    <div class="kpi-v3" onclick="openCliModal('nuevos')" style="--accent:#16a34a">
+      <div class="kv3-icon" style="font-size:20px">✨</div>
+      <div class="kv3-lbl">Clientes nuevos 2026</div>
+      <div class="kv3-val" style="color:#16a34a" id="kpiNuevosVal">3</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:50%;background:#16a34a" id="kpiNuevosBar"></div></div>
+      <div class="kv3-ctx" id="kpiNuevosCtx">50.00% de activos son nuevos &middot; 25.00% hist&oacute;rico</div>
+      <div class="kv3-delta" style="color:#16a34a">&#8599; Ver top nuevos</div>
+    </div>
+
+    <!-- KPI 3: Cartera histórica -->
+    <div class="kpi-v3" style="cursor:default">
+      <div class="kv3-icon" style="font-size:20px">🗂️</div>
+      <div class="kv3-lbl">Cartera hist&oacute;rica total</div>
+      <div class="kv3-val" style="color:#185FA5" id="kpiCarteraVal">12</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#185FA5"></div></div>
+      <div class="kv3-ctx" id="kpiCarteraCtx">Clientes &uacute;nicos 2023&ndash;2026</div>
+      <div class="kv3-delta" style="color:var(--ts)" id="kpiCarteraDelta">6 sin actividad &middot; 6 activos 2026</div>
+    </div>
+
+    <!-- KPI 4: Valor generado 2026 -->
+    <div class="kpi-v3" style="cursor:default">
+      <div class="kv3-icon" style="font-size:20px">💰</div>
+      <div class="kv3-lbl">Valor generado 2026</div>
+      <div class="kv3-val" style="color:#d97706" id="kpiValorVal">$2.15MM</div>
+      <div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:100%;background:#d97706"></div></div>
+      <div class="kv3-ctx" id="kpiValorCtx">Ventas 2026 al 06 de abril de 2026</div>
+      <div class="kv3-delta" style="color:var(--ts)">Crecimiento interanual: no calculable con la fuente actual (-)</div>
+    </div>
+  </div>
+
+  <!-- Treemap + Segmentación: misma fila, ancho proporcional al contenido -->
+  <div class="cli-row-tm-seg">
+    <div class="card cli-tm-card">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+        <div>
+          <div class="card-h" style="font-size:14px;font-weight:700">Top 5 Clientes por Facturaci&oacute;n</div>
+          <div style="font-size:11px;color:var(--ts);margin-top:2px">&Aacute;rea proporcional al monto facturado &middot; color por segmento</div>
+        </div>
+        <div class="tm-toggle" id="tmToggle" style="margin-left:auto">
+          <div class="tm-btn active" data-tm="hist" id="tmBtnHist">Hist&oacute;rico 2023&ndash;2026</div>
+          <div class="tm-btn" data-tm="curr">2026</div>
+        </div>
+      </div>
+      <div class="treemap-wrap" id="treemapWrap"></div>
+      <div class="tm-legend">
+        <span><i class="tm-dot" style="background:#0a0a1e"></i>Retenido</span>
+        <span><i class="tm-dot" style="background:#3aabef"></i>Reactivado</span>
+        <span><i class="tm-dot" style="background:#16a34a"></i>Nuevo</span>
+        <span><i class="tm-dot" style="background:#94a3b8"></i>Sin actividad 2026</span>
+      </div>
+    </div>
+
+    <div class="card cli-seg-card" id="cliSegCard">
+      <div class="card-h" style="margin-bottom:12px">Segmentaci&oacute;n de la Cartera 2026</div>
+      <div style="overflow-x:auto">
+        <table class="seg-tbl">
+          <thead><tr id="segHead">
+            <th data-col="0">Segmento <span class="sic">↕</span></th>
+            <th class="r" data-col="1">N <span class="sic">↕</span></th>
+            <th class="r" data-col="2">% Cartera <span class="sic">↕</span></th>
+            <th class="r" data-col="3">Valor Hist. <span class="sic">↕</span></th>
+            <th class="r" data-col="4">Ventas 2026 <span class="sic">↕</span></th>
+            <th class="r" data-col="5">% 2026 <span class="sic">↕</span></th>
+          </tr></thead>
+          <tbody id="segBody"></tbody>
+        </table>
+      </div>
+      <div class="insight" id="segInsight"></div>
+    </div>
+  </div>
+
+  <!-- Evolución de clientes activos/nuevos + Ticket promedio: misma fila, ancho proporcional -->
+  <div class="cli-row-charts">
+    <div class="cli-col" style="flex:1.25 1 440px">
+      <div class="sec-head" style="margin-top:10px">
+        <h1>Evoluci&oacute;n de Clientes Atendidos y Captaci&oacute;n de Nuevos</h1>
+        <span class="sub">Clientes que facturaron por a&ntilde;o vs nuevos ingresos &middot; a&ntilde;os con registros en la base</span>
+      </div>
+      <div class="cli-evol-wrap">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          <div>
+            <div class="card-h" style="font-size:14px;font-weight:700">Clientes atendidos vs Clientes nuevos por a&ntilde;o</div>
+            <div style="font-size:11px;color:var(--ts);margin-top:2px">Activo = factur&oacute; en el a&ntilde;o &gt; 0. Nuevo = primera factura hist&oacute;rica en ese a&ntilde;o</div>
+          </div>
+          <div id="cliEvolLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center;flex-wrap:wrap"></div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chCliEvol"></canvas></div>
+        <div class="insight" id="cliEvolInsight"></div>
+      </div>
+    </div>
+
+    <div class="cli-col" style="flex:1 1 340px">
+      <div class="sec-head" style="margin-top:10px">
+        <h1>Ticket Promedio por Cliente</h1>
+        <span class="sub" id="cliTicketYearsSub">A&ntilde;os con registros en la base: 2023, 2024, 2025, 2026</span>
+      </div>
+      <div class="cli-evol-wrap">
+        <div class="card-h" style="margin-bottom:2px">Evoluci&oacute;n del Ticket Promedio</div>
+        <div style="font-size:11px;color:var(--ts);margin-bottom:14px">Ventas del a&ntilde;o &divide; clientes &uacute;nicos con facturaci&oacute;n ese a&ntilde;o (2026 disponible al 06 de abril de 2026)</div>
+        <div class="chart-wrap" style="height:clamp(240px,20vw,360px)"><canvas id="chTicketEvol"></canvas></div>
+        <div class="insight" id="ticketEvolInsight"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concentración de cartera — Pareto histórico + tabla lateral -->
+  <div class="sec-head" style="margin-top:10px">
+    <h1>Concentraci&oacute;n de Cartera</h1>
+    <span class="sub" id="paretoYearsSub">Pareto hist&oacute;rico 2023&ndash;2026 &middot; Clientes ordenados de mayor a menor</span>
+  </div>
+  <div class="pareto-wrap card" style="margin-bottom:18px;padding:20px 22px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap">
+      <div>
+        <div class="card-h" style="font-size:14px;font-weight:700" id="paretoCardTitle">Pareto de ventas &middot; hist&oacute;rico 2023&ndash;2026</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:2px">Barras: ventas por cliente &middot; L&iacute;nea: % acumulado del total</div>
+      </div>
+      <div id="paretoLegend" style="display:flex;gap:14px;font-size:11px;color:var(--ts);align-items:center"></div>
+    </div>
+    <div style="display:flex;gap:18px;align-items:stretch;flex-wrap:wrap">
+      <div style="flex:70 1 420px;min-width:300px">
+        <div class="chart-wrap" style="height:clamp(280px,24vw,420px)"><canvas id="chPareto"></canvas></div>
+      </div>
+      <div style="flex:30 1 220px;min-width:220px;display:flex;flex-direction:column">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:8px" id="paretoTblTitle">Detalle &middot; cartera completa (12 clientes)</div>
+        <div style="overflow-y:auto;max-height:clamp(280px,24vw,420px);border:1px solid var(--border);border-radius:8px">
+          <table class="mtbl" style="font-size:11px">
+            <thead><tr id="paretoHead">
+              <th data-col="0">#<span class="sic">↕</span></th>
+              <th data-col="1">Cliente <span class="sic">↕</span></th>
+              <th class="r" data-col="2">Ventas <span class="sic">↕</span></th>
+              <th class="r" data-col="3">% acum. <span class="sic">↕</span></th>
+            </tr></thead>
+            <tbody id="paretoTblBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:14px" id="paretoInsight"></div>
+  </div>

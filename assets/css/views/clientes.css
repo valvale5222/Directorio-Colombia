@@ -1,0 +1,123 @@
+/* ── Cursor personalizado — inspirado en el ícono de Friopacking
+   (engranaje + copo de nieve), pequeño y con hotspot centrado. Se
+   degrada a 'auto' en navegadores sin soporte de cursores SVG. ── */
+#clientes,#clientes *{
+  cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyOCcgaGVpZ2h0PScyOCcgdmlld0JveD0nMCAwIDI4IDI4Jz48ZyBmaWxsPScjM0VDNkFDJyBzdHJva2U9JyMwYTBhMWUnIHN0cm9rZS13aWR0aD0nMC42JyBzdHJva2UtbGluZWpvaW49J3JvdW5kJz48Y2lyY2xlIGN4PScxNCcgY3k9JzYuMicgcj0nMy4xJy8+PGNpcmNsZSBjeD0nMjAuNycgY3k9JzEwLjEnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzIwLjcnIGN5PScxNy45JyByPSczLjEnLz48Y2lyY2xlIGN4PScxNCcgY3k9JzIxLjgnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzcuMycgY3k9JzE3LjknIHI9JzMuMScvPjxjaXJjbGUgY3g9JzcuMycgY3k9JzEwLjEnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzE0JyBjeT0nMTQnIHI9JzcuMScvPjwvZz48Y2lyY2xlIGN4PScxNCcgY3k9JzE0JyByPSczLjQnIGZpbGw9J3doaXRlJy8+PC9zdmc+") 14 14,auto!important;
+}
+
+/* ── Treemap ───────────────────────────────────────────── */
+.treemap-wrap{position:relative;width:100%;flex:1 1 auto;min-height:300px;border-radius:8px;overflow:hidden;background:var(--bg)}
+.tm-cell{position:absolute;box-sizing:border-box;border:2px solid #fff;display:flex;align-items:flex-end;padding:6px;overflow:hidden;
+  box-shadow:0 1px 3px rgba(10,10,30,.10);transition:filter .18s ease,transform .18s ease,box-shadow .18s ease}
+.tm-cell:hover{filter:brightness(1.12);transform:scale(1.015);box-shadow:0 8px 20px rgba(10,10,30,.22);z-index:2}
+.tm-cell .tm-nm{font-size:10px;font-weight:600;color:#fff;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.5);word-break:break-word}
+.tm-cell .tm-vl{font-size:9px;color:rgba(255,255,255,.85);margin-top:1px;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.tm-cell.tm-big .tm-nm{font-size:13px;font-weight:700}
+.tm-cell.tm-big .tm-vl{font-size:11px}
+.tm-cell.tm-med .tm-nm{font-size:11px}
+.tm-toggle,.cat-toggle{display:flex;gap:3px;background:var(--bg);border-radius:7px;padding:3px;font-size:11px}
+.tm-btn{padding:5px 13px;border-radius:5px;color:var(--ts);transition:background .15s ease,color .15s ease,box-shadow .15s ease;font-weight:500;white-space:nowrap}
+.tm-btn:hover{color:var(--t)}
+.tm-btn.active{background:#fff;color:var(--t);font-weight:600;box-shadow:var(--sh)}
+.tm-legend{display:flex;gap:14px;font-size:11px;color:var(--ts);margin-top:10px;flex-wrap:wrap}
+.tm-legend span{display:flex;align-items:center;gap:5px}
+.tm-dot{width:9px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0}
+
+/* ── Tabla de segmentación ─────────────────────────────── */
+.seg-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.seg-tbl th{background:var(--navy);color:rgba(255,255,255,.75);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;padding:11px 13px;text-align:left;user-select:none;white-space:nowrap;transition:color .15s ease}
+.seg-tbl th:hover{color:#fff}
+.seg-tbl th .sic{display:inline-block;margin-left:3px;opacity:.4;font-size:9px}
+.seg-tbl th.sorted .sic{opacity:1}
+.seg-tbl th.r{text-align:right}
+.seg-tbl td{padding:12px 13px;border-bottom:.5px solid var(--border);vertical-align:middle;transition:background .15s ease}
+.seg-tbl td.r{text-align:right;font-variant-numeric:tabular-nums}
+.seg-tbl tr:hover td{background:#f7faff}
+.seg-tbl tr.tot td{background:#f7faff;font-weight:700;border-top:2px solid var(--brand);border-bottom:none}
+.sbadge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:3px 9px;border-radius:5px;letter-spacing:.3px;box-shadow:0 1px 2px rgba(10,10,30,.06)}
+.sb-ret{background:#E1F5EE;color:#0F6E56}
+.sb-rea{background:rgba(58,171,239,.12);color:#1a8fd1}
+.sb-new{background:#dcfce7;color:#16a34a}
+.sb-off{background:#f1f5f9;color:#64748b}
+
+@media(max-width:600px){.treemap-wrap{min-height:240px}}
+
+/* ── Fila: Treemap + Segmentación de la cartera ────────────
+   El ancho se reparte según lo que necesita cada componente
+   (el treemap es un gráfico compacto; la tabla tiene 6 columnas
+   y necesita más aire), y `align-items:stretch` iguala la altura
+   visual de ambas cards sin fijar píxeles a mano. ── */
+.cli-row-tm-seg{display:flex;align-items:stretch;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.cli-row-tm-seg>.card{margin-bottom:0}
+.cli-tm-card{flex:1 1 420px;min-width:340px;display:flex;flex-direction:column}
+.cli-seg-card{flex:1.2 1 460px;min-width:360px;display:flex;flex-direction:column}
+.cli-seg-card .insight{margin-top:auto;padding-top:10px}
+@media(max-width:900px){
+  .cli-row-tm-seg{flex-direction:column}
+  .cli-tm-card,.cli-seg-card{flex-basis:auto;min-width:0}
+}
+
+/* ── Clientes activos vs nuevos / Ticket promedio ──────── */
+.cli-evol-wrap{background:var(--card);border-radius:14px;padding:20px 22px;box-shadow:var(--sh);border:1px solid var(--border)}
+
+/* ── Fila: Evolución de clientes + Ticket promedio ─────────
+   Igual criterio que arriba: el gráfico combinado (barras + línea,
+   doble eje y leyenda de 3 series) necesita más ancho que el ticket
+   promedio, que es una sola serie. ── */
+.cli-row-charts{display:flex;align-items:stretch;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.cli-col{display:flex;flex-direction:column;min-width:0}
+.cli-col .cli-evol-wrap{flex:1;display:flex;flex-direction:column}
+.cli-col .cli-evol-wrap .insight{margin-top:auto;padding-top:10px}
+@media(max-width:900px){
+  .cli-row-charts{flex-direction:column}
+  .cli-col{flex-basis:auto;min-width:0}
+}
+
+/* ── Pareto clientes ──────────────────────────────────── */
+.pareto-wrap{background:var(--card);border-radius:14px;padding:20px 22px;box-shadow:var(--sh);border:1px solid var(--border);margin-bottom:18px}
+
+/* ── Repotenciación visual: profundidad y hover sutil en cards ──
+   Se limita a #clientes para no tocar el look de otras vistas que
+   comparten la clase genérica .card. ── */
+#clientes .card,
+.cli-evol-wrap,
+.pareto-wrap{
+  transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s ease,border-color .28s ease
+}
+#clientes .card:hover,
+.cli-evol-wrap:hover,
+.pareto-wrap:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 34px rgba(10,10,30,.14);
+  border-color:rgba(62,198,172,.32)
+}
+
+/* ── Animaciones de entrada — sutiles, con stagger por card ──
+   Se reproducen cada vez que se activa la pestaña Clientes
+   (mismo mecanismo que .section.active en base.css). ── */
+@keyframes cliCardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+#clientes.section.active #cliKpiGrid .kpi-v3,
+#clientes.section.active .cli-tm-card,
+#clientes.section.active .cli-seg-card,
+#clientes.section.active .cli-evol-wrap,
+#clientes.section.active .pareto-wrap{
+  animation:cliCardIn .55s cubic-bezier(.16,1,.3,1) backwards
+}
+#clientes.section.active #cliKpiGrid .kpi-v3:nth-child(1){animation-delay:.02s}
+#clientes.section.active #cliKpiGrid .kpi-v3:nth-child(2){animation-delay:.07s}
+#clientes.section.active #cliKpiGrid .kpi-v3:nth-child(3){animation-delay:.12s}
+#clientes.section.active #cliKpiGrid .kpi-v3:nth-child(4){animation-delay:.17s}
+#clientes.section.active .cli-tm-card{animation-delay:.08s}
+#clientes.section.active .cli-seg-card{animation-delay:.14s}
+#clientes.section.active .cli-row-charts .cli-col:nth-child(1) .cli-evol-wrap{animation-delay:.08s}
+#clientes.section.active .cli-row-charts .cli-col:nth-child(2) .cli-evol-wrap{animation-delay:.14s}
+#clientes.section.active .pareto-wrap{animation-delay:.08s}
+
+@media(prefers-reduced-motion:reduce){
+  #clientes.section.active #cliKpiGrid .kpi-v3,
+  #clientes.section.active .cli-tm-card,
+  #clientes.section.active .cli-seg-card,
+  #clientes.section.active .cli-evol-wrap,
+  #clientes.section.active .pareto-wrap{animation:none}
+}

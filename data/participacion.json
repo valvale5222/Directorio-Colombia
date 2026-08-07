@@ -1,0 +1,837 @@
+[
+  {
+    "key": "2021-2022",
+    "label": "2021–2022",
+    "meta": {
+      "importPeriodo": "Junio 2021 – Mayo 2022",
+      "impFP": 1613304,
+      "ventasAlineadas": 21512508.73,
+      "factor": 13.334442,
+      "mercadoTotal": 83790727.06,
+      "fpShare": 0.256741
+    },
+    "refrTotal": {
+      "freon": 43083367.91,
+      "amoniaco": 40707359.15
+    },
+    "sectorBlock": {
+      "agroexportacion": 0.256741,
+      "multisector": 0.67978,
+      "pesca": 0.024224,
+      "retail": 0.039255
+    },
+    "companies": [
+      {
+        "rank": 1,
+        "name": "Friopacking",
+        "refr": "Amoníaco / Freón",
+        "sector": "Agroexportación",
+        "imports": 1613304,
+        "billing": 21512508.73,
+        "share": 0.256741,
+        "billFreon": 10326004.19,
+        "billAmon": 11186504.54
+      },
+      {
+        "rank": 2,
+        "name": "Energy Project Group",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 1302351,
+        "billing": 17366123.96,
+        "share": 0.207256,
+        "billFreon": 17366123.96,
+        "billAmon": 0
+      },
+      {
+        "rank": 3,
+        "name": "Mayekawa Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 1023455,
+        "billing": 13647201.41,
+        "share": 0.162872,
+        "billFreon": 0,
+        "billAmon": 13647201.41
+      },
+      {
+        "rank": 4,
+        "name": "Fricold",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 848156,
+        "billing": 11309687.05,
+        "share": 0.134975,
+        "billFreon": 5654843.52,
+        "billAmon": 5654843.52
+      },
+      {
+        "rank": 5,
+        "name": "Inema Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 526892,
+        "billing": 7025810.85,
+        "share": 0.08385,
+        "billFreon": 3512905.43,
+        "billAmon": 3512905.43
+      },
+      {
+        "rank": 6,
+        "name": "Booster Group Perú",
+        "refr": "Amoníaco",
+        "sector": "Retail",
+        "imports": 246668,
+        "billing": 3289180.16,
+        "share": 0.039255,
+        "billFreon": 3289180.16,
+        "billAmon": 0
+      },
+      {
+        "rank": 7,
+        "name": "ASAP Consulting",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 236366,
+        "billing": 3151808.73,
+        "share": 0.037615,
+        "billFreon": 1575904.37,
+        "billAmon": 1575904.37
+      },
+      {
+        "rank": 8,
+        "name": "Control Automation",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 185456,
+        "billing": 2472952.29,
+        "share": 0.029513,
+        "billFreon": 1236476.14,
+        "billAmon": 1236476.14
+      },
+      {
+        "rank": 9,
+        "name": "Catri Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 148915,
+        "billing": 1985698.44,
+        "share": 0.023698,
+        "billFreon": 0,
+        "billAmon": 1985698.44
+      },
+      {
+        "rank": 10,
+        "name": "HB Refrigeración",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 143075,
+        "billing": 1907825.3,
+        "share": 0.022769,
+        "billFreon": 0,
+        "billAmon": 1907825.3
+      },
+      {
+        "rank": 11,
+        "name": "Mitor Ingenieros",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 9144,
+        "billing": 121930.14,
+        "share": 0.001455,
+        "billFreon": 121930.14,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "Asym Industrial",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "Autorel",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      }
+    ]
+  },
+  {
+    "key": "2022-2023",
+    "label": "2022–2023",
+    "meta": {
+      "importPeriodo": "Junio 2022 – Mayo 2023",
+      "impFP": 4434118,
+      "ventasAlineadas": 30287783.73,
+      "factor": 6.830622,
+      "mercadoTotal": 74871772.31,
+      "fpShare": 0.404529
+    },
+    "refrTotal": {
+      "freon": 33997217.73,
+      "amoniaco": 40874554.58
+    },
+    "sectorBlock": {
+      "agroexportacion": 0.404529,
+      "multisector": 0.510328,
+      "pesca": 0.028971,
+      "retail": 0.056173
+    },
+    "companies": [
+      {
+        "rank": 1,
+        "name": "Friopacking",
+        "refr": "Amoníaco / Freón",
+        "sector": "Agroexportación",
+        "imports": 4434118,
+        "billing": 30287783.73,
+        "share": 0.404529,
+        "billFreon": 10903602.14,
+        "billAmon": 19384181.59
+      },
+      {
+        "rank": 2,
+        "name": "Mayekawa Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 1326755,
+        "billing": 9062561.82,
+        "share": 0.121041,
+        "billFreon": 9062561.82,
+        "billAmon": 0
+      },
+      {
+        "rank": 3,
+        "name": "Energy Project Group",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 1208579,
+        "billing": 8255346.24,
+        "share": 0.11026,
+        "billFreon": 0,
+        "billAmon": 8255346.24
+      },
+      {
+        "rank": 4,
+        "name": "Asym Industrial",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 753739,
+        "billing": 5148506.16,
+        "share": 0.068764,
+        "billFreon": 2574253.08,
+        "billAmon": 2574253.08
+      },
+      {
+        "rank": 5,
+        "name": "Control Automation",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 711034,
+        "billing": 4856804.45,
+        "share": 0.064868,
+        "billFreon": 2428402.22,
+        "billAmon": 2428402.22
+      },
+      {
+        "rank": 6,
+        "name": "Booster Group Perú",
+        "refr": "Amoníaco",
+        "sector": "Retail",
+        "imports": 615718,
+        "billing": 4205736.88,
+        "share": 0.056173,
+        "billFreon": 4205736.88,
+        "billAmon": 0
+      },
+      {
+        "rank": 7,
+        "name": "Fricold",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 563801,
+        "billing": 3851111.48,
+        "share": 0.051436,
+        "billFreon": 1925555.74,
+        "billAmon": 1925555.74
+      },
+      {
+        "rank": 8,
+        "name": "Inema Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 461537,
+        "billing": 3152584.76,
+        "share": 0.042106,
+        "billFreon": 1576292.38,
+        "billAmon": 1576292.38
+      },
+      {
+        "rank": 9,
+        "name": "HB Refrigeración",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 453166,
+        "billing": 3095405.63,
+        "share": 0.041343,
+        "billFreon": 0,
+        "billAmon": 3095405.63
+      },
+      {
+        "rank": 10,
+        "name": "Mitor Ingenieros",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 182788,
+        "billing": 1248555.72,
+        "share": 0.016676,
+        "billFreon": 0,
+        "billAmon": 1248555.72
+      },
+      {
+        "rank": 11,
+        "name": "ASAP Consulting",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 134769,
+        "billing": 920556.09,
+        "share": 0.012295,
+        "billFreon": 920556.09,
+        "billAmon": 0
+      },
+      {
+        "rank": 12,
+        "name": "Catri Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 113185,
+        "billing": 773123.95,
+        "share": 0.010326,
+        "billFreon": 386561.97,
+        "billAmon": 386561.97
+      },
+      {
+        "rank": 13,
+        "name": "Autorel",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 2005,
+        "billing": 13695.4,
+        "share": 0.000183,
+        "billFreon": 13695.4,
+        "billAmon": 0
+      }
+    ]
+  },
+  {
+    "key": "2023-2024",
+    "label": "2023–2024",
+    "meta": {
+      "importPeriodo": "Junio 2023 – Mayo 2024",
+      "impFP": 1562952,
+      "ventasAlineadas": 15345395.38,
+      "factor": 9.818213,
+      "mercadoTotal": 62700835.14,
+      "fpShare": 0.24474
+    },
+    "refrTotal": {
+      "freon": 35555948.89,
+      "amoniaco": 27144886.25
+    },
+    "sectorBlock": {
+      "agroexportacion": 0.24474,
+      "multisector": 0.610801,
+      "pesca": 0.072537,
+      "retail": 0.071921
+    },
+    "companies": [
+      {
+        "rank": 1,
+        "name": "Friopacking",
+        "refr": "Amoníaco / Freón",
+        "sector": "Agroexportación",
+        "imports": 1562952,
+        "billing": 15345395.38,
+        "share": 0.24474,
+        "billFreon": 9974507,
+        "billAmon": 5370888.38
+      },
+      {
+        "rank": 2,
+        "name": "Mayekawa Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 1538877,
+        "billing": 15109021.91,
+        "share": 0.24097,
+        "billFreon": 15109021.91,
+        "billAmon": 0
+      },
+      {
+        "rank": 3,
+        "name": "Energy Project Group",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 1171348,
+        "billing": 11500543.96,
+        "share": 0.183419,
+        "billFreon": 0,
+        "billAmon": 11500543.96
+      },
+      {
+        "rank": 4,
+        "name": "Asym Industrial",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 504957,
+        "billing": 4957775.3,
+        "share": 0.07907,
+        "billFreon": 2478887.65,
+        "billAmon": 2478887.65
+      },
+      {
+        "rank": 5,
+        "name": "Booster Group Perú",
+        "refr": "Amoníaco",
+        "sector": "Retail",
+        "imports": 459303,
+        "billing": 4509534.61,
+        "share": 0.071921,
+        "billFreon": 2254767.3,
+        "billAmon": 2254767.3
+      },
+      {
+        "rank": 6,
+        "name": "Mitor Ingenieros",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 250755,
+        "billing": 2461965.96,
+        "share": 0.039265,
+        "billFreon": 2461965.96,
+        "billAmon": 0
+      },
+      {
+        "rank": 7,
+        "name": "ASAP Consulting",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 212480,
+        "billing": 2086173.86,
+        "share": 0.033272,
+        "billFreon": 1043086.93,
+        "billAmon": 1043086.93
+      },
+      {
+        "rank": 8,
+        "name": "Control Automation",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 202118,
+        "billing": 1984437.54,
+        "share": 0.031649,
+        "billFreon": 992218.77,
+        "billAmon": 992218.77
+      },
+      {
+        "rank": 9,
+        "name": "HB Refrigeración",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 182948,
+        "billing": 1796222.4,
+        "share": 0.028648,
+        "billFreon": 0,
+        "billAmon": 1796222.4
+      },
+      {
+        "rank": 10,
+        "name": "Fricold",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 173807,
+        "billing": 1706474.12,
+        "share": 0.027216,
+        "billFreon": 0,
+        "billAmon": 1706474.12
+      },
+      {
+        "rank": 11,
+        "name": "Catri Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 126265,
+        "billing": 1239696.64,
+        "share": 0.019772,
+        "billFreon": 1239696.64,
+        "billAmon": 0
+      },
+      {
+        "rank": 12,
+        "name": "Autorel",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 366,
+        "billing": 3593.47,
+        "share": 0.000057,
+        "billFreon": 1796.73,
+        "billAmon": 1796.73
+      },
+      {
+        "rank": null,
+        "name": "Inema Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      }
+    ]
+  },
+  {
+    "key": "2024-2025",
+    "label": "2024–2025",
+    "meta": {
+      "importPeriodo": "Junio 2024 – Mayo 2025",
+      "impFP": 2475660,
+      "ventasAlineadas": 15498989.55,
+      "factor": 6.260549,
+      "mercadoTotal": 45406481.27,
+      "fpShare": 0.341339
+    },
+    "refrTotal": {
+      "freon": 23946896.72,
+      "amoniaco": 21459584.55
+    },
+    "sectorBlock": {
+      "agroexportacion": 0.341339,
+      "multisector": 0.422943,
+      "pesca": 0.116456,
+      "retail": 0.119262
+    },
+    "companies": [
+      {
+        "rank": 1,
+        "name": "Friopacking",
+        "refr": "Amoníaco / Freón",
+        "sector": "Agroexportación",
+        "imports": 2475660,
+        "billing": 15498989.55,
+        "share": 0.341339,
+        "billFreon": 6509575.61,
+        "billAmon": 8989413.94
+      },
+      {
+        "rank": 2,
+        "name": "Energy Project Group",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 1406674,
+        "billing": 8806550.83,
+        "share": 0.193949,
+        "billFreon": 8806550.83,
+        "billAmon": 0
+      },
+      {
+        "rank": 3,
+        "name": "Booster Group Perú",
+        "refr": "Amoníaco",
+        "sector": "Retail",
+        "imports": 864981,
+        "billing": 5415255.52,
+        "share": 0.119262,
+        "billFreon": 0,
+        "billAmon": 5415255.52
+      },
+      {
+        "rank": 4,
+        "name": "HB Refrigeración",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 663356,
+        "billing": 4152972.42,
+        "share": 0.091462,
+        "billFreon": 2076486.21,
+        "billAmon": 2076486.21
+      },
+      {
+        "rank": 5,
+        "name": "Mayekawa Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 549268,
+        "billing": 3438718.96,
+        "share": 0.075732,
+        "billFreon": 1719359.48,
+        "billAmon": 1719359.48
+      },
+      {
+        "rank": 6,
+        "name": "Mitor Ingenieros",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 447393,
+        "billing": 2800925.58,
+        "share": 0.061686,
+        "billFreon": 2800925.58,
+        "billAmon": 0
+      },
+      {
+        "rank": 7,
+        "name": "ASAP Consulting",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 397237,
+        "billing": 2486921.51,
+        "share": 0.05477,
+        "billFreon": 1243460.76,
+        "billAmon": 1243460.76
+      },
+      {
+        "rank": 8,
+        "name": "Inema Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 247984,
+        "billing": 1552515.86,
+        "share": 0.034192,
+        "billFreon": 776257.93,
+        "billAmon": 776257.93
+      },
+      {
+        "rank": 9,
+        "name": "Fricold",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 131299,
+        "billing": 822003.76,
+        "share": 0.018103,
+        "billFreon": 0,
+        "billAmon": 822003.76
+      },
+      {
+        "rank": 10,
+        "name": "Control Automation",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 66663,
+        "billing": 417346.95,
+        "share": 0.009191,
+        "billFreon": 0,
+        "billAmon": 417346.95
+      },
+      {
+        "rank": 11,
+        "name": "Autorel",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 2281,
+        "billing": 14280.31,
+        "share": 0.000314,
+        "billFreon": 14280.31,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "Asym Industrial",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "Catri Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      }
+    ]
+  },
+  {
+    "key": "2025-2026",
+    "label": "2025–2026",
+    "meta": {
+      "importPeriodo": "Junio 2025 – Mayo 2026",
+      "impFP": 5151627,
+      "ventasAlineadas": 41603437.85,
+      "factor": 8.075786,
+      "mercadoTotal": 92490476.4,
+      "fpShare": 0.449813
+    },
+    "refrTotal": {
+      "freon": 35216019.18,
+      "amoniaco": 57274457.22
+    },
+    "sectorBlock": {
+      "agroexportacion": 0.449813,
+      "multisector": 0.503626,
+      "pesca": 0.039851,
+      "retail": 0.006709
+    },
+    "companies": [
+      {
+        "rank": 1,
+        "name": "Friopacking",
+        "refr": "Amoníaco / Freón",
+        "sector": "Agroexportación",
+        "imports": 5151627,
+        "billing": 41603437.85,
+        "share": 0.449813,
+        "billFreon": 8320687.57,
+        "billAmon": 33282750.28
+      },
+      {
+        "rank": 2,
+        "name": "Energy Project Group",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 2297894,
+        "billing": 18557300.48,
+        "share": 0.20064,
+        "billFreon": 18557300.48,
+        "billAmon": 0
+      },
+      {
+        "rank": 3,
+        "name": "Mayekawa Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 1916208,
+        "billing": 15474885.98,
+        "share": 0.167313,
+        "billFreon": 0,
+        "billAmon": 15474885.98
+      },
+      {
+        "rank": 4,
+        "name": "Control Automation",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 690462,
+        "billing": 5576023.44,
+        "share": 0.060288,
+        "billFreon": 2788011.72,
+        "billAmon": 2788011.72
+      },
+      {
+        "rank": 5,
+        "name": "Asym Industrial",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 357728,
+        "billing": 2888934.82,
+        "share": 0.031235,
+        "billFreon": 1444467.41,
+        "billAmon": 1444467.41
+      },
+      {
+        "rank": 6,
+        "name": "Fricold",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 261219,
+        "billing": 2109548.78,
+        "share": 0.022808,
+        "billFreon": 2109548.78,
+        "billAmon": 0
+      },
+      {
+        "rank": 7,
+        "name": "Mitor Ingenieros",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 249889,
+        "billing": 2018050.12,
+        "share": 0.021819,
+        "billFreon": 1009025.06,
+        "billAmon": 1009025.06
+      },
+      {
+        "rank": 8,
+        "name": "Inema Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 244429,
+        "billing": 1973956.33,
+        "share": 0.021342,
+        "billFreon": 986978.16,
+        "billAmon": 986978.16
+      },
+      {
+        "rank": 9,
+        "name": "ASAP Consulting",
+        "refr": "Amoníaco",
+        "sector": "Pesca",
+        "imports": 206522,
+        "billing": 1667827.5,
+        "share": 0.018032,
+        "billFreon": 0,
+        "billAmon": 1667827.5
+      },
+      {
+        "rank": 10,
+        "name": "Booster Group Perú",
+        "refr": "Amoníaco",
+        "sector": "Retail",
+        "imports": 76836,
+        "billing": 620511.1,
+        "share": 0.006709,
+        "billFreon": 0,
+        "billAmon": 620511.1
+      },
+      {
+        "rank": null,
+        "name": "Autorel",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "Catri Perú",
+        "refr": "Amoníaco",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      },
+      {
+        "rank": null,
+        "name": "HB Refrigeración",
+        "refr": "Freón",
+        "sector": "Multisector",
+        "imports": 0,
+        "billing": 0,
+        "share": 0,
+        "billFreon": 0,
+        "billAmon": 0
+      }
+    ]
+  }
+]

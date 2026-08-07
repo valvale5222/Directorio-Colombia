@@ -1,0 +1,122 @@
+/* ── Header — Resumen (repotenciado, integrado con las cards) ── */
+.rs-view{position:relative}
+.rs-view::before{
+  content:'';position:absolute;inset:-24px -8px -16px;z-index:-1;pointer-events:none;border-radius:28px;
+  background:
+    radial-gradient(ellipse 40% 55% at 6% 10%,rgba(62,198,172,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 36% 50% at 36% 96%,rgba(34,184,224,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 36% 55% at 70% 6%,rgba(47,90,168,.05) 0%,transparent 70%),
+    radial-gradient(ellipse 38% 55% at 97% 92%,rgba(217,154,31,.055) 0%,transparent 70%)
+}
+.rs-hero{padding:10px 20px 12px;margin-bottom:12px}
+.rs-hero .cli-hero-icon{font-size:15px}
+.rs-hero .cli-hero-eye{font-size:9px;margin-bottom:2px}
+.rs-hero .cli-hero-ttl{font-size:clamp(14px,1.15vw,17px)}
+.rs-hero .cli-hero-right{font-size:10.5px;padding:5px 13px}
+.rs-hero-strip{
+  position:absolute;left:22px;right:22px;bottom:0;height:4px;border-radius:4px 4px 0 0;
+  background:linear-gradient(90deg,#3EC6AC 0%,#22b8e0 34%,#2f5aa8 67%,#d99a1f 100%);
+  opacity:.9;z-index:1
+}
+
+/* ── AGENDA EJECUTIVA (Resumen) — 4 columnas en una fila, alto ajustado al viewport ── */
+.rs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.3vw,20px);align-items:stretch}
+
+.rs-card{
+  --glow:color-mix(in srgb,var(--accent) 34%,transparent);
+  --glow-soft:color-mix(in srgb,var(--accent) 13%,transparent);
+  --glow-soft2:color-mix(in srgb,var(--accent) 7%,transparent);
+  --tint:color-mix(in srgb,var(--accent) 6%,#fff);
+  display:flex;flex-direction:column;
+  min-height:clamp(300px,calc(100vh - 245px),660px);
+  background:linear-gradient(170deg,#fff 0%,var(--tint) 150%);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:clamp(22px,1.9vw,30px) clamp(20px,1.7vw,26px) clamp(18px,1.5vw,22px);
+  box-shadow:0 4px 16px rgba(10,10,30,.055),0 1px 3px rgba(10,10,30,.04);
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  transform:translateY(0) scale(1);
+  transition:transform .4s cubic-bezier(.19,1,.22,1),box-shadow .42s ease,border-color .35s ease;
+  animation:rsIn .55s cubic-bezier(.16,1,.3,1) both
+}
+.rs-card:nth-child(1){animation-delay:.05s}
+.rs-card:nth-child(2){animation-delay:.11s}
+.rs-card:nth-child(3){animation-delay:.17s}
+.rs-card:nth-child(4){animation-delay:.23s}
+
+/* línea de acento superior — siempre visible, se intensifica en hover */
+.rs-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:18px 18px 0 0;
+  background:linear-gradient(90deg,var(--accent-d),var(--accent));
+  opacity:.75;transition:opacity .4s ease,height .4s ease;z-index:1
+}
+.rs-card:hover::before{opacity:1;height:4px}
+
+/* numeral gigante de fondo + halos abstractos — llenan el espacio con identidad propia */
+.rs-card::after{
+  content:attr(data-num);
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  padding:0 2px 4px 0;
+  font-size:clamp(70px,7.5vw,112px);font-weight:900;line-height:.8;letter-spacing:-.03em;
+  color:color-mix(in srgb,var(--accent) 11%,transparent);
+  background:
+    radial-gradient(circle at 112% -14%,var(--glow-soft) 0%,transparent 55%),
+    radial-gradient(circle at -12% 118%,var(--glow-soft2) 0%,transparent 60%);
+  transition:color .4s ease,opacity .4s ease
+}
+.rs-card:hover::after{color:color-mix(in srgb,var(--accent) 17%,transparent)}
+.rs-card:hover{
+  transform:translateY(-7px) scale(1.014);
+  box-shadow:0 30px 58px var(--glow),0 10px 26px rgba(10,10,30,.10);
+  border-color:color-mix(in srgb,var(--accent) 42%,var(--border))
+}
+
+.rs-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(18px,1.8vw,26px)}
+.rs-num{
+  font-size:11px;font-weight:800;letter-spacing:1.6px;color:var(--accent-d);
+  background:var(--glow-soft);border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+  border-radius:20px;padding:4px 11px;user-select:none
+}
+
+.rs-icon{
+  width:clamp(58px,5.6vw,76px);height:clamp(58px,5.6vw,76px);border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(30px,2.9vw,40px);line-height:1;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--accent) 24%,#fff),color-mix(in srgb,var(--accent) 7%,#fff));
+  backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 18px var(--glow-soft);
+  transition:transform .42s cubic-bezier(.19,1,.22,1),box-shadow .42s ease
+}
+.rs-card:hover .rs-icon{transform:translateY(-2px) scale(1.08) rotate(-4deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 14px 28px var(--glow)}
+
+.rs-metric{position:relative;z-index:1;display:flex;align-items:baseline;gap:6px;line-height:1;flex-wrap:wrap}
+.rs-metric-pre{font-size:13px;font-weight:800;color:var(--accent-d);letter-spacing:.3px}
+.rs-metric-num{
+  font-size:clamp(28px,2.5vw,38px);font-weight:900;letter-spacing:-.02em;
+  background:linear-gradient(135deg,var(--accent-d),var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.rs-metric-suf{font-size:14px;font-weight:800;color:var(--tm);letter-spacing:.2px}
+
+.rs-title{position:relative;z-index:1;font-size:clamp(14px,1.05vw,16px);font-weight:800;color:var(--t);margin-top:8px}
+.rs-ctx{position:relative;z-index:1;font-size:clamp(11.5px,0.8vw,13px);color:var(--ts);line-height:1.5;margin-top:6px}
+
+.rs-cta{
+  position:relative;z-index:1;display:inline-flex;align-items:center;gap:5px;
+  font-size:11.5px;font-weight:800;color:var(--accent-d);
+  margin-top:auto;padding-top:16px;
+  transition:gap .28s ease,color .28s ease
+}
+.rs-cta::before{content:'';display:block;position:absolute;top:0;left:0;right:0;height:1px;background:var(--border)}
+.rs-card:hover .rs-cta{gap:9px}
+
+@keyframes rsIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.rs-card{animation:none}.rs-card,.rs-icon,.rs-cta{transition:none}}
+
+@media(max-width:1150px){.rs-grid{grid-template-columns:repeat(2,1fr)}.rs-card{min-height:clamp(220px,32vh,340px)}}
+@media(max-width:640px){.rs-grid{grid-template-columns:1fr}.rs-card{min-height:0}}

@@ -1,0 +1,99 @@
+  <div class="part-hero" id="partHero">
+    <div class="part-hero-left">
+      <div class="part-hero-eye">Directorio Ejecutivo &middot; Participación</div>
+      <div class="part-hero-ttl">Participación de mercado</div>
+      <div class="part-hero-sub">Posición competitiva por empresa, refrigerante y sector</div>
+    </div>
+    <div class="part-hero-kpis" id="partHeroKpis"></div>
+  </div>
+
+  <div class="part-tabs" id="partTabs">
+    <button class="part-tab active" data-ptab="evol" onclick="partSwitchTab('evol',this)">Evolución competitiva</button>
+    <button class="part-tab" data-ptab="refr" onclick="partSwitchTab('refr',this)">Por refrigerante</button>
+    <button class="part-tab" data-ptab="sector" onclick="partSwitchTab('sector',this)">Por sector económico</button>
+  </div>
+
+  <div class="part-ptabs" id="partPeriodTabs"></div>
+
+  <!-- ===== TAB: Evolución competitiva ===== -->
+  <div class="part-pane active" id="partPane-evol">
+    <div class="part-split">
+      <div class="card part-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de participación de mercado</div>
+            <div class="part-card-sub">2021&ndash;2026 &middot; Participación estimada por periodo</div>
+          </div>
+          <div class="tm-toggle" id="partEvolToggle" style="margin-left:auto">
+            <div class="tm-btn active" data-ev="lider">Friopacking vs líder</div>
+            <div class="tm-btn" data-ev="top5">Top 5</div>
+            <div class="tm-btn" data-ev="todos">Todos los competidores</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(340px,32vw,480px)"><canvas id="chPartEvol"></canvas></div>
+        <div class="part-h-legend" id="partEvolLegend"></div>
+        <div class="insight" id="partEvolMicro"></div>
+      </div>
+      <div class="card part-rank-card">
+        <div class="card-h">Ranking del periodo</div>
+        <div class="part-card-sub" id="partEvolRankSub"></div>
+        <div id="partEvolRankList"></div>
+      </div>
+    </div>
+
+    <div class="part-mkt-card">
+      <div class="part-card-head">
+        <div>
+          <div class="card-h">Evolución del mercado de refrigeración</div>
+          <div class="part-card-sub">Facturación total del mercado por periodo y tendencia histórica</div>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPartMarket"></canvas></div>
+      <div class="part-mkt-legend" id="partMarketLegend"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: Por refrigerante ===== -->
+  <div class="part-pane" id="partPane-refr">
+    <div class="pms-header">
+      <div class="pms-eye">Análisis de composición</div>
+      <div class="pms-title">Evolución del mercado por refrigerante</div>
+      <div class="pms-sub">Participación consolidada por período &middot; 2021&ndash;2026</div>
+    </div>
+    <div class="pms-grid">
+      <div class="pms-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de la participación por refrigerante</div>
+            <div class="part-card-sub">Composici&oacute;n porcentual del mercado por refrigerante &middot; cada periodo suma 100%</div>
+          </div>
+        </div>
+        <div class="chart-wrap pms-chart-wrap"><canvas id="chPartRefrStack"></canvas></div>
+        <div class="pms-legend" id="pmsRefrLegend"></div>
+      </div>
+      <div class="pms-side-card" id="pmsRefrSide"></div>
+    </div>
+  </div>
+
+  <!-- ===== TAB: Por sector económico ===== -->
+  <div class="part-pane" id="partPane-sector">
+    <div class="pms-header">
+      <div class="pms-eye">Análisis de composición</div>
+      <div class="pms-title">Evolución de la participación por sector económico</div>
+      <div class="pms-sub">Participación consolidada por período &middot; 2021&ndash;2026</div>
+    </div>
+    <div class="pms-grid">
+      <div class="pms-chart-card">
+        <div class="part-card-head">
+          <div>
+            <div class="card-h">Evolución de la participación por sector económico</div>
+            <div class="part-card-sub">Barras apiladas al 100% &middot; bloque consolidado del Excel</div>
+          </div>
+        </div>
+        <div class="chart-wrap pms-chart-wrap"><canvas id="chPartSectorStack"></canvas></div>
+        <div class="pms-legend" id="pmsSectorLegend"></div>
+      </div>
+      <div class="pms-side-card" id="pmsSectorSide"></div>
+    </div>
+  </div>
+

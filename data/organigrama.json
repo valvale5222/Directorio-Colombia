@@ -1,0 +1,265 @@
+{
+  "empresa": "Friopacking Colombia S.A.S",
+  "totalColaboradores": 16,
+  "departamentos": [
+    {
+      "key": "direccion",
+      "nombre": "Dirección",
+      "icon": "workspace_premium",
+      "color": "navy",
+      "descripcion": "Liderazgo general y de operaciones"
+    },
+    {
+      "key": "operaciones",
+      "nombre": "Operaciones",
+      "icon": "engineering",
+      "color": "green",
+      "agrupaPor": "area",
+      "descripcion": "Logística, Servicio Técnico y Operaciones · reportan a Eduardo Narro"
+    },
+    {
+      "key": "sst",
+      "nombre": "SSOMA",
+      "icon": "health_and_safety",
+      "color": "red",
+      "especial": true,
+      "descripcion": "Seguridad, Salud Ocupacional y Medio Ambiente"
+    },
+    {
+      "key": "ingenieria",
+      "nombre": "Ingeniería y Presupuestos",
+      "icon": "design_services",
+      "color": "purple",
+      "soporte": true,
+      "descripcion": "Jefe de Ingeniería y Presupuestos · soporte a Operaciones y Comercial"
+    },
+    {
+      "key": "comercial",
+      "nombre": "Ejecutivo Comercial",
+      "icon": "handshake",
+      "color": "cyan",
+      "descripcion": "Ejecutiva Comercial · reporta a Misael Estrada"
+    },
+    {
+      "key": "planner",
+      "nombre": "Planner Comercial",
+      "icon": "assignment_ind",
+      "color": "brand",
+      "soporte": true,
+      "descripcion": "Soporte directo de Gerencia General"
+    },
+    {
+      "key": "backoffice",
+      "nombre": "Back Office",
+      "icon": "domain",
+      "color": "amber",
+      "soporte": true,
+      "agrupaPor": "sede",
+      "descripcion": "Áreas de soporte administrativo, legal y contable · Perú y Colombia"
+    }
+  ],
+  "personas": [
+    {
+      "id": "misael-estrada",
+      "nombre": "Jose Misael Estrada",
+      "cargo": "Gerente General",
+      "depto": "direccion",
+      "area": "Gerencia General",
+      "sede": "Miraflores",
+      "reportaA": "Ricardo Flores Chavez",
+      "ingreso": "2012-11-01",
+      "foto": "assets/img/organigrama/misael-estrada.jpg"
+    },
+    {
+      "id": "eduardo-narro",
+      "nombre": "Eduardo Narro",
+      "cargo": "Gerente de Operaciones",
+      "depto": "direccion",
+      "area": "Operaciones",
+      "sede": "Colombia",
+      "reportaA": "misael-estrada",
+      "ingreso": "2025-08-16",
+      "foto": "assets/img/organigrama/eduardo-narro.png"
+    },
+    {
+      "id": "andreina-martelo",
+      "nombre": "Andreina Martelo",
+      "cargo": "Analista de Comercio Exterior",
+      "depto": "operaciones",
+      "area": "Logística",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2025-09-22",
+      "foto": "assets/img/organigrama/andreina-martelo.jpg"
+    },
+    {
+      "id": "peeter-rosado",
+      "nombre": "Peeter Rosado",
+      "cargo": "Técnico de Refrigeración",
+      "depto": "operaciones",
+      "area": "Servicio Técnico",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2026-08-01",
+      "foto": "assets/img/organigrama/peeter-rosado.jpg"
+    },
+    {
+      "id": "jose-carlos-flores",
+      "nombre": "Jose Flores",
+      "cargo": "Supervisor de Proyecto",
+      "depto": "operaciones",
+      "area": "Operaciones",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2023-01-01",
+      "foto": "assets/img/organigrama/jose-carlos-flores.png"
+    },
+    {
+      "id": "felipe-toro",
+      "nombre": "Juan Felipe Toro",
+      "cargo": "Supervisor de Proyecto",
+      "depto": "operaciones",
+      "area": "Operaciones",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2025-08-16",
+      "foto": "assets/img/organigrama/felipe-toro.jpg"
+    },
+    {
+      "id": "cristian-restrepo",
+      "nombre": "Cristian Restrepo",
+      "cargo": "Asistente de Proyecto",
+      "depto": "operaciones",
+      "area": "Operaciones",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2025-09-01",
+      "foto": "assets/img/organigrama/cristian-restrepo.jpg"
+    },
+    {
+      "id": "julian-lopez",
+      "nombre": "Jonathan Julián López",
+      "cargo": "Coordinador SSOMA",
+      "depto": "sst",
+      "area": "SSOMA",
+      "sede": "Colombia",
+      "reportaA": "eduardo-narro",
+      "ingreso": "2026-06-01",
+      "foto": "assets/img/organigrama/julian-lopez.png"
+    },
+    {
+      "id": "juan-gomez",
+      "nombre": "Juan Gómez",
+      "cargo": "Supervisor SSOMA",
+      "depto": "sst",
+      "area": "SSOMA",
+      "sede": "Colombia",
+      "reportaA": "julian-lopez",
+      "ingreso": "2026-02-23",
+      "foto": "assets/img/organigrama/juan-gomez.jpg"
+    },
+    {
+      "id": "victor-lopez",
+      "nombre": "Víctor López",
+      "cargo": "Supervisor SST",
+      "depto": "sst",
+      "area": "SSOMA",
+      "reportaA": "julian-lopez",
+      "ingreso": "2026-07-24",
+      "foto": "assets/img/organigrama/victor-lopez.jpg"
+    },
+    {
+      "id": "mario-parra",
+      "nombre": "Mario Parra",
+      "cargo": "Jefe de Ingeniería y Presupuestos",
+      "depto": "ingenieria",
+      "area": "Ingeniería y Presupuestos",
+      "sede": "Colombia",
+      "reportaA": "misael-estrada",
+      "ingreso": "2019-07-01",
+      "foto": "assets/img/organigrama/mario-parra.png"
+    },
+    {
+      "id": "vivian-castrillon",
+      "nombre": "Vivian Castrillón",
+      "cargo": "Ejecutiva Comercial",
+      "depto": "comercial",
+      "area": "Comercial",
+      "sede": "Colombia",
+      "reportaA": "misael-estrada",
+      "ingreso": "2026-04-06",
+      "foto": "assets/img/organigrama/vivian-castrillon.jpg"
+    },
+    {
+      "id": "valeria-rodriguez",
+      "nombre": "Valeria Rodriguez",
+      "cargo": "Planner Comercial",
+      "depto": "planner",
+      "area": "Planner Comercial",
+      "reportaA": "misael-estrada",
+      "foto": "assets/img/organigrama/valeria-rodriguez.png"
+    },
+    {
+      "id": "alvaro-chavez",
+      "nombre": "Alvaro Chavez",
+      "cargo": "Administración y Finanzas",
+      "depto": "backoffice",
+      "area": "Administración y Finanzas",
+      "sede": "Perú",
+      "reportaA": "misael-estrada",
+      "foto": null
+    },
+    {
+      "id": "backoffice-arquitectura",
+      "nombre": "Arquitectura",
+      "cargo": "Área de soporte",
+      "depto": "backoffice",
+      "area": "Back Office",
+      "sede": "Perú",
+      "reportaA": null,
+      "grupoDe": "misael-estrada",
+      "esArea": true,
+      "icono": "architecture",
+      "foto": null
+    },
+    {
+      "id": "backoffice-rrhh",
+      "nombre": "RR.HH",
+      "cargo": "Grupo Friopacking",
+      "depto": "backoffice",
+      "area": "Back Office",
+      "sede": "Perú",
+      "reportaA": null,
+      "grupoDe": "misael-estrada",
+      "esArea": true,
+      "icono": "diversity_3",
+      "foto": null
+    },
+    {
+      "id": "backoffice-legal",
+      "nombre": "Legal",
+      "cargo": "Mayo Asesoría y Litigios",
+      "depto": "backoffice",
+      "area": "Back Office",
+      "sede": "Colombia",
+      "reportaA": null,
+      "grupoDe": "misael-estrada",
+      "esArea": true,
+      "icono": "gavel",
+      "foto": null
+    },
+    {
+      "id": "backoffice-contabilidad",
+      "nombre": "Contabilidad",
+      "cargo": "Lloreda y Camacho",
+      "depto": "backoffice",
+      "area": "Back Office",
+      "sede": "Colombia",
+      "reportaA": null,
+      "grupoDe": "misael-estrada",
+      "esArea": true,
+      "icono": "calculate",
+      "foto": null
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Dependencias
+node_modules/
+
+# Configuración local de Claude Code
+.claude/settings.local.json
+
+# Archivos temporales de Office / Windows
+~$*
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

@@ -1,0 +1,223 @@
+
+  <!-- HERO VENTAS — valores dinámicos, ver animVtHero()/renderVtHero() en ventas.js -->
+  <div class="vt-hero">
+    <div class="vt-hero-inner">
+      <div class="vt-hero-left">
+        <div class="vt-hero-ttl">Ventas 2026</div>
+        <div class="vt-hl">KPI Principal &middot; Meta Anual 2026</div>
+        <div class="vt-hv" id="vtHeroVal">&mdash;</div>
+      </div>
+      <div class="vt-hero-right">
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Avance de meta</div>
+          <div class="vt-hkv" id="vtHeroPctVal" style="color:#7dd3fc">&mdash;</div>
+          <div class="vt-hks" id="vtHeroPctSub" style="color:rgba(255,255,255,.55)"></div>
+        </div>
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Operaciones 2026</div>
+          <div class="vt-hkv" id="vtHeroOpsVal">&mdash;</div>
+          <div class="vt-hks" id="vtHeroOpsSub" style="color:rgba(255,255,255,.5)"></div>
+        </div>
+        <div class="vt-hkpi">
+          <div class="vt-hkl">Margen ponderado</div>
+          <div class="vt-hkv" id="vtHeroMargenVal" style="color:#EF9F27">&mdash;</div>
+          <div class="vt-hks" id="vtHeroMargenSub" style="color:rgba(255,255,255,.55)"></div>
+        </div>
+      </div>
+    </div>
+    <div class="vt-hero-prog-wrap">
+      <div class="vt-hero-prog-track">
+        <div class="vt-hero-prog-fill" id="vtHeroFill" style="width:0%"></div>
+      </div>
+      <div class="vt-hero-prog-lbl">
+        <span>$0</span>
+        <span class="vt-hero-prog-mid" id="vtHeroProgMid"></span>
+        <span id="vtHeroMetaLbl">Meta: $5.00MM</span>
+      </div>
+    </div>
+    <div class="vt-hero-msg" id="vtHeroMsg"></div>
+  </div>
+
+  <!-- Tabs internos de Ventas -->
+  <div class="vt-tabs" id="vtTabs">
+    <div class="vt-tab-btn active" data-vtview="y2026"><span class="vt-tab-ico">&#129534;</span>Ventas 2026</div>
+    <div class="vt-tab-btn" data-vtview="evol"><span class="vt-tab-ico">&#128200;</span>Evoluci&oacute;n de Ventas</div>
+    <div class="vt-tab-btn" data-vtview="analisis"><span class="vt-tab-ico">&#128269;</span>An&aacute;lisis de Ventas</div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       TAB 1 · VENTAS 2026 — vista consolidada: Top 3 + 2 donas + detalle
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="vt-view active" data-vtview="y2026">
+    <div class="vt-top10-grid">
+      <!-- Ranking de Clientes 2026 — Top 3, barra proporcional (sin gráfico de pastel) -->
+      <div class="card vt-anim vt-panel" style="padding:0;overflow:hidden">
+        <div style="padding:16px 18px 12px;border-bottom:1px solid var(--border)">
+          <div class="vt-card-ttl">Ranking de Clientes &middot; 2026</div>
+          <div class="vt-card-sub">Ordenado por importe &middot; Top 3 <span id="vtTop10Sub"></span></div>
+        </div>
+        <div class="vt-rank-list" id="vtRankList"></div>
+        <div class="vt-rank-total" id="vtRankTotal"></div>
+        <div style="padding:8px 14px;font-size:10px;color:var(--ts);border-top:1px solid var(--border);display:flex;gap:14px;flex-wrap:wrap">
+          <span><span style="color:#16a34a;font-weight:700">■</span> &ge;18% Saludable</span>
+          <span><span style="color:#d97706;font-weight:700">■</span> 12–18% Alerta</span>
+          <span><span style="color:#dc2626;font-weight:700">■</span> &lt;12% Cr&iacute;tico</span>
+          <span>&middot; &ldquo;-&rdquo; = margen no informado en la fuente</span>
+        </div>
+      </div>
+      <!-- Por Tipo de Venta 2026 — barra destacada + lista (sin gráfico de pastel) -->
+      <div class="card vt-anim vt-panel" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:16px 18px 12px;border-bottom:1px solid var(--border)">
+          <div class="vt-card-ttl">Por Tipo de Venta</div>
+          <div class="vt-card-sub">Participaci&oacute;n por importe facturado &mdash; ventas 2026</div>
+        </div>
+        <div class="vt-tipo-highlight-wrap">
+          <div class="vt-tipo-highlight" id="vtTipoHighlight"></div>
+        </div>
+        <div class="vt-tipo-list" id="chTipoLeg"></div>
+        <div class="vt-tipo-total" id="vtTipoTotal"></div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN — DETALLE DE VENTAS 2026 -->
+    <div class="sec-head" style="margin-top:24px">
+      <h1>Detalle de Ventas 2026</h1>
+      <span class="sub" id="vt26SubHead">Registros disponibles en la fuente</span>
+    </div>
+    <div class="card vt-anim vt-panel" style="padding:0;overflow:hidden;margin-bottom:0">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="vt-card-ttl">Operaciones comerciales 2026</div>
+          <div class="vt-card-sub" id="vt26Info"></div>
+        </div>
+        <input class="vt26-search" id="vt26Search" placeholder="Buscar por cliente…" style="max-width:260px;border-radius:8px;margin:0;padding:7px 12px">
+      </div>
+      <div class="vt26-wrap">
+        <table class="vt26-tbl" id="vt26Tbl">
+          <thead>
+            <tr>
+              <th data-col="0">Fecha <span class="sic">↕</span></th>
+              <th data-col="1">Cliente <span class="sic">↕</span></th>
+              <th data-col="2">Tipo de venta <span class="sic">↕</span></th>
+              <th data-col="3" class="r">Importe <span class="sic">↕</span></th>
+              <th data-col="4" class="r">Margen % <span class="sic">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="vt26Body"></tbody>
+        </table>
+      </div>
+      <div class="vt26-pager" style="padding:8px 14px">
+        <button id="vt26Prev" disabled>&#8592; Anterior</button>
+        <span class="pgi" id="vt26PagInfo"></span>
+        <button id="vt26Next">Siguiente &#8594;</button>
+      </div>
+      <div style="padding:8px 18px 14px;font-size:10.5px;color:var(--ts)">Clic en una fila para ver detalle completo (fruta, refrigerante, vendedor y descripci&oacute;n del proyecto).</div>
+    </div>
+  </div>
+  <!-- /TAB 1 · VENTAS 2026 -->
+
+  <!-- ══════════════════════════════════════════════════════════════
+       TAB 2 · EVOLUCIÓN DE VENTAS — histórico 2023–jul 2026
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="vt-view" data-vtview="evol">
+
+    <div class="kpis k4 vt-evol-kpis" id="vtEvolKpis"></div>
+
+    <div class="vt-evol-lbl">Ventas</div>
+    <div id="vtChartsGrid" class="grid2">
+      <div class="card vt-chart-card vt-anim vt-panel" onclick="openVtVentas()">
+        <div class="vt-card-head vt-panel-head">
+          <div>
+            <span class="vt-panel-kicker">Serie temporal</span>
+            <div class="vt-card-ttl">Ventas acumuladas mensuales por a&ntilde;o</div>
+            <div class="vt-card-sub" id="vtEvolSub1">US$ &mdash; hist&oacute;rico 2023 a julio 2026</div>
+          </div>
+          <span class="vt-expand">&#8599; Ampliar</span>
+        </div>
+        <div class="vt-legend" id="vtLeg1"></div>
+        <div class="chart-wrap" style="height:clamp(230px,19vw,320px)"><canvas id="chVentasAcum" data-vt-fmt="mm"></canvas></div>
+      </div>
+      <div class="card vt-anim vt-panel">
+        <div class="vt-panel-head">
+          <span class="vt-panel-kicker">Comparativo anual</span>
+          <div class="vt-card-ttl">Evoluci&oacute;n de ventas por a&ntilde;o</div>
+          <div class="vt-card-sub" id="vtEvolSub2">Cierre anual</div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(230px,19vw,320px)"><canvas id="chVentasAnualBar" data-vt-fmt="mm"></canvas></div>
+      </div>
+    </div>
+
+    <div class="vt-evol-lbl">Margen comercial</div>
+    <div id="vtMargenGrid" class="grid2">
+      <div class="card vt-anim vt-panel">
+        <div class="vt-card-head vt-panel-head">
+          <div>
+            <span class="vt-panel-kicker">Serie temporal</span>
+            <div class="vt-card-ttl">Evoluci&oacute;n de margen mensual por a&ntilde;o</div>
+            <div class="vt-card-sub">% ponderado por importe &mdash; hist&oacute;rico 2023 a julio 2026</div>
+          </div>
+        </div>
+        <div class="vt-legend" id="vtLegMargen"></div>
+        <div class="chart-wrap" style="height:clamp(230px,19vw,320px)"><canvas id="chMargenMensual" data-vt-fmt="pct"></canvas></div>
+      </div>
+      <div class="card vt-anim vt-panel">
+        <div class="vt-panel-head">
+          <span class="vt-panel-kicker">Comparativo anual</span>
+          <div class="vt-card-ttl">Margen comercial ponderado por a&ntilde;o</div>
+          <div class="vt-card-sub">% del importe facturado con margen informado</div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(230px,19vw,320px)"><canvas id="chMargenAnual"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <!-- /TAB 2 · EVOLUCIÓN DE VENTAS -->
+
+  <!-- ══════════════════════════════════════════════════════════════
+       TAB 3 · ANÁLISIS DE VENTAS — indicadores, comparaciones y estacionalidad
+       ══════════════════════════════════════════════════════════════ -->
+  <div class="vt-view" data-vtview="analisis">
+
+    <!-- Estacionalidad -->
+    <div class="sec-head vt-anim" style="margin-top:0">
+      <h1>An&aacute;lisis de Estacionalidad</h1>
+      <span class="sub">Patrones recurrentes de demanda &middot; hist&oacute;rico 2023 a julio 2026</span>
+    </div>
+
+    <div class="kpis k4 vt-evol-kpis" id="vtAnalisisKpis"></div>
+
+    <div class="card vt-anim vt-panel vt-panel--heat">
+      <div class="vt-card-head vt-panel-head">
+        <div>
+          <span class="vt-panel-kicker">Mapa de calor</span>
+          <div class="vt-card-ttl">Estacionalidad por a&ntilde;o</div>
+          <div class="vt-card-sub">Importe mensual facturado por a&ntilde;o &middot; US$</div>
+        </div>
+      </div>
+      <div id="hmapGrid" class="vt-hmap-wrap"></div>
+      <div class="vt-hmap-scale">
+        <span>Menor</span>
+        <div class="vt-hmap-scale-bar" id="hmapScaleBar"></div>
+        <span>Mayor</span>
+      </div>
+    </div>
+
+    <div class="grid2 vt-seas-grid">
+      <div class="card vt-anim vt-panel">
+        <div class="vt-panel-head">
+          <span class="vt-panel-kicker">Distribuci&oacute;n mensual</span>
+          <div class="vt-card-ttl">Estacionalidad promedio</div>
+          <div class="vt-card-sub">Hist&oacute;rico 2023 a julio 2026</div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(270px,23vw,400px)"><canvas id="chSeasAvg"></canvas></div>
+      </div>
+      <div class="card vt-anim vt-panel">
+        <div class="vt-panel-head">
+          <span class="vt-panel-kicker">Peso relativo</span>
+          <div class="vt-card-ttl">Concentraci&oacute;n por trimestre</div>
+          <div class="vt-card-sub">Hist&oacute;rico 2023 a julio 2026</div>
+        </div>
+        <div class="chart-wrap" style="height:clamp(270px,23vw,400px)"><canvas id="chSeasQ"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <!-- /TAB 3 · ANÁLISIS DE VENTAS -->

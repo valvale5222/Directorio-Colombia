@@ -1,0 +1,333 @@
+/* ══════════════════════════════════════════════════════════════════════
+   ORGANIGRAMA — Directorio Ejecutivo Friopacking Colombia
+   Estructura: Vista General (árbol jerárquico) + 5 tabs departamentales.
+   Paleta y tokens quedan encapsulados bajo #organigrama para no afectar
+   otras vistas de la app (que hoy no tienen modo oscuro).
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Tokens definidos en :root (no en #organigrama): el modal de persona vive
+   fuera de #organigrama en el DOM (hermano dentro de .app, ver index.html),
+   así que las variables deben quedar visibles también ahí. Todos los nombres
+   llevan prefijo og- / dc- y no existen en el resto de la app → cero impacto
+   sobre otras vistas. */
+:root{
+  --og-green:#15803d; --og-green-bg:rgba(21,128,61,.08); --og-green-bd:rgba(21,128,61,.28);
+  --og-red:#dc2626; --og-red-bg:rgba(220,38,38,.06); --og-red-bd:rgba(220,38,38,.32);
+  --og-purple:#7c3aed; --og-purple-bg:rgba(124,58,237,.08); --og-purple-bd:rgba(124,58,237,.28);
+  --og-amber:#b45309; --og-amber-bg:rgba(217,119,6,.08); --og-amber-bd:rgba(217,119,6,.28);
+  --og-cyan:#0284c7; --og-cyan-bg:rgba(2,132,199,.08); --og-cyan-bd:rgba(2,132,199,.28);
+  --og-navy:var(--navy); --og-brand:var(--brand); --og-brand-d:var(--brand-d);
+  --og-card:var(--card); --og-bg:var(--bg); --og-border:var(--border);
+  --og-t:var(--t); --og-tm:var(--tm); --og-ts:var(--ts);
+  --og-sh:var(--sh); --og-sh2:var(--sh2);
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --og-green:#4ade80; --og-green-bg:rgba(74,222,128,.1); --og-green-bd:rgba(74,222,128,.32);
+    --og-red:#f87171; --og-red-bg:rgba(248,113,113,.08); --og-red-bd:rgba(248,113,113,.35);
+    --og-purple:#a78bfa; --og-purple-bg:rgba(167,139,250,.1); --og-purple-bd:rgba(167,139,250,.32);
+    --og-amber:#fbbf24; --og-amber-bg:rgba(251,191,36,.1); --og-amber-bd:rgba(251,191,36,.32);
+    --og-cyan:#38bdf8; --og-cyan-bg:rgba(56,189,248,.1); --og-cyan-bd:rgba(56,189,248,.32);
+    --og-navy:#e7ecff; --og-brand:#5be0c6; --og-brand-d:#3EC6AC;
+    --og-card:#161a2e; --og-bg:#0d0f1e; --og-border:rgba(148,163,214,.16);
+    --og-t:#f1f4fd; --og-tm:#b7c0e0; --og-ts:#8891b8;
+    --og-sh:0 2px 14px rgba(0,0,0,.35); --og-sh2:0 14px 44px rgba(0,0,0,.5);
+  }
+  #organigrama{background:var(--og-bg);border-radius:16px}
+  .org-modal-overlay{background:rgba(0,0,2,.72)}
+}
+#organigrama{color:var(--og-t)}
+
+/* dept color helper attr → custom props consumidos por cards/tabs/modal */
+[data-dept="operaciones"]{--dc:var(--og-green);--dc-bg:var(--og-green-bg);--dc-bd:var(--og-green-bd)}
+[data-dept="sst"]{--dc:var(--og-red);--dc-bg:var(--og-red-bg);--dc-bd:var(--og-red-bd)}
+[data-dept="ingenieria"]{--dc:var(--og-purple);--dc-bg:var(--og-purple-bg);--dc-bd:var(--og-purple-bd)}
+[data-dept="comercial"]{--dc:var(--og-cyan);--dc-bg:var(--og-cyan-bg);--dc-bd:var(--og-cyan-bd)}
+[data-dept="direccion"]{--dc:var(--og-brand-d);--dc-bg:rgba(62,198,172,.08);--dc-bd:rgba(62,198,172,.3)}
+[data-dept="planner"]{--dc:var(--og-brand-d);--dc-bg:rgba(62,198,172,.08);--dc-bd:rgba(62,198,172,.3)}
+[data-dept="backoffice"]{--dc:var(--og-amber);--dc-bg:var(--og-amber-bg);--dc-bd:var(--og-amber-bd)}
+
+/* ── App bar interno (tabs de departamento) ─────────────────────────── */
+.og-appbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.og-tabs{display:flex;gap:2px;background:var(--og-card);border:.5px solid var(--og-border);border-radius:11px;padding:4px;box-shadow:var(--og-sh);overflow-x:auto;scrollbar-width:none}
+.og-tabs::-webkit-scrollbar{display:none}
+.og-tab{display:flex;align-items:center;gap:7px;padding:9px 16px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--og-ts);cursor:pointer;border:none;background:none;font-family:inherit;border-radius:8px;transition:color .18s,background .18s;white-space:nowrap;position:relative}
+.og-tab .material-symbols-rounded{font-size:16px;opacity:.85;transition:opacity .18s}
+.og-tab:hover{color:var(--og-t);background:rgba(62,198,172,.08)}
+.og-tab.active{color:#fff;background:var(--og-navy)}
+.og-tab.active .material-symbols-rounded{opacity:1;color:var(--og-brand)}
+.og-tab-badge{font-size:9.5px;font-weight:800;background:rgba(125,140,180,.16);color:inherit;border-radius:20px;padding:2px 7px;margin-left:2px}
+.og-tab.active .og-tab-badge{background:rgba(62,198,172,.22);color:var(--og-brand)}
+.og-meta{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--og-ts);font-weight:600;white-space:nowrap}
+.og-meta .material-symbols-rounded{font-size:15px;color:var(--og-brand-d)}
+
+/* ── Panels ──────────────────────────────────────────────── */
+.og-panel{display:none;animation:fadeUp .32s ease;padding-bottom:36px}
+.og-panel.active{display:block}
+
+/* ── Section label (líneas laterales) ───────────────────────────────── */
+.og-section-label{display:flex;align-items:center;gap:10px;color:var(--dc,var(--og-ts));font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;width:100%;margin:26px 0 16px}
+.og-section-label .material-symbols-rounded{font-size:15px}
+.og-section-label::before,.og-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--og-border) 20%,var(--og-border) 80%,transparent)}
+.og-section-label span.txt{white-space:nowrap}
+
+/* ══════════════════════════════ VISTA GENERAL ══════════════════════════ */
+.og-tree{display:flex;flex-direction:column;align-items:center;max-width:1360px;margin:10px auto 0;padding:6px 4px 0;position:relative}
+/* Trama de puntos muy tenue detrás de la cabecera — acento "tecnológico"
+   sin competir con las cards; se desvanece hacia los bordes con mask. */
+.og-tree::before{content:'';position:absolute;top:-24px;left:0;right:0;height:360px;background-image:radial-gradient(circle,var(--dc,var(--og-brand)) 1px,transparent 1.4px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 62% 100% at 50% 0%,#000 35%,transparent 88%);mask-image:radial-gradient(ellipse 62% 100% at 50% 0%,#000 35%,transparent 88%);opacity:.22;pointer-events:none;z-index:0}
+.og-tree>*{position:relative;z-index:1}
+@media(prefers-color-scheme:dark){.og-tree::before{opacity:.3}}
+
+/* Conector vertical genérico */
+.og-connector{width:2px;height:30px;background:linear-gradient(to bottom,var(--og-brand),rgba(62,198,172,.15));flex-shrink:0}
+.og-connector-dot{width:8px;height:8px;border-radius:50%;background:var(--og-brand);margin:-1px auto 0;box-shadow:0 0 0 5px rgba(62,198,172,.18)}
+
+/* Barrido de brillo diagonal ("highlight") sobre hero/mini cards al pasar el
+   mouse — refuerzo visual sutil y de alto impacto sin animar en loop. */
+.og-sheen{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;border-radius:inherit}
+.og-sheen::before{content:'';position:absolute;top:-70%;bottom:-70%;left:-45%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-260%) rotate(10deg);transition:transform .9s cubic-bezier(.2,.8,.2,1);mix-blend-mode:overlay}
+.og-hero:hover .og-sheen::before,.og-mini:hover .og-sheen::before{transform:translateX(430%) rotate(10deg)}
+@media(prefers-color-scheme:dark){.og-sheen::before{background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent)}}
+
+/* Hero card — Gerente General / Gerente de Proyecto */
+.og-hero{display:flex;align-items:center;gap:24px;background:linear-gradient(135deg,var(--og-card) 0%,var(--og-bg) 130%);border:1px solid var(--og-border);border-top:3px solid var(--og-brand-d);border-radius:20px;padding:26px 34px;max-width:540px;width:100%;position:relative;overflow:hidden;cursor:pointer;box-shadow:var(--og-sh);transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s ease,border-color .28s}
+.og-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 140% 100% at 15% 0%,rgba(62,198,172,.14) 0%,transparent 62%);pointer-events:none;opacity:.8;transition:opacity .3s}
+.og-hero:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(10,10,30,.2);border-color:var(--og-brand)}
+.og-hero:hover::before{opacity:1}
+.og-hero--pulse{animation:og-pulse 2.8s infinite}
+.og-hero--pulse:hover{animation-play-state:paused}
+@keyframes og-pulse{0%,100%{box-shadow:var(--og-sh),0 0 0 0 rgba(62,198,172,.45)}50%{box-shadow:var(--og-sh),0 0 0 14px rgba(62,198,172,0)}}
+.og-hero--sub{border-top-color:var(--og-brand);max-width:490px;padding:20px 26px}
+.og-hero--sub::before{background:radial-gradient(ellipse 140% 100% at 15% 0%,rgba(62,198,172,.08) 0%,transparent 62%)}
+
+/* Foto: aro con borde nítido + halo de color (compensa visualmente fotos de
+   baja resolución al mostrarlas más grandes — el contorno definido y el
+   glow dan sensación de nitidez aunque la fuente sea la misma). */
+.og-hero-photo{width:112px;height:112px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 1px rgba(255,255,255,.9) inset,0 0 0 4px #fff,0 0 0 6px rgba(62,198,172,.55),0 10px 28px rgba(62,198,172,.32);position:relative;z-index:1;transition:box-shadow .28s}
+.og-hero:hover .og-hero-photo{box-shadow:0 0 0 1px rgba(255,255,255,.9) inset,0 0 0 4px #fff,0 0 0 7px rgba(62,198,172,.72),0 12px 32px rgba(62,198,172,.4)}
+.og-hero--pulse .og-hero-photo{animation:og-photo-glow 2.8s infinite}
+@keyframes og-photo-glow{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.9) inset,0 0 0 4px #fff,0 0 0 6px rgba(62,198,172,.55),0 10px 28px rgba(62,198,172,.32)}50%{box-shadow:0 0 0 1px rgba(255,255,255,.9) inset,0 0 0 4px #fff,0 0 0 9px rgba(62,198,172,.8),0 0 38px 8px rgba(62,198,172,.55)}}
+.og-hero--sub .og-hero-photo{width:92px;height:92px}
+.og-hero-photo img,.og-mini-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:contrast(1.07) saturate(1.1)}
+.og-hero-body{flex:1;min-width:0;position:relative;z-index:1}
+.og-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--og-brand-d);background:linear-gradient(135deg,rgba(62,198,172,.16),rgba(62,198,172,.06));border:1px solid rgba(62,198,172,.3);border-radius:20px;padding:4px 11px 4px 9px;margin-bottom:9px}
+.og-tag .material-symbols-rounded{font-size:12.5px}
+.og-hero-name{font-size:22px;font-weight:800;color:var(--og-navy);line-height:1.18;margin-bottom:4px}
+.og-hero--sub .og-hero-name{font-size:18.5px}
+.og-hero-role{font-size:12.5px;color:var(--og-ts);font-weight:500}
+
+.og-col-count{background:rgba(255,255,255,.5);border-radius:20px;padding:0 6px;font-size:9px}
+@media(prefers-color-scheme:dark){.og-col-count{background:rgba(255,255,255,.08)}}
+
+/* Rama lateral de Soporte directo (Valeria), a la derecha de Gerencia
+   General: conector horizontal punteado en vez del árbol vertical. */
+.og-top-row{display:flex;align-items:center;justify-content:center;gap:0;width:100%}
+.og-top-branch{display:flex;align-items:center;gap:0;margin-left:36px}
+.og-top-branch-line{width:48px;height:0;border-top:2px dashed var(--dc,var(--og-brand));flex-shrink:0}
+.og-branch-slot{display:flex;flex-direction:column;align-items:center}
+
+/* Fila de pares que reportan a Gerencia General: Eduardo Narro, Vivian,
+   Mario y Back Office. Eduardo y Back Office llevan además un botón
+   plegable propio (og-peer-toggle) para su equipo/áreas. Vivian lleva línea
+   jerárquica sólida; Mario, conector punteado + badge "Soporte". */
+.og-peer-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:26px;width:100%;margin-top:30px;border-top:2px solid var(--og-brand);padding-top:0}
+.og-peer-slot{display:flex;flex-direction:column;align-items:center}
+.og-peer-slot::before{content:'';width:2px;height:24px;background:linear-gradient(to bottom,var(--og-brand),rgba(125,140,180,.15))}
+.og-peer-slot--soporte::before{background:none;border-left:2px dashed var(--dc,var(--og-brand));width:0}
+.og-hero--peer{width:244px;max-width:244px;padding:18px 18px}
+
+/* Cuando un par plegable se despliega, su columna toma el ancho completo de
+   la fila para que el equipo se muestre en horizontal sin invadir a los
+   demás pares — el resto se reacomoda solo, sin JS de layout. */
+.og-peer-slot--acc{transition:flex-basis .1s}
+.og-peer-slot--acc:has(.og-peer-toggle[open]){flex:1 1 100%}
+
+/* Cards de soporte (Mario, Back Office, Valeria): borde y tag punteados en
+   vez de una gerencia adicional. --static además desactiva el click. */
+.og-hero--soporte{border-style:dashed;border-color:var(--dc-bd,var(--og-border));border-top-style:dashed;border-top-color:var(--dc,var(--og-brand-d))}
+.og-tag--soporte{border-style:dashed;color:var(--dc,var(--og-brand-d));background:var(--dc-bg,rgba(62,198,172,.12));border-color:var(--dc-bd,rgba(62,198,172,.28))}
+.og-hero--static{cursor:default}
+.og-hero--static:hover{transform:none;box-shadow:var(--og-sh);border-color:var(--dc-bd,var(--og-border))}
+
+/* ── Botón plegable discreto sobre una hero card (Eduardo Narro, Back
+   Office) — independiente del click de la card, así esta última conserva
+   su comportamiento normal (abrir ficha) mientras el botón despliega el
+   equipo/áreas debajo en <details> nativo. ─────────────────────────────── */
+.og-peer-toggle{margin-top:-2px;display:flex;flex-direction:column;align-items:center;width:100%}
+.og-peer-toggle-btn{list-style:none;cursor:pointer;width:30px;height:30px;border-radius:50%;background:color-mix(in srgb,var(--og-card) 75%,transparent);backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3);border:1.5px solid var(--dc,var(--og-brand));color:var(--dc,var(--og-brand));display:flex;align-items:center;justify-content:center;box-shadow:var(--og-sh);transition:background .18s,transform .18s,box-shadow .18s;user-select:none;position:relative;z-index:1}
+.og-peer-toggle-btn::-webkit-details-marker{display:none}
+.og-peer-toggle-btn::marker{content:none}
+.og-peer-toggle-btn:hover{background:var(--dc-bg,rgba(62,198,172,.12));transform:translateY(1px);box-shadow:0 6px 18px rgba(10,10,30,.18),0 0 0 4px var(--dc-bg,rgba(62,198,172,.14))}
+.og-peer-toggle-btn .material-symbols-rounded{font-size:17px;transition:transform .28s cubic-bezier(.22,1,.36,1)}
+.og-peer-toggle[open] .og-peer-toggle-btn .material-symbols-rounded{transform:rotate(180deg)}
+.og-peer-toggle-body{width:100%;max-width:920px;margin:16px auto 0;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;position:relative}
+.og-peer-toggle-body::before{content:'';position:absolute;top:-16px;left:50%;width:2px;height:16px;background:var(--dc,var(--og-brand));transform:translateX(-50%)}
+.og-peer-toggle[open] .og-peer-toggle-body{animation:og-acc-in .32s cubic-bezier(.22,1,.36,1)}
+@keyframes og-acc-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Áreas restantes: tira horizontal de secciones plegables (detalle bajo
+   demanda en vez de mostrarse siempre expandido) */
+.og-areas-strip{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;width:100%;margin-top:34px}
+.og-area-acc{border:1px solid var(--og-border);border-radius:14px;background:var(--og-card);box-shadow:var(--og-sh);flex:0 1 250px;min-width:220px;transition:border-color .2s,box-shadow .2s;position:relative;overflow:hidden}
+.og-area-acc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--dc,var(--og-brand)),transparent);opacity:.55}
+.og-area-acc[open]{border-color:var(--dc-bd,var(--og-border));box-shadow:0 10px 28px rgba(10,10,30,.12)}
+.og-area-acc[open]::before{opacity:.9}
+.og-area-acc summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:13px 15px;font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--og-t);user-select:none}
+.og-area-acc summary::-webkit-details-marker{display:none}
+.og-area-acc-ic{font-size:16px;color:var(--dc,var(--og-brand-d))}
+.og-area-acc-chev{margin-left:auto;font-size:17px;color:var(--og-ts);transition:transform .22s}
+.og-area-acc[open] .og-area-acc-chev{transform:rotate(180deg)}
+.og-area-acc-body{padding:2px 15px 15px;display:flex;flex-direction:column;gap:9px;border-top:.5px solid var(--og-border)}
+.og-area-acc--special .og-area-acc-body{background:var(--dc-bg)}
+.og-area-acc[open] .og-area-acc-body{animation:og-acc-in .28s ease}
+
+.og-subtree{display:flex;flex-direction:column;align-items:center;width:100%;margin-top:8px}
+.og-subtree-branch{display:flex;gap:16px;width:100%;justify-content:center;position:relative;padding-top:0}
+.og-subtree-branch::before{content:'';position:absolute;top:0;left:22%;right:22%;height:2px;background:var(--dc-bd)}
+.og-subtree-branch .og-subcol{display:flex;flex-direction:column;align-items:center;flex:1;min-width:84px}
+.og-subtree-branch .og-subcol::before{content:'';width:2px;height:14px;background:var(--dc-bd)}
+
+.og-soporte-badge{display:inline-flex;align-items:center;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px dashed currentColor;border-radius:20px;padding:1.5px 7px;margin-left:2px;opacity:.85}
+.og-dept-name .og-soporte-badge{font-size:8.5px;margin-left:8px;vertical-align:2px}
+
+/* Avatar de respaldo (iniciales o ícono) para personas/áreas sin foto */
+.og-avatar-fb{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--dc-bg,rgba(62,198,172,.14));color:var(--dc,var(--og-brand-d));font-weight:800;letter-spacing:.02em}
+.og-avatar-fb .material-symbols-rounded{font-size:1.7em}
+.og-mini-photo .og-avatar-fb{font-size:16px}
+.og-card-photo .og-avatar-fb{font-size:28px}
+.og-modal-photo .og-avatar-fb{font-size:22px}
+.og-hero-photo .og-avatar-fb{font-size:30px}
+.og-bc-photo .og-avatar-fb{font-size:12px}
+
+/* Mini-card (Vista General) — compacta, foto + nombre + cargo + ingreso */
+.og-mini{display:flex;align-items:center;gap:12px;background:var(--og-card);border:.5px solid var(--og-border);border-radius:13px;padding:11px 14px;width:100%;cursor:pointer;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.og-mini::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,var(--dc-bg),transparent 70%);opacity:0;transition:opacity .25s;pointer-events:none}
+.og-mini:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(10,10,30,.14);border-color:var(--dc,var(--og-brand))}
+.og-mini:hover::after{opacity:1}
+.og-mini-photo{width:54px;height:54px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid #fff;box-shadow:0 0 0 2px var(--dc-bd,rgba(62,198,172,.4));position:relative;z-index:1}
+.og-mini-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.og-mini-info{min-width:0;position:relative;z-index:1}
+.og-mini-name{font-size:12.5px;font-weight:700;color:var(--og-t);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.og-mini-role{font-size:10px;color:var(--og-ts);line-height:1.3}
+
+/* Subcolumnas de la zona especial (ej. Supervisores bajo Coordinador SST):
+   demasiado angostas para una mini-card horizontal — se apila foto+texto y
+   se permite el wrap del nombre en vez de truncarlo a una inicial. */
+.og-subcol .og-mini{flex-direction:column;text-align:center;gap:6px;padding:12px 8px 10px}
+.og-subcol .og-mini-photo{width:46px;height:46px}
+.og-subcol .og-mini-info{width:100%}
+.og-subcol .og-mini-name,.og-subcol .og-mini-role{white-space:normal;overflow:visible;text-overflow:clip;text-align:center}
+.og-subcol .og-mini-name{font-size:11px}
+.og-subcol .og-mini-role{font-size:9.5px}
+
+/* ══════════════════════════════ PANEL DEPARTAMENTAL ══════════════════════ */
+.og-dept-wrap{max-width:1120px;margin:0 auto}
+
+/* Breadcrumb de dirección */
+.og-breadcrumb{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.og-bc-card{display:flex;align-items:center;gap:11px;background:var(--og-card);border:.5px solid var(--og-border);border-radius:12px;padding:9px 16px;box-shadow:var(--og-sh);cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.og-bc-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(10,10,30,.14);border-color:var(--og-brand)}
+.og-bc-photo{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.og-bc-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.og-bc-info .og-bc-name{font-size:12px;font-weight:700;color:var(--og-t);line-height:1.3}
+.og-bc-info .og-bc-role{font-size:9.5px;color:var(--og-ts)}
+.og-bc-arrow{color:var(--og-ts);font-size:16px;display:flex}
+
+/* Header de departamento */
+.og-dept-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
+.og-dept-icon{width:38px;height:38px;border-radius:11px;background:var(--dc-bg);border:1px solid var(--dc-bd);color:var(--dc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.og-dept-icon .material-symbols-rounded{font-size:19px}
+.og-dept-titles .og-dept-name{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dc)}
+.og-dept-titles .og-dept-desc{font-size:11.5px;color:var(--og-ts);margin-top:2px}
+.og-dept-line{flex:1;height:1px;background:var(--og-border);min-width:40px}
+
+/* Grid de cards completas */
+.og-grid{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+
+/* SST: coordinador + supervisores, con conectores en el panel completo */
+.og-dept-tree{display:flex;flex-direction:column;align-items:center}
+.og-dept-fan{display:flex;gap:22px;position:relative;margin-top:10px}
+.og-dept-fan::before{content:'';position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--dc-bd)}
+.og-dept-fan .og-fan-col{display:flex;flex-direction:column;align-items:center}
+.og-dept-fan .og-fan-col::before{content:'';width:2px;height:20px;background:var(--dc-bd)}
+
+/* Card completa (persona) */
+.og-card{width:220px;background:var(--og-card);border:.5px solid var(--og-border);border-top:3px solid var(--dc,var(--og-brand-d));border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,border-color .25s;box-shadow:var(--og-sh);position:relative}
+.og-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% -10%,var(--dc-bg),transparent 65%);opacity:0;transition:opacity .3s;pointer-events:none}
+.og-card:hover{transform:translateY(-6px);box-shadow:0 16px 38px rgba(10,10,30,.18);border-color:var(--dc,var(--og-brand))}
+.og-card:hover::after{opacity:1}
+.og-card-body{padding:18px 16px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1}
+.og-card-photo{width:104px;height:104px;border-radius:50%;overflow:hidden;margin-bottom:12px;border:3px solid #fff;box-shadow:0 0 0 3px var(--dc-bd,rgba(62,198,172,.4)),0 6px 18px rgba(10,10,30,.12)}
+.og-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.og-card-name{font-size:13.5px;font-weight:700;color:var(--og-t);line-height:1.32;margin-bottom:3px}
+.og-card-role{font-size:11px;font-weight:600;color:var(--dc,var(--og-brand-d));line-height:1.35;margin-bottom:10px}
+.og-card-meta{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--og-ts);border-top:.5px solid var(--og-border);padding-top:9px;width:100%;justify-content:center}
+.og-card-meta .material-symbols-rounded{font-size:13px;opacity:.75}
+.og-card-footer{margin-top:auto;width:100%;padding:8px 0;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dc,var(--og-brand-d));border-top:.5px solid var(--og-border);display:flex;align-items:center;justify-content:center;gap:4px;background:var(--dc-bg)}
+.og-card-footer .material-symbols-rounded{font-size:13px;transition:transform .22s}
+.og-card:hover .og-card-footer .material-symbols-rounded{transform:translateX(3px)}
+
+/* Cards informativas sin "Ver detalle" (tabs de Back Office y Planner
+   Comercial): mismo look, pero sin afordancia de click */
+.og-card--static{cursor:default}
+.og-card--static:hover{transform:none;box-shadow:var(--og-sh)}
+.og-card--static:hover::after{opacity:0}
+
+/* Responsive */
+@media(max-width:980px){
+  .og-hero--peer{width:min(380px,92vw);max-width:min(380px,92vw)}
+  .og-area-acc{flex:1 1 min(380px,92vw)}
+  .og-peer-slot--acc:has(.og-peer-toggle[open]){flex-basis:100%}
+}
+@media(max-width:700px){
+  .og-hero,.og-hero--sub{max-width:100%;flex-direction:column;text-align:center;padding:22px 20px}
+  .og-hero-photo{width:100px;height:100px}
+  .og-hero--sub .og-hero-photo{width:84px;height:84px}
+  .og-top-row{flex-direction:column}
+  .og-top-branch{margin-left:0;margin-top:22px;flex-direction:column}
+  .og-top-branch-line{width:0;height:26px;border-top:none;border-left:2px dashed var(--dc,var(--og-brand))}
+  .og-tabs{width:100%}
+  .og-card{width:100%;max-width:260px}
+  .og-dept-fan{flex-direction:column;align-items:center;gap:14px}
+  .og-dept-fan::before{display:none}
+}
+
+/* ── Modal de persona (reusa #orgModalOverlay / #orgModalContent del index) ── */
+.org-modal-overlay{position:fixed;inset:0;background:rgba(6,8,20,.6);backdrop-filter:blur(5px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.org-modal-overlay.open{display:flex;animation:fade .22s ease}
+.org-modal-box{background:var(--og-card,#fff);border-radius:18px;max-width:440px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 28px 70px rgba(0,0,0,.32);animation:orgModalIn .28s cubic-bezier(.22,1,.36,1);color:var(--og-t,#0a0a1e)}
+@keyframes orgModalIn{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.og-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:var(--og-bg,#f0f4f9);border:.5px solid var(--og-border,#e2e8f4);border-radius:9px;cursor:pointer;color:var(--og-ts,#7b8db0);transition:background .15s,color .15s}
+.og-modal-close:hover{background:var(--og-border,#e2e8f4);color:var(--og-t,#0a0a1e)}
+.og-modal-close .material-symbols-rounded{font-size:18px}
+.og-modal-hdr{display:flex;align-items:center;gap:16px;padding:26px 24px 18px;border-bottom:1px solid var(--og-border,#e2e8f4);position:relative}
+.og-modal-photo{width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #fff;box-shadow:0 0 0 3px var(--dc-bd,rgba(62,198,172,.4))}
+.og-modal-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.og-modal-hdr-info{flex:1;min-width:0}
+.og-modal-name{font-size:17px;font-weight:800;color:var(--og-navy,#0a0a1e);line-height:1.22;margin-bottom:4px}
+.og-modal-role-txt{font-size:12px;color:var(--og-ts,#7b8db0)}
+.og-modal-body{padding:18px 24px 26px}
+.og-modal-info-tbl{width:100%;border-collapse:collapse}
+.og-modal-info-tbl tr{border-bottom:.5px solid var(--og-border,#e2e8f4)}
+.og-modal-info-tbl tr:last-child{border-bottom:none}
+.og-mi-lbl{font-size:9.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--og-ts,#7b8db0);padding:9px 14px 9px 0;white-space:nowrap;width:1%;vertical-align:top}
+.og-mi-lbl .material-symbols-rounded{font-size:13px;margin-right:4px;vertical-align:-2px}
+.og-mi-val{font-size:12.5px;font-weight:600;color:var(--og-t,#0a0a1e);padding:9px 0;line-height:1.4}
+.og-mi-val .og-mi-link{color:var(--dc,var(--brand-d));cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+
+/* Botón "Costo de empresa" — mismo lenguaje visual que el resto de acciones
+   del organigrama (pill, icono Material Symbols), en verde para asociarlo a
+   un dato económico. Preparado para recibir información más adelante. */
+.og-costo-btn{display:flex;align-items:center;gap:7px;width:100%;justify-content:center;margin-bottom:18px;padding:10px 18px;border-radius:20px;border:1px solid var(--og-green-bd,rgba(21,128,61,.28));background:linear-gradient(135deg,var(--og-green-bg,rgba(21,128,61,.08)),rgba(255,255,255,0));color:var(--og-green,#15803d);font-family:inherit;font-size:12.5px;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .2s,background .2s}
+.og-costo-btn .material-symbols-rounded{font-size:16px}
+.og-costo-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,128,61,.18);background:linear-gradient(135deg,var(--og-green-bg,rgba(21,128,61,.08)),var(--og-green-bg,rgba(21,128,61,.08)))}
+@media(prefers-color-scheme:dark){.og-costo-btn{background:linear-gradient(135deg,var(--og-green-bg),transparent)}}
+
+.og-modal-back{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--og-bg,#f0f4f9);border:.5px solid var(--og-border,#e2e8f4);border-radius:10px;cursor:pointer;color:var(--og-tm,#3d4a6a);transition:background .15s,color .15s}
+.og-modal-back:hover{background:var(--og-border,#e2e8f4);color:var(--og-t,#0a0a1e)}
+.og-modal-back .material-symbols-rounded{font-size:18px}
+
+.og-costo-empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 10px 12px;color:var(--og-ts,#7b8db0)}
+.og-costo-empty .material-symbols-rounded{font-size:30px;color:var(--og-green,#15803d);opacity:.7}
+.og-costo-empty p{font-size:12.5px;line-height:1.55;max-width:320px}

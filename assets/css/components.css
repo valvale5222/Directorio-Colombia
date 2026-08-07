@@ -1,0 +1,170 @@
+/* KPI CARDS */
+.kpis{display:grid;gap:12px;margin-bottom:20px}
+.kpis.k3{grid-template-columns:repeat(3,1fr)}
+.kpis.k4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:var(--card);border:.5px solid var(--border);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh)}
+.kpi .lbl{font-size:11px;color:var(--ts);text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+.kpi .val{font-size:28px;font-weight:600;margin-top:6px;line-height:1}
+.kpi .delta{font-size:12px;margin-top:6px;color:var(--ts)}
+.kpi .delta.up{color:var(--ok-d)} .kpi .delta.down{color:var(--attn)}
+.kpi .delta strong{font-weight:600}
+
+/* CARDS / GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.card{background:var(--card);border:.5px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--sh);position:relative}
+.card.click{cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.card.click:hover{border-color:var(--brand);box-shadow:var(--sh2)}
+.card-h{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.card-h .ic{color:var(--ts);font-size:15px;display:inline-flex}
+.card-h .sub{font-size:11px;color:var(--ts);font-weight:400;margin-left:auto}
+.dblhint{position:absolute;top:12px;right:12px;font-size:10px;color:var(--ts);opacity:.55;display:flex;align-items:center;gap:3px}
+.legend{display:flex;gap:12px;font-size:11px;color:var(--ts);margin:6px 0 4px;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:5px}
+.lqd{width:9px;height:9px;border-radius:2px;display:inline-block}
+.lln{width:16px;border-top:2px solid;display:inline-block}
+.insight{font-size:11px;color:var(--ts);margin-top:10px;padding:8px 10px;background:#F4F8FB;border-left:2px solid var(--brand);border-radius:0 6px 6px 0;line-height:1.45}
+.insight strong{color:var(--t);font-weight:600}
+.chart-wrap{position:relative;width:100%}
+
+/* TABLE */
+table.dt{width:100%;border-collapse:collapse;font-size:12px}
+table.dt th{text-align:left;font-weight:600;color:var(--ts);padding:7px 8px;border-bottom:1px solid var(--border);
+  font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+table.dt td{padding:7px 8px;border-bottom:.5px solid var(--border)}
+table.dt tr:last-child td{border-bottom:none}
+table.dt .num{text-align:right;font-variant-numeric:tabular-nums}
+table.dt tr.tot td{font-weight:600;background:#f7fafc}
+td.td-lo{background:rgba(216,90,48,.07);font-weight:700}
+td.td-hi{background:rgba(62,198,172,.09);font-weight:700}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(10,10,30,.55);backdrop-filter:blur(3px);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:30px}
+.modal-bg.open{display:flex;animation:fade .2s}
+.modal{background:#fff;border-radius:16px;max-width:940px;width:100%;max-height:90vh;overflow:auto;box-shadow:var(--sh2)}
+.modal-h{display:flex;align-items:center;gap:10px;padding:16px 22px;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:2}
+.modal-h-info{flex:1;min-width:0}
+.modal-h .mt{font-size:15.5px;font-weight:700;color:var(--navy);display:block}
+.modal-h .msub{font-size:11px;color:var(--ts);margin-top:2px;display:none;font-weight:500;letter-spacing:.2px}
+.modal-h .mc{flex-shrink:0;cursor:pointer;color:var(--ts);font-size:22px;line-height:1;padding:2px 6px;border-radius:6px}
+.modal-h .mc:hover{background:var(--bg);color:var(--t)}
+.modal-b{padding:20px 22px}
+.mnote{font-size:12px;color:var(--ts);margin-top:14px;padding:10px 12px;background:var(--bg);border-radius:8px}
+
+.pending{background:var(--card);border:1px dashed var(--border);border-radius:var(--r);padding:36px;text-align:center;color:var(--ts)}
+.pending .pic{font-size:34px;color:var(--brand);opacity:.5}
+.pending h3{font-size:16px;color:var(--tm);margin:12px 0 6px;font-weight:600}
+
+/* SVG icon */
+.svgic{width:1em;height:1em;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Modal search table */
+.msearch{width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;margin-bottom:12px;outline:none;transition:border-color .15s;display:block}
+.msearch:focus{border-color:var(--brand)}
+.mtbl{width:100%;border-collapse:collapse;font-size:12px}
+.mtbl th{background:var(--navy);color:rgba(255,255,255,.75);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:9px 11px;text-align:left;cursor:pointer;user-select:none;white-space:nowrap}
+.mtbl th.r{text-align:right}
+.mtbl th:hover{color:#fff}
+.mtbl th .sic{display:inline-block;margin-left:3px;opacity:.4;font-size:9px}
+.mtbl th.sorted .sic{opacity:1}
+.mtbl td{padding:8px 11px;border-bottom:.5px solid var(--border)}
+.mtbl td.r{text-align:right;font-variant-numeric:tabular-nums}
+.mtbl tr:hover td{background:#f7faff}
+.mtbl tr.row-hover td{background:#f7faff}
+.mtbl tr.mtr-tot td{background:#f7faff;font-weight:700;border-top:2px solid var(--brand);border-bottom:none}
+.mpager{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--ts)}
+.mpager button{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-family:inherit;color:var(--t)}
+.mpager button:hover{background:var(--bg)}
+.mpager button:disabled{opacity:.35;cursor:default}
+.mpager .pgi{flex:1;text-align:center}
+.mseg-tag{display:inline-flex;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600}
+
+/* ── KPI Cards Premium v3 — Clientes ─────────────────── */
+.kpi-v3{
+  background:var(--card);border-radius:14px;padding:20px 22px;
+  box-shadow:0 2px 16px rgba(10,10,30,.08);
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:transform .2s ease,box-shadow .2s ease;
+  position:relative;overflow:hidden;
+  cursor:pointer
+}
+.kpi-v3::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:14px 14px 0 0
+}
+.kpi-v3:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(10,10,30,.13)}
+.kpi-v3 .kv3-icon{font-size:22px;margin-bottom:8px;display:block}
+.kpi-v3 .kv3-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--ts);margin-bottom:8px}
+.kpi-v3 .kv3-val{font-size:clamp(26px,2.4vw,36px);font-weight:900;line-height:1;margin-bottom:6px}
+.kpi-v3 .kv3-ctx{font-size:11px;color:var(--ts);line-height:1.45;margin-bottom:10px}
+.kpi-v3 .kv3-bar-track{height:4px;background:#e8edf5;border-radius:2px;overflow:hidden;margin-bottom:6px}
+.kpi-v3 .kv3-bar-fill{height:100%;border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.kpi-v3 .kv3-delta{font-size:10.5px;font-weight:700;display:flex;align-items:center;gap:4px}
+.kpi-v3 .kv3-msg{font-size:10px;color:var(--ts);font-style:italic;margin-top:6px;line-height:1.4}
+
+/* ── Hero sutil — Clientes ────────────────────────────── */
+.cli-hero{
+  position:relative;border-radius:12px;overflow:hidden;margin-bottom:18px;
+  background:linear-gradient(90deg,#061430 0%,#0c2454 55%,#061430 100%);
+  border:1px solid rgba(62,198,172,.15);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap
+}
+.cli-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(62,198,172,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.045) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;z-index:0
+}
+.cli-hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 100% at 12% 50%,rgba(62,198,172,.12) 0%,transparent 70%);
+  pointer-events:none;z-index:0
+}
+.cli-hero-left{position:relative;z-index:1;display:flex;align-items:center;gap:11px}
+.cli-hero-icon{font-size:17px;line-height:1;flex-shrink:0;opacity:.9}
+.cli-hero-eye{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:#3EC6AC;margin-bottom:3px}
+.cli-hero-ttl{font-size:clamp(15px,1.3vw,19px);font-weight:800;color:#fff;line-height:1.15}
+.cli-hero-right{position:relative;z-index:1;font-size:12.5px;color:rgba(255,255,255,.82);font-weight:700;
+  letter-spacing:.3px;text-align:right;background:rgba(62,198,172,.12);border:1px solid rgba(62,198,172,.28);
+  border-radius:20px;padding:6px 14px;flex-shrink:0}
+@media(max-width:700px){.cli-hero{padding:13px 16px}.cli-hero-right{width:100%;text-align:left}}
+
+/* ── Detalle ventas 2026 ──────────────────────────────── */
+.vt26-wrap{overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;max-height:480px;border-radius:0 0 12px 12px;border:1px solid var(--border);border-top:none}
+@media(max-width:700px){.vt26-tbl{min-width:620px}}
+.vt26-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.vt26-tbl thead{position:sticky;top:0;z-index:2}
+.vt26-tbl th{background:var(--navy);color:rgba(255,255,255,.75);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;padding:10px 12px;text-align:left;cursor:pointer;user-select:none;white-space:nowrap}
+.vt26-tbl th.r{text-align:right}
+.vt26-tbl th:hover{color:#fff}
+.vt26-tbl th .sic{font-size:9px;opacity:.4;margin-left:3px}
+.vt26-tbl th.sorted .sic{opacity:1}
+.vt26-tbl td{padding:8px 12px;border-bottom:.5px solid var(--border)}
+.vt26-tbl td.r{text-align:right;font-variant-numeric:tabular-nums}
+.vt26-tbl tr:hover td{background:#f7faff}
+.vt26-search{width:100%;padding:9px 14px;border:1px solid var(--border);border-radius:10px 10px 0 0;font-size:13px;font-family:inherit;outline:none;transition:border-color .15s}
+.vt26-search:focus{border-color:var(--brand)}
+.vt26-pager{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--ts)}
+.vt26-pager button{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:11px;font-family:inherit}
+.vt26-pager button:hover{background:var(--bg)}
+.vt26-pager button:disabled{opacity:.35;cursor:default}
+.vt26-pager .pgi{flex:1;text-align:center}
+
+/* ── Breakpoints combinados de los grids genéricos (.grid2/.grid3/.kpis) ── */
+@media(max-width:1100px){
+  .kpis.k4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .grid2,.grid3,.kpis.k3,.kpis.k4{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .grid2,.grid3,.kpis.k3,.kpis.k4{grid-template-columns:1fr}
+}
+@media(min-width:1600px){
+  .modal{max-width:1200px}
+}
+@media(min-width:2200px){
+  .modal{max-width:1540px}
+}

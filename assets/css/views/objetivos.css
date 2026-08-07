@@ -1,0 +1,148 @@
+/* ====== MÓDULO OBJETIVOS — APP-STYLE REDESIGN ====== */
+/* 4 objetivos 2026 en una sola fila, columnas de igual ancho y alto */
+.obj5-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:12px;align-items:stretch}
+.obj5{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:0 2px 14px rgba(10,10,30,.07);cursor:pointer;
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+  display:flex;flex-direction:column;position:relative;
+  animation:objCardIn .5s cubic-bezier(.2,.7,.3,1) both}
+.obj5::after{content:'';position:absolute;inset:0;border-radius:16px;pointer-events:none;
+  box-shadow:0 0 0 0 rgba(0,0,0,0);transition:box-shadow .25s ease}
+.obj5:hover{transform:translateY(-5px);box-shadow:0 14px 38px rgba(10,10,30,.16);border-color:rgba(10,10,30,.12)}
+.obj5:hover .o5-prog-fill{filter:brightness(1.12) saturate(1.15)}
+.obj5:hover .o5h-icon{transform:scale(1.08) rotate(-2deg)}
+.obj5:active{transform:translateY(-2px) scale(.995)}
+@keyframes objCardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+#objetivos{padding-top:10px}
+#objetivos .sec-head{margin-bottom:8px}
+/* ── Header ── */
+.o5h{padding:clamp(13px,1.05vw,19px) clamp(15px,1.3vw,21px);flex-shrink:0;border-bottom:1px solid rgba(0,0,0,.06);
+  position:relative;overflow:hidden}
+.o5h::before{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent,#3aabef),transparent);
+  transform-origin:center;animation:o5hGlow 4.4s ease-in-out infinite;pointer-events:none}
+.o5h::after{content:'';position:absolute;top:-60%;left:-30%;width:55%;height:220%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,.4),transparent);
+  transform:translateX(-160%) rotate(10deg);animation:o5hSheen 4.4s ease-in-out infinite;pointer-events:none}
+@keyframes o5hGlow{0%,100%{opacity:.25;transform:scaleX(.7)}50%{opacity:.8;transform:scaleX(1)}}
+@keyframes o5hSheen{0%,45%{transform:translateX(-160%) rotate(10deg)}70%,100%{transform:translateX(260%) rotate(10deg)}}
+.o5h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(8px,.6vw,11px)}
+.o5h-eye{font-size:clamp(9px,.62vw,10.5px);font-weight:700;text-transform:uppercase;letter-spacing:1.2px;opacity:.7}
+.o5h-row{display:flex;align-items:center;gap:9px}
+.o5h-icon{width:clamp(26px,2.1vw,34px);height:clamp(26px,2.1vw,34px);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:clamp(13px,1.05vw,16px);flex-shrink:0;transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.o5h-name{font-size:clamp(14px,1.15vw,17px);font-weight:800;line-height:1.25}
+.o5f-chip{display:inline-flex;align-items:center;gap:5px;font-size:clamp(9px,.68vw,11px);font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0;transition:transform .2s ease}
+.obj5:hover .o5f-chip{transform:translateY(-1px)}
+.o5f-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;animation:o5DotPulse 2.2s ease-in-out infinite}
+@keyframes o5DotPulse{0%,100%{opacity:1;box-shadow:0 0 0 0 currentColor}50%{opacity:.55;box-shadow:0 0 0 3px transparent}}
+/* ── Body ── */
+.o5-body{flex:1;display:flex;flex-direction:column;padding:clamp(13px,1.1vw,18px) clamp(14px,1.2vw,19px);min-height:0;gap:clamp(11px,.9vw,15px)}
+/* ── Achievement row ── */
+.o5-achv-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.o5-achv-val{font-size:clamp(20px,2vw,30px);font-weight:900;display:block;line-height:1;letter-spacing:-.3px;
+  animation:o5ValIn .5s cubic-bezier(.2,.7,.3,1) .15s both}
+@keyframes o5ValIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.o5-achv-lbl{font-size:clamp(8.5px,.62vw,11px);color:var(--ts);font-weight:600;text-transform:uppercase;letter-spacing:.6px;display:block;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:15vw}
+.o5-achv-meta{text-align:right;flex-shrink:0;padding-top:2px}
+.o5-meta-val{font-size:clamp(12px,.95vw,15px);font-weight:800;color:var(--tm);display:block}
+.o5-meta-lbl{font-size:clamp(7px,.55vw,9.5px);color:var(--ts);display:block;margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
+/* ── Progress bar ── */
+.o5-prog{flex-shrink:0}
+.o5-prog-track{height:clamp(8px,.62vw,11px);background:#eaeff7;border-radius:7px;overflow:hidden;margin-bottom:7px;position:relative}
+.o5-prog-fill{height:100%;border-radius:7px;width:0;transition:width 1.15s cubic-bezier(.4,0,.2,1),filter .25s ease;position:relative}
+.o5-prog-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:translateX(-100%);animation:o5Shimmer 2.6s ease-in-out .9s infinite}
+@keyframes o5Shimmer{0%{transform:translateX(-100%)}55%,100%{transform:translateX(220%)}}
+.o5-prog-foot{display:flex;align-items:center;justify-content:space-between}
+.o5-prog-lbl{font-size:clamp(8px,.58vw,10px);color:var(--ts);font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+.o5-prog-pct{font-size:clamp(13px,1.02vw,16px);font-weight:900;transition:color .2s ease}
+/* ── Stats chips — apiladas verticalmente, una fila por stat ── */
+.o5-stats{display:flex;flex-direction:column;gap:clamp(5px,.4vw,7px)}
+.o5-stat{background:#f5f7fc;border-radius:8px;padding:clamp(6px,.5vw,9px) clamp(9px,.75vw,12px);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease}
+.obj5:hover .o5-stat{background:#eef1fa}
+.o5-stat-lbl{order:1;font-size:clamp(7.5px,.56vw,10px);color:var(--ts);font-weight:600;text-transform:uppercase;letter-spacing:.4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.o5-stat-val{order:2;font-size:clamp(10.5px,.86vw,13.5px);font-weight:800;line-height:1.2;flex-shrink:0;white-space:nowrap;padding-left:8px}
+/* ── Status color classes ── */
+.o5-stat-val.c-ok,.o5-achv-val.c-ok{color:#16a34a}
+.o5-stat-val.c-warn,.o5-achv-val.c-warn{color:#d97706}
+.o5-stat-val.c-crit,.o5-achv-val.c-crit{color:#dc2626}
+
+/* ── Objetivos: hero compacto + tabs internos ── */
+.obj-hero{position:relative;border-radius:14px;overflow:hidden;margin-bottom:16px;
+  background:linear-gradient(120deg,#071430 0%,#0d2454 55%,#071430 100%);
+  border:1px solid rgba(62,198,172,.18);box-shadow:var(--sh2);
+  padding:clamp(16px,1.6vw,24px) clamp(20px,2.2vw,30px)}
+.obj-hero::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(62,198,172,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(62,198,172,.05) 1px,transparent 1px);
+  background-size:48px 48px;z-index:0;pointer-events:none}
+.obj-hero::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 55% 90% at 18% 50%,rgba(62,198,172,.12) 0%,transparent 70%);
+  z-index:0;pointer-events:none}
+.obj-hero-in{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.obj-hero-left{min-width:0}
+.obj-hero-eye{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--brand);margin-bottom:7px}
+.obj-hero-title{font-size:clamp(18px,1.8vw,26px);font-weight:900;color:#fff;line-height:1.15}
+.obj-hero-sub{font-size:12.5px;color:rgba(255,255,255,.58);margin-top:7px;max-width:640px;line-height:1.55}
+.obj-hero-kpis{display:flex;gap:0;flex-shrink:0}
+.obj-hkpi{padding:0 20px;border-right:1px solid rgba(255,255,255,.12);text-align:right}
+.obj-hkpi:last-child{border-right:none;padding-right:0}
+.obj-hkpi-v{display:block;font-size:clamp(18px,1.8vw,26px);font-weight:900;color:#fff;line-height:1;white-space:nowrap}
+.obj-hkpi-l{display:block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);margin-top:5px;white-space:nowrap}
+
+.obj-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.obj-tab{padding:8px 18px;border-radius:9px;border:1.5px solid var(--border);font-size:12px;font-weight:700;
+  cursor:pointer;transition:.15s;background:#fff;color:var(--ts);text-transform:uppercase;letter-spacing:.4px;
+  user-select:none;display:inline-flex;align-items:center;gap:6px}
+.obj-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.obj-tab:not(.active):hover{border-color:var(--brand);color:var(--brand-d)}
+.obj-pane{display:none}
+.obj-pane.active{display:block;animation:fadeUp .3s ease}
+
+@media(max-width:760px){
+  .obj-hero-in{flex-direction:column;align-items:flex-start}
+  .obj-hero-kpis{width:100%;justify-content:space-between}
+  .obj-hkpi{padding:0 12px 0 0;text-align:left}
+}
+
+/* Detail view */
+.od{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);flex-direction:column}
+.od.open{display:flex;animation:slideInRight .3s ease}
+.od-tb{background:#fff;border-bottom:1px solid var(--border);padding:0 26px;height:50px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(10,10,30,.05)}
+.od-back{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;cursor:pointer;padding:5px 11px;border-radius:7px;border:1.5px solid;transition:.15s;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0;background:transparent}
+.od-tb-title{font-size:13px;font-weight:800;color:var(--t)}
+.od-tb-chip{margin-left:auto;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0}
+.od-body{flex:1;overflow-y:auto;padding:20px 26px}
+.od-hero{border-radius:12px;padding:20px 22px;margin-bottom:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px}
+.od-kpi{padding-right:14px;border-right:1px solid rgba(255,255,255,.1)}
+.od-kpi:last-child{border-right:none;padding-right:0}
+.od-kl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.45);display:block;margin-bottom:3px}
+.od-kv{font-size:clamp(18px,2.2vw,30px);font-weight:900;color:#fff;display:block;line-height:1}
+.od-ks{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;display:block}
+.od-tabs{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap}
+.od-tab{padding:7px 16px;border-radius:8px;border:2px solid var(--border);font-size:11.5px;font-weight:600;cursor:pointer;transition:.15s;background:#fff;color:var(--ts)}
+.od-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.od-tab:not(.active):hover{border-color:#3d4a6a;color:#3d4a6a}
+.od-pane{display:none}
+.od-pane.active{display:block;animation:fadeUp .25s ease}
+.od-g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.od-card{background:#fff;border:1px solid var(--border);border-radius:11px;padding:15px 16px;box-shadow:var(--sh);margin-bottom:14px}
+.od-card h4{font-size:12px;font-weight:700;margin-bottom:10px;color:var(--t);text-transform:uppercase;letter-spacing:.5px}
+.od-note{font-size:11px;color:var(--ts);background:#f7f9fc;border-radius:7px;padding:9px 13px;line-height:1.6;border-left:3px solid var(--border);margin-top:10px}
+.sc{width:100%;background:#fff;border-radius:11px;overflow:hidden;box-shadow:var(--sh);border:1px solid var(--border);border-collapse:collapse;margin-bottom:14px}
+.sc th{background:var(--navy);color:rgba(255,255,255,.75);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;padding:10px 13px;text-align:left}
+.sc th.r,.sc td.r{text-align:right}
+.sc td{padding:9px 13px;font-size:12px;border-bottom:1px solid var(--border);color:var(--t)}
+.sc tr:last-child td{border-bottom:none}
+.sc tr:hover td{background:#f7faff}
+.sb-ok{background:#dcfce7;color:#16a34a;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
+.sb-warn{background:#fef9c3;color:#ca8a04;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
+.sb-crit{background:#fee2e2;color:#dc2626;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
+.sb-info{background:rgba(62,198,172,.12);color:#0F6E56;display:inline-block;padding:2px 7px;border-radius:5px;font-size:10.5px;font-weight:700}
+
+@media(max-width:1100px){.obj5-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr}}
+@media(max-width:560px){
+  .obj5-grid{grid-template-columns:1fr}
+}
