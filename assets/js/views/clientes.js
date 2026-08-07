@@ -501,11 +501,14 @@ export const ready = (async function init() {
     setTxt('paretoTblTitle', 'Detalle · cartera completa (' + CLI_HIST.length + ' clientes)');
   })();
 
-  /* ── Treemap — Top 5 histórico / Top 5 2026 (derivado de CLI_HIST / VT_TOP5) ── */
+  /* ── Treemap — Top 5 histórico / Top 3 2026 (derivado de CLI_HIST / VT_TOP5) ──
+     En 2026 el top 1 suele concentrar la mayor parte del monto y con 5 celdas
+     las últimas quedan demasiado angostas para mostrar nombre + importe; con
+     3 cada celda conserva suficiente ancho/alto. */
   CLI_TM_HIST = CLI_TOP5_HIST.map(function (c) {
     return { n: c.cliente, v: c.importe, p: CLI_TOTAL_HISTORICO ? Math.round(c.importe / CLI_TOTAL_HISTORICO * 10000) / 100 : 0, s: _cliSegOf(c.cliente) };
   });
-  CLI_TM_CURR = ventasAgg.VT_TOP5.map(function (c) {
+  CLI_TM_CURR = ventasAgg.VT_TOP5.slice(0, 3).map(function (c) {
     return { n: c.cliente, v: c.importe, p: ventasAgg.VT_2026_TOTAL ? Math.round(c.importe / ventasAgg.VT_2026_TOTAL * 10000) / 100 : 0, s: _cliSegOf(c.cliente) };
   });
   (function () {
