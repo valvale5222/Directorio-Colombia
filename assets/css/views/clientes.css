@@ -1,9 +1,5 @@
-/* ── Cursor personalizado — inspirado en el ícono de Friopacking
-   (engranaje + copo de nieve), pequeño y con hotspot centrado. Se
-   degrada a 'auto' en navegadores sin soporte de cursores SVG. ── */
-#clientes,#clientes *{
-  cursor:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyOCcgaGVpZ2h0PScyOCcgdmlld0JveD0nMCAwIDI4IDI4Jz48ZyBmaWxsPScjM0VDNkFDJyBzdHJva2U9JyMwYTBhMWUnIHN0cm9rZS13aWR0aD0nMC42JyBzdHJva2UtbGluZWpvaW49J3JvdW5kJz48Y2lyY2xlIGN4PScxNCcgY3k9JzYuMicgcj0nMy4xJy8+PGNpcmNsZSBjeD0nMjAuNycgY3k9JzEwLjEnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzIwLjcnIGN5PScxNy45JyByPSczLjEnLz48Y2lyY2xlIGN4PScxNCcgY3k9JzIxLjgnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzcuMycgY3k9JzE3LjknIHI9JzMuMScvPjxjaXJjbGUgY3g9JzcuMycgY3k9JzEwLjEnIHI9JzMuMScvPjxjaXJjbGUgY3g9JzE0JyBjeT0nMTQnIHI9JzcuMScvPjwvZz48Y2lyY2xlIGN4PScxNCcgY3k9JzE0JyByPSczLjQnIGZpbGw9J3doaXRlJy8+PC9zdmc+") 14 14,auto!important;
-}
+/* Cursor personalizado con el isotipo de Friopacking: ahora vive de forma
+   global en base.css (aplica a toda la app, no solo a esta vista). */
 
 /* ── Treemap — Top 5 Clientes ─────────────────────────────
    El tamaño de letra y el clamp de líneas del nombre se fijan por celda
