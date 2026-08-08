@@ -109,6 +109,50 @@ window.objTab = objTab;
 window.odOpen = odOpen;
 window.odClose = odClose;
 
+// Ordenador de mayor a menor / menor a mayor por clic en encabezado —
+// opera directamente sobre las filas <tr> de la tabla estática (Objetivo 1),
+// dejando fija la fila de TOTAL (.od-tot) al final.
+function parseSortValue(text, type) {
+  const t = text.trim();
+  if (type === 'date') {
+    const m = t.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+    return m ? new Date(+m[3], +m[2] - 1, +m[1]).getTime() : 0;
+  }
+  const n = parseFloat(t.replace(/[^0-9.-]/g, ''));
+  return isNaN(n) ? 0 : n;
+}
+
+function wireStaticSort(tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  const tbody = table.querySelector('tbody');
+  const totalRow = tbody.querySelector('tr.od-tot');
+  let sc = -1, sa = true;
+  table.querySelectorAll('th[data-col]').forEach(function (th) {
+    th.addEventListener('click', function () {
+      const col = +th.dataset.col;
+      const type = th.dataset.type;
+      sa = sc === col ? !sa : true;
+      sc = col;
+      table.querySelectorAll('th[data-col]').forEach(function (t) {
+        t.classList.remove('sorted');
+        const si = t.querySelector('.sic'); if (si) si.textContent = '↕';
+      });
+      th.classList.add('sorted');
+      const si = th.querySelector('.sic'); if (si) si.textContent = sa ? '▲' : '▼';
+      const rows = Array.prototype.filter.call(tbody.children, function (r) { return r !== totalRow; });
+      rows.sort(function (ra, rb) {
+        const va = parseSortValue(ra.children[col].textContent, type);
+        const vb = parseSortValue(rb.children[col].textContent, type);
+        return sa ? va - vb : vb - va;
+      });
+      rows.forEach(function (r) { tbody.insertBefore(r, totalRow || null); });
+    });
+  });
+}
+
+wireStaticSort('od1Tbl');
+
 export const ready = (async function init() {
   var OBJ5 = await getObjetivos();
 
