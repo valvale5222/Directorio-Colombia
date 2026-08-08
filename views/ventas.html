@@ -169,6 +169,41 @@
         <div class="chart-wrap" style="height:clamp(230px,19vw,320px)"><canvas id="chMargenAnual"></canvas></div>
       </div>
     </div>
+
+    <!-- SECCIÓN — DETALLE DE VENTAS 2023-2026 -->
+    <div class="sec-head" style="margin-top:24px">
+      <h1>Detalle de Ventas 2023-2026</h1>
+      <span class="sub" id="vtAllSubHead">Registros disponibles en la fuente</span>
+    </div>
+    <div class="card vt-anim vt-panel" style="padding:0;overflow:hidden;margin-bottom:0">
+      <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="vt-card-ttl">Operaciones comerciales 2023-2026</div>
+          <div class="vt-card-sub" id="vtAllInfo"></div>
+        </div>
+        <input class="vt26-search" id="vtAllSearch" placeholder="Buscar por cliente…" style="max-width:260px;border-radius:8px;margin:0;padding:7px 12px">
+      </div>
+      <div class="vt26-wrap">
+        <table class="vt26-tbl" id="vtAllTbl">
+          <thead>
+            <tr>
+              <th data-col="0">Fecha <span class="sic">↕</span></th>
+              <th data-col="1">Cliente <span class="sic">↕</span></th>
+              <th data-col="2">Tipo de venta <span class="sic">↕</span></th>
+              <th data-col="3" class="r">Importe <span class="sic">↕</span></th>
+              <th data-col="4" class="r">Margen % <span class="sic">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="vtAllBody"></tbody>
+        </table>
+      </div>
+      <div class="vt26-pager" style="padding:8px 14px">
+        <button id="vtAllPrev" disabled>&#8592; Anterior</button>
+        <span class="pgi" id="vtAllPagInfo"></span>
+        <button id="vtAllNext">Siguiente &#8594;</button>
+      </div>
+      <div style="padding:8px 18px 14px;font-size:10.5px;color:var(--ts)">Clic en una fila para ver detalle completo (fruta, refrigerante, vendedor y descripci&oacute;n del proyecto).</div>
+    </div>
   </div>
   <!-- /TAB 2 · EVOLUCIÓN DE VENTAS -->
 

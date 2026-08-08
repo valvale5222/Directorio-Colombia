@@ -11,6 +11,7 @@ const INK = () => (isDarkTheme() ? '#e7ebf6' : '#0a0a1e');
 const INK_MUTED = () => (isDarkTheme() ? '#c3cbe6' : '#3d4a6a');
 
 let agg = null; // se llena en ready()
+let ventasFull = null; // histórico completo (todas las filas de data/ventas.json), se llena en ready()
 
 function _renderVtLegend(id) {
   const el = document.getElementById(id);
@@ -597,6 +598,7 @@ export function animVtHero() {
 export const ready = (async function init() {
   const ventas = await getVentas();
   agg = computeVentasAggregates(ventas);
+  ventasFull = ventas;
 
   _renderVtLegend('vtLeg1');
   _hmapRender();
@@ -1034,6 +1036,124 @@ export const ready = (async function init() {
 
     /* Pagination */
     const prev = document.getElementById('vt26Prev'), next = document.getElementById('vt26Next');
+    if (prev) prev.addEventListener('click', () => { pg--; renderTable(); });
+    if (next) next.addEventListener('click', () => { pg++; renderTable(); });
+
+    renderTable();
+  })();
+
+  /* ── Detalle Ventas 2023-2026 — mismo motor de búsqueda/orden/paginación que
+     el detalle 2026, pero sobre el histórico completo (todas las filas de la fuente). ── */
+  (function () {
+    const tbody = document.getElementById('vtAllBody');
+    if (!tbody) return;
+    const TIPO_LABELS = { PR: 'Proyecto', VS: 'Venta de Servicio', AD: 'Adicional' };
+    function tipoLabel(cod) {
+      if (!cod) return '-';
+      if (cod === 'MIXTO') return 'Mixto';
+      return TIPO_LABELS[cod] || cod;
+    }
+    /* Ordenar de mayor a menor por importe; _idx conserva la posición original
+       en ventasFull como clave estable (puede haber fechas repetidas entre clientes distintos). */
+    const rows = ventasFull.map((r, i) => ({ ...r, _idx: i })).sort((a, b) => b.importe - a.importe);
+    const PG = 15;
+    let pg = 0, sc = -1, sa = true, q = '';
+    const SORT_FIELDS = ['fechaISO', 'cliente', 'tipoVenta', 'importe', 'margen'];
+
+    const fmtV = fmtEjecutivo;
+    function mgCls(v) { return v >= 18 ? 'mg-ok' : v >= 12 ? 'mg-warn' : 'mg-crit'; }
+    function fechaCorta(iso) { const d = new Date(iso); return String(d.getUTCDate()).padStart(2, '0') + '/' + String(d.getUTCMonth() + 1).padStart(2, '0') + '/' + d.getUTCFullYear(); }
+
+    const totalImpAll = rows.reduce((s, r) => s + r.importe, 0);
+    const mgRows = rows.filter((r) => r.margen != null);
+    const totalMgAll = mgRows.length ? mgRows.reduce((s, r) => s + r.importe * r.margen, 0) / mgRows.reduce((s, r) => s + r.importe, 0) : null;
+
+    (function () {
+      const subEl = document.getElementById('vtAllSubHead');
+      if (subEl) subEl.textContent = 'Registros disponibles en la fuente al ' + agg.VT_LAST_SALE_TXT;
+      const infoEl = document.getElementById('vtAllInfo');
+      if (infoEl) infoEl.textContent = rows.length + ' operaciones · Total: ' + fmtEjecutivo(totalImpAll);
+    })();
+
+    function renderTable() {
+      const fq = q.toLowerCase();
+      let filtered = rows.filter((r) => r.cliente.toLowerCase().indexOf(fq) > -1 || tipoLabel(r.tipoVenta).toLowerCase().indexOf(fq) > -1);
+      if (sc >= 0) {
+        const key = SORT_FIELDS[sc];
+        filtered = [].concat(filtered).sort((a, b) => {
+          let va = a[key], vb = b[key];
+          if (va == null) va = (key === 'margen') ? -1 : (typeof vb === 'number' ? 0 : '');
+          if (vb == null) vb = (key === 'margen') ? -1 : (typeof va === 'number' ? 0 : '');
+          const c = typeof va === 'number' ? (va - vb) : (va < vb ? -1 : va > vb ? 1 : 0);
+          return sa ? c : -c;
+        });
+      }
+      const maxP = Math.max(0, Math.ceil(filtered.length / PG) - 1);
+      if (pg > maxP) pg = maxP;
+      const pr = filtered.slice(pg * PG, (pg + 1) * PG);
+      let html = '';
+      pr.forEach((r) => {
+        const mg = r.margen;
+        html += '<tr style="cursor:pointer" onclick="_openVtAllDetail(' + r._idx + ')">'
+          + '<td>' + fechaCorta(r.fechaISO) + '</td>'
+          + '<td style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">' + r.cliente + '</td>'
+          + '<td><span style="font-size:10px;padding:2px 7px;border-radius:4px;background:#f0f4f9;color:var(--ts);font-weight:600">' + tipoLabel(r.tipoVenta) + '</span></td>'
+          + '<td class="r" style="font-weight:700">' + fmtV(r.importe) + '</td>'
+          + '<td class="r">' + (mg != null ? ('<span class="' + mgCls(mg * 100) + '">' + (mg * 100).toFixed(2) + '%</span>') : '-') + '</td>'
+          + '</tr>';
+      });
+      if (!pr.length) html = '<tr><td colspan="5" style="text-align:center;color:var(--ts);padding:20px">Sin resultados</td></tr>';
+      html += '<tr class="tbl-total-row">'
+        + '<td colspan="3" style="font-weight:800">TOTAL (' + rows.length + ' operaciones)</td>'
+        + '<td class="r" style="font-weight:900">' + fmtEjecutivo(totalImpAll) + '</td>'
+        + '<td class="r" style="font-weight:900">' + (totalMgAll != null ? (totalMgAll * 100).toFixed(2) + '%' : '-') + '</td>'
+        + '</tr>';
+      tbody.innerHTML = html;
+      const info = document.getElementById('vtAllPagInfo');
+      if (info) info.textContent = 'Pág. ' + (pg + 1) + '/' + (maxP + 1) + ' · ' + filtered.length + ' registros';
+      const prev = document.getElementById('vtAllPrev'), next = document.getElementById('vtAllNext');
+      if (prev) prev.disabled = pg === 0;
+      if (next) next.disabled = pg >= maxP;
+    }
+
+    /* Modal de detalle completo por fila — se indexa por posición original en
+       ventasFull (_idx) en vez de por fecha, porque el histórico completo puede
+       tener más de una venta en la misma fecha. */
+    window._openVtAllDetail = function (idx) {
+      const r = ventasFull[idx];
+      if (!r) return;
+      const html = '<table class="sc"><tbody>'
+        + '<tr><td>Fecha</td><td class="r">' + fechaCorta(r.fechaISO) + '</td></tr>'
+        + '<tr><td>Cliente</td><td class="r">' + r.cliente + '</td></tr>'
+        + '<tr><td>Fruta</td><td class="r">' + (r.fruta || '-') + '</td></tr>'
+        + '<tr><td>Refrigerante</td><td class="r">' + (r.refrigerante || '-') + '</td></tr>'
+        + '<tr><td>Vendedor</td><td class="r">' + (r.vendedor || '-') + '</td></tr>'
+        + '<tr><td>Margen %</td><td class="r">' + (r.margen != null ? (r.margen * 100).toFixed(2) + '%' : '-') + '</td></tr>'
+        + '<tr><td>Importe</td><td class="r">' + fmtEjecutivo(r.importe) + '</td></tr>'
+        + '<tr><td>Tipo de venta</td><td class="r">' + tipoLabel(r.tipoVenta) + '</td></tr>'
+        + '<tr><td>Descripción del proyecto</td><td class="r">' + (r.nombreProyecto || '-') + '</td></tr>'
+        + '</tbody></table>';
+      openModal('Detalle de venta · ' + r.cliente, html, fechaCorta(r.fechaISO));
+    };
+
+    /* Sort by header click */
+    document.querySelectorAll('#vtAllTbl th[data-col]').forEach((th) => {
+      th.style.cursor = 'pointer';
+      th.addEventListener('click', () => {
+        const col = +th.getAttribute('data-col');
+        if (sc === col) sa = !sa; else { sc = col; sa = col === 3 || col === 4 ? false : true; }
+        document.querySelectorAll('#vtAllTbl th').forEach((t) => { t.classList.remove('sorted'); const si = t.querySelector('.sic'); if (si) si.textContent = '↕'; });
+        th.classList.add('sorted'); const si = th.querySelector('.sic'); if (si) si.textContent = sa ? '▲' : '▼';
+        pg = 0; renderTable();
+      });
+    });
+
+    /* Search */
+    const srch = document.getElementById('vtAllSearch');
+    if (srch) srch.addEventListener('input', function () { q = this.value; pg = 0; renderTable(); });
+
+    /* Pagination */
+    const prev = document.getElementById('vtAllPrev'), next = document.getElementById('vtAllNext');
     if (prev) prev.addEventListener('click', () => { pg--; renderTable(); });
     if (next) next.addEventListener('click', () => { pg++; renderTable(); });
 
