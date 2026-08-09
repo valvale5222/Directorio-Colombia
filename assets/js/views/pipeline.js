@@ -216,7 +216,7 @@ export const ready = (async function init() {
   /* ── Mini-tabs de vista ── */
   function switchView(view) {
     document.querySelectorAll('#pipeViewTabs .pipe-tab').forEach(function(t){ t.classList.toggle('active', t.dataset.view===view); });
-    var map = {resumen:'pipeViewResumen', forecast:'pipeViewForecast', clientes:'pipeViewClientes'};
+    var map = {resumen:'pipeViewResumen', forecast:'pipeViewForecast', diversificacion:'pipeViewDiversificacion', clientes:'pipeViewClientes'};
     Object.keys(map).forEach(function(k){
       var el = document.getElementById(map[k]); if (el) el.classList.toggle('active', k===view);
     });
@@ -705,6 +705,169 @@ export const ready = (async function init() {
       + '</div></div>';
   }
 
+  /* ════════════════════════════════════════════════════════════
+     VISTA · DIVERSIFICACIÓN NO AGRO (selector de año propio 2026|2027).
+     AGRO/NO AGRO se lee directamente de r.agro, sin reclasificar registros.
+     "Activo" aquí excluye Perdido, Cancelado y Postpuesto (más estricto que
+     activeRows(), que sólo excluye Perdido/Cancelado — regla propia de este tab).
+     ════════════════════════════════════════════════════════════ */
+  var DIV_YEARS = YEARS_ALLOWED;
+  var _pipeDivYear = DIV_YEARS[0];
+
+  var DIV_SECTOR_COLOR = {
+    'Centros logísticos / CEDI': '#1E3A5F',
+    'Cárnicos': '#D97706',
+    'Lácteos / derivados': '#3EC6AC'
+  };
+  var DIV_SECTOR_ICON = {
+    'Centros logísticos / CEDI': 'warehouse',
+    'Cárnicos': 'kebab_dining',
+    'Lácteos / derivados': 'water_drop'
+  };
+  function divSectorColor(s) { return DIV_SECTOR_COLOR[s] || '#7B8DB0'; }
+  function divSectorIcon(s) { return DIV_SECTOR_ICON[s] || 'category'; }
+  /* Deriva el sector comercial a partir de PRODUCTO — la base no trae una
+     columna de sector propia. Sólo agrupa sinónimos observados; cualquier
+     producto no reconocido conserva su propio nombre como sector. */
+  function sectorFromProducto(producto) {
+    var p = normSearch(producto);
+    if (!p) return 'Otros sectores';
+    if (p.indexOf('logist') >= 0) return 'Centros logísticos / CEDI';
+    if (p.indexOf('carnic') >= 0) return 'Cárnicos';
+    if (p.indexOf('lacte') >= 0 || p.indexOf('queso') >= 0) return 'Lácteos / derivados';
+    return producto.charAt(0).toUpperCase() + producto.slice(1).toLowerCase();
+  }
+
+  function divRowsYear(y) { return rows.filter(function(r){ return r.anio === y; }); }
+  function divActiveRows(y) { return divRowsYear(y).filter(function(r){ return r.estado!=='Perdido' && r.estado!=='Cancelado' && r.estado!=='Postpuesto'; }); }
+  function divActiveNoAgro(y) { return divActiveRows(y).filter(function(r){ return r.agro==='NO AGRO'; }); }
+
+  function renderDivYearSel() {
+    var el = document.getElementById('pipeDivYearSel');
+    if (!el) return;
+    el.innerHTML = '<div class="ym-years" role="tablist" aria-label="Año">'
+      + DIV_YEARS.map(function(y) {
+          return '<button type="button" class="ym-year' + (y===_pipeDivYear?' active':'') + '" data-year="' + y + '" role="tab" aria-selected="' + (y===_pipeDivYear) + '">'
+            + '<span class="material-symbols-rounded" aria-hidden="true">event</span><span>' + y + '</span></button>';
+        }).join('')
+      + '</div>';
+  }
+  var pipeDivYearSelEl = document.getElementById('pipeDivYearSel');
+  if (pipeDivYearSelEl) pipeDivYearSelEl.addEventListener('click', function(e) {
+    var b = e.target.closest('.ym-year'); if (!b) return;
+    var y = Number(b.dataset.year);
+    if (y !== _pipeDivYear) { _pipeDivYear = y; renderDivAll(); }
+  });
+
+  function renderDivKpis() {
+    var y = _pipeDivYear;
+    var noAgroActive = divActiveNoAgro(y);
+    var totalActive = divActiveRows(y);
+    var noAgroA = agg(noAgroActive);
+    var totalA = agg(totalActive);
+    var participacion = totalA.importe ? (noAgroA.importe / totalA.importe * 100) : 0;
+    var weighted = noAgroActive
+      .filter(function(r){ return r.probabilidad != null && r.probabilidad >= 0.6; })
+      .reduce(function(s, r){ return s + (r.dolares||0) * r.probabilidad; }, 0);
+
+    var html = ''
+      + kpiCard('#3EC6AC', 'Pipeline NO AGRO activo', fmtEjecutivo(noAgroA.importe), noAgroA.count + ' oportunidad' + (noAgroA.count===1?'':'es') + ' &middot; ' + y, null, 'workspaces')
+      + kpiCard('#1E3A5F', 'Participaci&oacute;n NO AGRO', participacion.toFixed(1) + '%', fmtEjecutivo(noAgroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), 'donut_large')
+      + kpiCard('#D97706', 'Pipeline NO AGRO ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;60%', null, 'trending_up');
+    var el = document.getElementById('pipeDivKpis');
+    if (el) el.innerHTML = html;
+  }
+
+  /* Lista de barras horizontales compartida por "por sector" y "madurez" —
+     mismo lenguaje visual que el embudo de Resumen (fstage-v2/fv2-bar). */
+  function divBarListHtml(items, totalImporte) {
+    var maxV = Math.max.apply(null, items.map(function(it){ return it.importe; }).concat([1]));
+    return items.map(function(it) {
+      var pct = totalImporte ? (it.importe/totalImporte*100) : 0;
+      var w = it.importe ? Math.max(6, it.importe/maxV*100) : 3;
+      return '<div class="div-bar-row" style="--stage-c:' + it.color + '">'
+        + '<div class="div-bar-label"><span class="material-symbols-rounded div-bar-icon" aria-hidden="true" style="color:' + it.color + '">' + it.icon + '</span>' + it.label + '</div>'
+        + '<div class="div-bar-track"><div class="div-bar-fill" style="width:' + w + '%;background:linear-gradient(90deg,' + it.color + 'b3,' + it.color + ')"></div></div>'
+        + '<div class="div-bar-meta">' + fmtEjecutivo(it.importe) + ' <span class="div-bar-pct">&middot; ' + pct.toFixed(1) + '%</span></div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function renderDivSectorChart() {
+    var y = _pipeDivYear;
+    var noAgroActive = divActiveNoAgro(y);
+    var total = agg(noAgroActive).importe;
+    var bySector = {};
+    noAgroActive.forEach(function(r) {
+      var s = sectorFromProducto(r.producto);
+      bySector[s] = (bySector[s]||0) + (r.dolares||0);
+    });
+    var items = Object.keys(bySector).map(function(s) {
+      return {label:s, importe:bySector[s], color:divSectorColor(s), icon:divSectorIcon(s)};
+    }).sort(function(a,b){ return b.importe - a.importe; });
+    var el = document.getElementById('pipeDivSectorChart');
+    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades NO AGRO', 'No hay oportunidades NO AGRO activas en ' + y + '.');
+    var lblEl = document.getElementById('pipeDivSectorYearLbl');
+    if (lblEl) lblEl.textContent = y;
+  }
+
+  function renderDivMaturityChart() {
+    var y = _pipeDivYear;
+    var noAgroActive = divActiveNoAgro(y);
+    var total = agg(noAgroActive).importe;
+    var byEstado = {};
+    noAgroActive.forEach(function(r) { byEstado[r.estado] = (byEstado[r.estado]||0) + (r.dolares||0); });
+    var items = PIPE_ESTADOS.filter(function(e){ return byEstado[e] > 0; }).map(function(e) {
+      return {label:e, importe:byEstado[e], color:PIPE_ESTADO_COLOR[e], icon:PIPE_ESTADO_ICON[e]};
+    }).sort(function(a,b){ return b.importe - a.importe; });
+    var el = document.getElementById('pipeDivMaturityChart');
+    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades NO AGRO', 'No hay oportunidades NO AGRO activas en ' + y + '.');
+    var lblEl = document.getElementById('pipeDivMaturityYearLbl');
+    if (lblEl) lblEl.textContent = y;
+  }
+
+  function divProbChipStyle(p) {
+    if (p == null) return {bg:'#f1f5f9', color:'#7B8DB0'};
+    if (p >= 0.8) return {bg:'rgba(15,110,86,.14)', color:'#0F6E56'};
+    if (p >= 0.6) return {bg:'rgba(62,198,172,.14)', color:'#0F6E56'};
+    if (p >= 0.4) return {bg:'#fef3c7', color:'#B45309'};
+    return {bg:'#f1f5f9', color:'#7B8DB0'};
+  }
+
+  function renderDivTable() {
+    var y = _pipeDivYear;
+    var titleEl = document.getElementById('pipeDivTableTitle');
+    if (titleEl) titleEl.textContent = 'Oportunidades NO AGRO · ' + y;
+    var noAgroActive = divActiveNoAgro(y).slice().sort(function(a,b){ return (b.dolares||0)-(a.dolares||0); });
+    var body = '';
+    noAgroActive.forEach(function(r) {
+      var sector = sectorFromProducto(r.producto);
+      var sc = divSectorColor(sector);
+      var probPct = r.probabilidad != null ? (r.probabilidad*100).toFixed(0)+'%' : '—';
+      var pStyle = divProbChipStyle(r.probabilidad);
+      var mesLbl = r.mesCierre != null ? meses[r.mesCierre-1] + ' ' + r.anio : '—';
+      body += '<tr>'
+        + '<td style="font-weight:700">' + r.cliente + '</td>'
+        + '<td><span class="pipe-mini-badge" style="background:' + sc + '22;color:' + sc + '">' + sector + '</span></td>'
+        + '<td class="r" style="font-weight:700">' + fmtEjecutivo(r.dolares) + '</td>'
+        + '<td><span class="pipe-mini-badge" style="background:' + pStyle.bg + ';color:' + pStyle.color + '">' + probPct + '</span></td>'
+        + '<td><span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[r.estado] + ';color:' + PIPE_ESTADO_COLOR[r.estado] + '"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[r.estado] + '</span>' + r.estado + '</span></td>'
+        + '<td>' + mesLbl + '</td>'
+        + '</tr>';
+    });
+    if (!body) body = '<tr><td colspan="6" style="text-align:center;color:var(--ts);padding:20px">Sin oportunidades NO AGRO activas en ' + y + '</td></tr>';
+    var bodyEl = document.getElementById('pipeDivTableBody');
+    if (bodyEl) bodyEl.innerHTML = body;
+  }
+
+  function renderDivAll() {
+    renderDivYearSel();
+    renderDivKpis();
+    renderDivSectorChart();
+    renderDivMaturityChart();
+    renderDivTable();
+  }
+
   /* ── Orquestador ── */
   function renderPipeAll() {
     renderHero();
@@ -715,6 +878,7 @@ export const ready = (async function init() {
     renderProbChips();
     renderEstadoChips();
     renderForecastAll();
+    renderDivAll();
     renderClienteTabs();
     renderClienteGroups();
   }

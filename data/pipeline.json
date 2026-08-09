@@ -10,7 +10,7 @@
     "probabilidad": 0.4,
     "estado": "Postpuesto",
     "refrigerante": "CO2",
-    "agro": "NO AGRO",
+    "agro": "AGRO",
     "tipoVenta": "PR",
     "anio": 2027
   },
@@ -25,7 +25,7 @@
     "probabilidad": 0.05,
     "estado": "Postpuesto",
     "refrigerante": "FREON",
-    "agro": "AGRO",
+    "agro": "NO AGRO",
     "tipoVenta": "PR",
     "anio": 2027
   },
@@ -70,7 +70,7 @@
     "probabilidad": 0.2,
     "estado": "Postpuesto",
     "refrigerante": "PROPANO",
-    "agro": "NO AGRO",
+    "agro": "AGRO",
     "tipoVenta": "PR",
     "anio": 2026
   },
@@ -100,7 +100,7 @@
     "probabilidad": 0.8,
     "estado": "Negociación",
     "refrigerante": "FREON",
-    "agro": "NO AGRO",
+    "agro": "AGRO",
     "tipoVenta": "PR",
     "anio": 2026
   },
@@ -115,7 +115,7 @@
     "probabilidad": 0.2,
     "estado": "En análisis",
     "refrigerante": "FREON",
-    "agro": "NO AGRO",
+    "agro": "AGRO",
     "tipoVenta": "PR",
     "anio": 2026
   },
@@ -250,7 +250,7 @@
     "probabilidad": 0.6,
     "estado": "En análisis",
     "refrigerante": "FREON",
-    "agro": "AGRO",
+    "agro": "NO AGRO",
     "tipoVenta": "PR",
     "anio": 2026
   },
@@ -295,7 +295,7 @@
     "probabilidad": 0.4,
     "estado": "En análisis",
     "refrigerante": "FREON",
-    "agro": "AGRO",
+    "agro": "NO AGRO",
     "tipoVenta": "VS",
     "anio": 2026
   },
@@ -340,7 +340,7 @@
     "probabilidad": 0.6,
     "estado": "En proceso de cotización",
     "refrigerante": "FREON",
-    "agro": "NO AGRO",
+    "agro": "AGRO",
     "tipoVenta": "VS",
     "anio": 2026
   },
@@ -370,7 +370,7 @@
     "probabilidad": 0.05,
     "estado": "Prospecto",
     "refrigerante": "AMONIACO",
-    "agro": "AGRO",
+    "agro": "NO AGRO",
     "tipoVenta": "PR",
     "anio": 2027
   },
@@ -415,7 +415,7 @@
     "probabilidad": 0.05,
     "estado": "Prospecto",
     "refrigerante": "CO2",
-    "agro": "AGRO",
+    "agro": "NO AGRO",
     "tipoVenta": "VS",
     "anio": 2027
   },
