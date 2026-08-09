@@ -759,6 +759,12 @@ export const ready = (async function init() {
     if (y !== _pipeDivYear) { _pipeDivYear = y; renderDivAll(); }
   });
 
+  /* Umbral mínimo de probabilidad para el KPI ponderado — varía por año porque
+     el máximo de probabilidad disponible entre las oportunidades NO AGRO
+     activas difiere de un año a otro (60% en 2026, 40% en 2027). */
+  var DIV_WEIGHTED_THRESHOLD = { 2026: 0.6, 2027: 0.4 };
+  function divWeightedThreshold(y) { return DIV_WEIGHTED_THRESHOLD[y] != null ? DIV_WEIGHTED_THRESHOLD[y] : 0.6; }
+
   function renderDivKpis() {
     var y = _pipeDivYear;
     var noAgroActive = divActiveNoAgro(y);
@@ -766,14 +772,15 @@ export const ready = (async function init() {
     var noAgroA = agg(noAgroActive);
     var totalA = agg(totalActive);
     var participacion = totalA.importe ? (noAgroA.importe / totalA.importe * 100) : 0;
+    var threshold = divWeightedThreshold(y);
     var weighted = noAgroActive
-      .filter(function(r){ return r.probabilidad != null && r.probabilidad >= 0.6; })
+      .filter(function(r){ return r.probabilidad != null && r.probabilidad >= threshold; })
       .reduce(function(s, r){ return s + (r.dolares||0) * r.probabilidad; }, 0);
 
     var html = ''
       + kpiCard('#3EC6AC', 'Pipeline NO AGRO activo', fmtEjecutivo(noAgroA.importe), noAgroA.count + ' oportunidad' + (noAgroA.count===1?'':'es') + ' &middot; ' + y, null, 'workspaces')
       + kpiCard('#1E3A5F', 'Participaci&oacute;n NO AGRO', participacion.toFixed(1) + '%', fmtEjecutivo(noAgroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), 'donut_large')
-      + kpiCard('#D97706', 'Pipeline NO AGRO ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;60%', null, 'trending_up');
+      + kpiCard('#D97706', 'Pipeline NO AGRO ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;' + Math.round(threshold*100) + '%', null, 'trending_up');
     var el = document.getElementById('pipeDivKpis');
     if (el) el.innerHTML = html;
   }

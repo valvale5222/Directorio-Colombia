@@ -74,7 +74,7 @@
 .psd-stat-v{font-size:15px;font-weight:800;color:var(--t)}
 .psd-list-h{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--ts);margin-bottom:8px}
 .psd-list-h .material-symbols-rounded{font-size:13px}
-.psd-list-scroll{max-height:236px;overflow-y:auto;padding-right:3px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.psd-list-scroll{max-height:280px;overflow-y:auto;padding-right:3px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .psd-list-scroll::-webkit-scrollbar{width:5px}
 .psd-list-scroll::-webkit-scrollbar-track{background:transparent}
 .psd-list-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -239,43 +239,50 @@
 /* ═══ KPI cards — icono líder ═══ */
 .kpi-v3 .kv3-icon{display:block;font-size:22px;margin-bottom:8px}
 
-/* ═══ Profundidad sutil — íconos líder con volumen tipo "placa" 3D.
-   Solo dentro de #pipeline: no toca los mismos componentes (.kpi-v3, etc.)
-   reutilizados por otras vistas como Ventas. ═══ */
-#pipeline .pipe-hkpi-ic,
+/* ═══ Íconos líder — mismo tipo de placa "tile" con tinte de acento que
+   usa Resumen (.rs-icon): degradado color-mix sobre currentColor, blur,
+   borde e halo de color, con hover scale+rotate. currentColor deja que
+   cada ícono tome su propio acento (estado, etapa, KPI) sin variables
+   nuevas. Solo dentro de #pipeline: no toca .kpi-v3 compartido con Ventas. ═══ */
 #pipeline .fv2-icon,
 #pipeline .peh-icon,
 #pipeline .kpi-v3 .kv3-icon,
+#pipeline .div-bar-icon,
 #pipeline .pipe-card-title .material-symbols-rounded,
 #pipeline .vt-card-ttl .material-symbols-rounded,
-#pipeline .pipe-div-header-ttl .material-symbols-rounded{
+#pipeline .pipe-div-header-ttl .material-symbols-rounded,
+#pipeline .pf-stage-name .material-symbols-rounded{
   display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
   width:2em;height:2em;border-radius:9px;
-  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.05)),var(--soft);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -3px 7px rgba(10,10,30,.08),0 3px 8px rgba(10,10,30,.1);
-  transition:transform .22s cubic-bezier(.22,1,.36,1),box-shadow .22s ease;
+  background:linear-gradient(150deg,color-mix(in srgb,currentColor 22%,var(--card)),color-mix(in srgb,currentColor 6%,var(--card)));
+  backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,currentColor 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px color-mix(in srgb,currentColor 16%,transparent);
+  transition:transform .32s cubic-bezier(.19,1,.22,1),box-shadow .32s ease;
 }
 #pipeline .kpi-v3 .kv3-icon{font-size:19px;margin-bottom:10px}
 #pipeline .fv2-icon,#pipeline .peh-icon{font-size:15px}
+#pipeline .div-bar-icon,#pipeline .pf-stage-name .material-symbols-rounded{width:1.7em;height:1.7em;border-radius:8px}
+/* Ícono del hero (fondo navy oscuro): mantiene su propia placa, sin tinte de
+   acento — mezclar con var(--card) (claro) desentonaría sobre el hero oscuro. */
 #pipeline .pipe-hkpi-ic{
-  margin-bottom:8px;
+  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:2em;height:2em;border-radius:9px;margin-bottom:8px;
   background:linear-gradient(150deg,rgba(255,255,255,.16),rgba(255,255,255,.02)),rgba(255,255,255,.05);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -3px 7px rgba(0,0,0,.22),0 3px 8px rgba(0,0,0,.22);
+  transition:transform .22s cubic-bezier(.22,1,.36,1);
 }
 #pipeline .fstage-v2:hover .fv2-icon,
 #pipeline .pipe-etapa-group:hover .peh-icon,
 #pipeline .kpi-v3:hover .kv3-icon,
+#pipeline .div-bar-row:hover .div-bar-icon,
 #pipeline .card:hover .pipe-card-title .material-symbols-rounded,
 #pipeline .card:hover .vt-card-ttl .material-symbols-rounded,
-#pipeline .pipe-div-header:hover .pipe-div-header-ttl .material-symbols-rounded{transform:translateY(-1px) scale(1.08)}
-#pipeline .pf-stage-name .material-symbols-rounded{
-  display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:1.7em;height:1.7em;border-radius:8px;
-  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.05)),var(--soft);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -3px 7px rgba(10,10,30,.08),0 3px 8px rgba(10,10,30,.1);
-  transition:transform .2s cubic-bezier(.22,1,.36,1);
+#pipeline .pipe-div-header:hover .pipe-div-header-ttl .material-symbols-rounded,
+#pipeline .pf-stage-card:hover .pf-stage-name .material-symbols-rounded{
+  transform:translateY(-2px) scale(1.08) rotate(-4deg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 10px 22px color-mix(in srgb,currentColor 30%,transparent);
 }
-#pipeline .pf-stage-card:hover .pf-stage-name .material-symbols-rounded{transform:scale(1.15)}
 
 /* Estado vacío — ícono grande sobre una placa circular con leve resplandor */
 #pipeline .pipe-empty .material-symbols-rounded{
@@ -321,12 +328,7 @@
 .pipe-div-tbl tbody tr{transition:background .16s}
 .pipe-div-tbl tbody tr:hover td{background:var(--soft)}
 
-#pipeline .div-bar-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-  width:1.7em;height:1.7em;border-radius:8px;
-  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.05)),var(--soft);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -3px 7px rgba(10,10,30,.08),0 3px 8px rgba(10,10,30,.1);
-  transition:transform .22s cubic-bezier(.22,1,.36,1);font-size:14px}
-#pipeline .div-bar-row:hover .div-bar-icon{transform:translateY(-1px) scale(1.08)}
+#pipeline .div-bar-icon{font-size:14px}
 
 @media(max-width:900px){
   .pipe-div-grid{grid-template-columns:1fr}

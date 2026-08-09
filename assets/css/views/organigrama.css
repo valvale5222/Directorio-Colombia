@@ -185,12 +185,16 @@
 .og-area-acc[open]::before{opacity:.9}
 .og-area-acc summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:13px 15px;font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--og-t);user-select:none}
 .og-area-acc summary::-webkit-details-marker{display:none}
+/* Mismo tipo de placa "tile" con tinte de acento que usa Resumen (.rs-icon):
+   degradado color-mix sobre currentColor, blur, borde e halo de color. */
 .og-area-acc-ic{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
   width:1.8em;height:1.8em;border-radius:8px;font-size:16px;color:var(--dc,var(--og-brand-d));
-  background:linear-gradient(150deg,rgba(255,255,255,.3),rgba(255,255,255,.02)),var(--dc-bg,rgba(62,198,172,.12));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.32),inset 0 -3px 6px rgba(10,10,30,.06),0 2px 6px rgba(10,10,30,.08);
-  transition:transform .2s cubic-bezier(.22,1,.36,1)}
-.og-area-acc summary:hover .og-area-acc-ic{transform:scale(1.08)}
+  background:linear-gradient(150deg,color-mix(in srgb,currentColor 22%,var(--og-card)),color-mix(in srgb,currentColor 6%,var(--og-card)));
+  backdrop-filter:blur(6px);
+  border:1px solid color-mix(in srgb,currentColor 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px color-mix(in srgb,currentColor 16%,transparent);
+  transition:transform .32s cubic-bezier(.19,1,.22,1),box-shadow .32s ease}
+.og-area-acc summary:hover .og-area-acc-ic{transform:scale(1.08) rotate(-4deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 10px 22px color-mix(in srgb,currentColor 30%,transparent)}
 .og-area-acc-chev{margin-left:auto;font-size:17px;color:var(--og-ts);transition:transform .22s}
 .og-area-acc[open] .og-area-acc-chev{transform:rotate(180deg)}
 .og-area-acc-body{padding:2px 15px 15px;display:flex;flex-direction:column;gap:9px;border-top:.5px solid var(--og-border)}
@@ -207,10 +211,11 @@
 .og-dept-name .og-soporte-badge{font-size:8.5px;margin-left:8px;vertical-align:2px}
 
 /* Avatar de respaldo (iniciales o ícono) para personas/áreas sin foto —
-   degradado + sombra interior sutiles, en vez de un relleno plano. */
+   mismo tipo de placa con tinte de acento que .rs-icon (Resumen). */
 .og-avatar-fb{display:flex;align-items:center;justify-content:center;width:100%;height:100%;
-  background:linear-gradient(150deg,rgba(255,255,255,.32),rgba(255,255,255,.02)),var(--dc-bg,rgba(62,198,172,.14));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -4px 9px rgba(10,10,30,.07);
+  background:linear-gradient(150deg,color-mix(in srgb,currentColor 22%,var(--og-card)),color-mix(in srgb,currentColor 6%,var(--og-card)));
+  backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px color-mix(in srgb,currentColor 16%,transparent);
   color:var(--dc,var(--og-brand-d));font-weight:800;letter-spacing:.02em}
 .og-avatar-fb .material-symbols-rounded{font-size:1.7em}
 .og-mini-photo .og-avatar-fb{font-size:16px}
@@ -256,12 +261,13 @@
 /* Header de departamento */
 .og-dept-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap}
 .og-dept-icon{width:38px;height:38px;border-radius:11px;
-  background:linear-gradient(150deg,rgba(255,255,255,.32),rgba(255,255,255,.02)),var(--dc-bg);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -4px 9px rgba(10,10,30,.08),0 3px 8px rgba(10,10,30,.1);
-  border:1px solid var(--dc-bd);color:var(--dc);display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  transition:transform .22s cubic-bezier(.22,1,.36,1)}
+  background:linear-gradient(150deg,color-mix(in srgb,currentColor 22%,var(--og-card)),color-mix(in srgb,currentColor 6%,var(--og-card)));
+  backdrop-filter:blur(6px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 6px 14px color-mix(in srgb,currentColor 16%,transparent);
+  border:1px solid color-mix(in srgb,currentColor 30%,transparent);color:var(--dc);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .32s cubic-bezier(.19,1,.22,1),box-shadow .32s ease}
 .og-dept-icon .material-symbols-rounded{font-size:19px}
-.og-dept-head:hover .og-dept-icon{transform:translateY(-1px) scale(1.06)}
+.og-dept-head:hover .og-dept-icon{transform:translateY(-2px) scale(1.08) rotate(-4deg);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 10px 22px color-mix(in srgb,currentColor 30%,transparent)}
 .og-dept-titles .og-dept-name{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dc)}
 .og-dept-titles .og-dept-desc{font-size:11.5px;color:var(--og-ts);margin-top:2px}
 .og-dept-line{flex:1;height:1px;background:var(--og-border);min-width:40px}
