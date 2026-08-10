@@ -304,6 +304,7 @@
 .pipe-div-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px;animation:fadeUp .35s ease}
 .pipe-div-header-ttl{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--t)}
 .pipe-div-header-ttl .material-symbols-rounded{font-size:19px;color:var(--brand-d)}
+.pipe-div-header-sels{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .pipe-div-grid{grid-template-columns:3fr 2fr}
 
 .div-bar-list{display:flex;flex-direction:column;gap:4px}
@@ -338,6 +339,7 @@
   .div-bar-row{grid-template-columns:1fr;gap:6px;padding:10px 10px}
   .div-bar-meta{text-align:left}
   .pipe-div-header{gap:10px}
+  .pipe-div-header-sels{width:100%}
 }
 
 /* ═══ Responsive ═══ */

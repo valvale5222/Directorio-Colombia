@@ -706,13 +706,20 @@ export const ready = (async function init() {
   }
 
   /* ════════════════════════════════════════════════════════════
-     VISTA · DIVERSIFICACIÓN NO AGRO (selector de año propio 2026|2027).
-     AGRO/NO AGRO se lee directamente de r.agro, sin reclasificar registros.
-     "Activo" aquí excluye Perdido, Cancelado y Postpuesto (más estricto que
-     activeRows(), que sólo excluye Perdido/Cancelado — regla propia de este tab).
+     VISTA · DIVERSIFICACIÓN (selector propio de categoría NO AGRO|AGRO y
+     de año 2026|2027). AGRO/NO AGRO se lee directamente de r.agro, sin
+     reclasificar registros. "Activo" aquí excluye Perdido, Cancelado y
+     Postpuesto (más estricto que activeRows(), que sólo excluye
+     Perdido/Cancelado — regla propia de este tab).
      ════════════════════════════════════════════════════════════ */
   var DIV_YEARS = YEARS_ALLOWED;
   var _pipeDivYear = DIV_YEARS[0];
+  var DIV_AGRO_TYPES = ['NO AGRO', 'AGRO'];
+  var _pipeDivAgro = DIV_AGRO_TYPES[0];
+  var DIV_AGRO_META = {
+    'NO AGRO': { icon: 'inventory_2' },
+    'AGRO': { icon: 'eco' }
+  };
 
   var DIV_SECTOR_COLOR = {
     'Centros logísticos / CEDI': '#1E3A5F',
@@ -726,9 +733,9 @@ export const ready = (async function init() {
   };
   function divSectorColor(s) { return DIV_SECTOR_COLOR[s] || '#7B8DB0'; }
   function divSectorIcon(s) { return DIV_SECTOR_ICON[s] || 'category'; }
-  /* Deriva el sector comercial a partir de PRODUCTO — la base no trae una
-     columna de sector propia. Sólo agrupa sinónimos observados; cualquier
-     producto no reconocido conserva su propio nombre como sector. */
+  /* Deriva el sector comercial NO AGRO a partir de PRODUCTO — la base no
+     trae una columna de sector propia. Sólo agrupa sinónimos observados;
+     cualquier producto no reconocido conserva su propio nombre como sector. */
   function sectorFromProducto(producto) {
     var p = normSearch(producto);
     if (!p) return 'Otros sectores';
@@ -738,9 +745,55 @@ export const ready = (async function init() {
     return producto.charAt(0).toUpperCase() + producto.slice(1).toLowerCase();
   }
 
+  var DIV_AGRO_CAT_COLOR = {
+    'Aguacate': '#3EC6AC',
+    'Plátano': '#D97706',
+    'Arándanos': '#4FA8E0',
+    'Flores': '#D85A30',
+    'Otros': '#7B8DB0'
+  };
+  var DIV_AGRO_CAT_ICON = {
+    'Aguacate': 'eco',
+    'Plátano': 'nutrition',
+    'Arándanos': 'water_drop',
+    'Flores': 'local_florist',
+    'Otros': 'category'
+  };
+  function stripAccents(s) { return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,''); }
+  /* Categoría AGRO — sólo Aguacate/Plátano/Arándanos/Flores; cualquier otro
+     producto (Rambutan, Gulupa, Frutas, Limón, Fresas, etc.) cae en Otros. */
+  function agroCategoryFromProducto(producto) {
+    var p = stripAccents(normSearch(producto));
+    if (p.indexOf('aguacat') >= 0) return 'Aguacate';
+    if (p.indexOf('platano') >= 0) return 'Plátano';
+    if (p.indexOf('arandan') >= 0) return 'Arándanos';
+    if (p.indexOf('flor') >= 0) return 'Flores';
+    return 'Otros';
+  }
+  function divCategoryFromProducto(producto, agro) { return agro === 'AGRO' ? agroCategoryFromProducto(producto) : sectorFromProducto(producto); }
+  function divCategoryColor(cat, agro) { return agro === 'AGRO' ? (DIV_AGRO_CAT_COLOR[cat] || '#7B8DB0') : divSectorColor(cat); }
+  function divCategoryIcon(cat, agro) { return agro === 'AGRO' ? (DIV_AGRO_CAT_ICON[cat] || 'category') : divSectorIcon(cat); }
+
   function divRowsYear(y) { return rows.filter(function(r){ return r.anio === y; }); }
   function divActiveRows(y) { return divRowsYear(y).filter(function(r){ return r.estado!=='Perdido' && r.estado!=='Cancelado' && r.estado!=='Postpuesto'; }); }
-  function divActiveNoAgro(y) { return divActiveRows(y).filter(function(r){ return r.agro==='NO AGRO'; }); }
+  function divActiveByAgro(y, agro) { return divActiveRows(y).filter(function(r){ return r.agro === agro; }); }
+
+  function renderDivAgroSel() {
+    var el = document.getElementById('pipeDivAgroSel');
+    if (!el) return;
+    el.innerHTML = '<div class="ym-years" role="tablist" aria-label="Categoría">'
+      + DIV_AGRO_TYPES.map(function(a) {
+          return '<button type="button" class="ym-year' + (a===_pipeDivAgro?' active':'') + '" data-agro="' + a + '" role="tab" aria-selected="' + (a===_pipeDivAgro) + '">'
+            + '<span class="material-symbols-rounded" aria-hidden="true">' + DIV_AGRO_META[a].icon + '</span><span>' + a + '</span></button>';
+        }).join('')
+      + '</div>';
+  }
+  var pipeDivAgroSelEl = document.getElementById('pipeDivAgroSel');
+  if (pipeDivAgroSelEl) pipeDivAgroSelEl.addEventListener('click', function(e) {
+    var b = e.target.closest('.ym-year'); if (!b) return;
+    var a = b.dataset.agro;
+    if (a && a !== _pipeDivAgro) { _pipeDivAgro = a; renderDivAll(); }
+  });
 
   function renderDivYearSel() {
     var el = document.getElementById('pipeDivYearSel');
@@ -766,21 +819,21 @@ export const ready = (async function init() {
   function divWeightedThreshold(y) { return DIV_WEIGHTED_THRESHOLD[y] != null ? DIV_WEIGHTED_THRESHOLD[y] : 0.6; }
 
   function renderDivKpis() {
-    var y = _pipeDivYear;
-    var noAgroActive = divActiveNoAgro(y);
+    var y = _pipeDivYear, agro = _pipeDivAgro;
+    var agroActive = divActiveByAgro(y, agro);
     var totalActive = divActiveRows(y);
-    var noAgroA = agg(noAgroActive);
+    var agroA = agg(agroActive);
     var totalA = agg(totalActive);
-    var participacion = totalA.importe ? (noAgroA.importe / totalA.importe * 100) : 0;
+    var participacion = totalA.importe ? (agroA.importe / totalA.importe * 100) : 0;
     var threshold = divWeightedThreshold(y);
-    var weighted = noAgroActive
+    var weighted = agroActive
       .filter(function(r){ return r.probabilidad != null && r.probabilidad >= threshold; })
       .reduce(function(s, r){ return s + (r.dolares||0) * r.probabilidad; }, 0);
 
     var html = ''
-      + kpiCard('#3EC6AC', 'Pipeline NO AGRO activo', fmtEjecutivo(noAgroA.importe), noAgroA.count + ' oportunidad' + (noAgroA.count===1?'':'es') + ' &middot; ' + y, null, 'workspaces')
-      + kpiCard('#1E3A5F', 'Participaci&oacute;n NO AGRO', participacion.toFixed(1) + '%', fmtEjecutivo(noAgroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), 'donut_large')
-      + kpiCard('#D97706', 'Pipeline NO AGRO ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;' + Math.round(threshold*100) + '%', null, 'trending_up');
+      + kpiCard('#3EC6AC', 'Pipeline ' + agro + ' activo', fmtEjecutivo(agroA.importe), agroA.count + ' oportunidad' + (agroA.count===1?'':'es') + ' &middot; ' + y, null, 'workspaces')
+      + kpiCard('#1E3A5F', 'Participaci&oacute;n ' + agro, participacion.toFixed(1) + '%', fmtEjecutivo(agroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), 'donut_large')
+      + kpiCard('#D97706', 'Pipeline ' + agro + ' ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;' + Math.round(threshold*100) + '%', null, 'trending_up');
     var el = document.getElementById('pipeDivKpis');
     if (el) el.innerHTML = html;
   }
@@ -801,36 +854,40 @@ export const ready = (async function init() {
   }
 
   function renderDivSectorChart() {
-    var y = _pipeDivYear;
-    var noAgroActive = divActiveNoAgro(y);
-    var total = agg(noAgroActive).importe;
-    var bySector = {};
-    noAgroActive.forEach(function(r) {
-      var s = sectorFromProducto(r.producto);
-      bySector[s] = (bySector[s]||0) + (r.dolares||0);
+    var y = _pipeDivYear, agro = _pipeDivAgro;
+    var agroActive = divActiveByAgro(y, agro);
+    var total = agg(agroActive).importe;
+    var byCat = {};
+    agroActive.forEach(function(r) {
+      var c = divCategoryFromProducto(r.producto, agro);
+      byCat[c] = (byCat[c]||0) + (r.dolares||0);
     });
-    var items = Object.keys(bySector).map(function(s) {
-      return {label:s, importe:bySector[s], color:divSectorColor(s), icon:divSectorIcon(s)};
+    var items = Object.keys(byCat).map(function(c) {
+      return {label:c, importe:byCat[c], color:divCategoryColor(c, agro), icon:divCategoryIcon(c, agro)};
     }).sort(function(a,b){ return b.importe - a.importe; });
     var el = document.getElementById('pipeDivSectorChart');
-    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades NO AGRO', 'No hay oportunidades NO AGRO activas en ' + y + '.');
+    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades ' + agro, 'No hay oportunidades ' + agro + ' activas en ' + y + '.');
     var lblEl = document.getElementById('pipeDivSectorYearLbl');
     if (lblEl) lblEl.textContent = y;
+    var titleEl = document.getElementById('pipeDivSectorTitle');
+    if (titleEl) titleEl.textContent = 'Pipeline ' + agro + ' por sector';
   }
 
   function renderDivMaturityChart() {
-    var y = _pipeDivYear;
-    var noAgroActive = divActiveNoAgro(y);
-    var total = agg(noAgroActive).importe;
+    var y = _pipeDivYear, agro = _pipeDivAgro;
+    var agroActive = divActiveByAgro(y, agro);
+    var total = agg(agroActive).importe;
     var byEstado = {};
-    noAgroActive.forEach(function(r) { byEstado[r.estado] = (byEstado[r.estado]||0) + (r.dolares||0); });
+    agroActive.forEach(function(r) { byEstado[r.estado] = (byEstado[r.estado]||0) + (r.dolares||0); });
     var items = PIPE_ESTADOS.filter(function(e){ return byEstado[e] > 0; }).map(function(e) {
       return {label:e, importe:byEstado[e], color:PIPE_ESTADO_COLOR[e], icon:PIPE_ESTADO_ICON[e]};
     }).sort(function(a,b){ return b.importe - a.importe; });
     var el = document.getElementById('pipeDivMaturityChart');
-    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades NO AGRO', 'No hay oportunidades NO AGRO activas en ' + y + '.');
+    if (el) el.innerHTML = items.length ? divBarListHtml(items, total) : emptyState('inbox', 'Sin oportunidades ' + agro, 'No hay oportunidades ' + agro + ' activas en ' + y + '.');
     var lblEl = document.getElementById('pipeDivMaturityYearLbl');
     if (lblEl) lblEl.textContent = y;
+    var titleEl = document.getElementById('pipeDivMaturityTitle');
+    if (titleEl) titleEl.textContent = 'Madurez del pipeline ' + agro;
   }
 
   function divProbChipStyle(p) {
@@ -842,32 +899,33 @@ export const ready = (async function init() {
   }
 
   function renderDivTable() {
-    var y = _pipeDivYear;
+    var y = _pipeDivYear, agro = _pipeDivAgro;
     var titleEl = document.getElementById('pipeDivTableTitle');
-    if (titleEl) titleEl.textContent = 'Oportunidades NO AGRO · ' + y;
-    var noAgroActive = divActiveNoAgro(y).slice().sort(function(a,b){ return (b.dolares||0)-(a.dolares||0); });
+    if (titleEl) titleEl.textContent = 'Oportunidades ' + agro + ' · ' + y;
+    var agroActive = divActiveByAgro(y, agro).slice().sort(function(a,b){ return (b.dolares||0)-(a.dolares||0); });
     var body = '';
-    noAgroActive.forEach(function(r) {
-      var sector = sectorFromProducto(r.producto);
-      var sc = divSectorColor(sector);
+    agroActive.forEach(function(r) {
+      var cat = divCategoryFromProducto(r.producto, agro);
+      var sc = divCategoryColor(cat, agro);
       var probPct = r.probabilidad != null ? (r.probabilidad*100).toFixed(0)+'%' : '—';
       var pStyle = divProbChipStyle(r.probabilidad);
       var mesLbl = r.mesCierre != null ? meses[r.mesCierre-1] + ' ' + r.anio : '—';
       body += '<tr>'
         + '<td style="font-weight:700">' + r.cliente + '</td>'
-        + '<td><span class="pipe-mini-badge" style="background:' + sc + '22;color:' + sc + '">' + sector + '</span></td>'
+        + '<td><span class="pipe-mini-badge" style="background:' + sc + '22;color:' + sc + '">' + cat + '</span></td>'
         + '<td class="r" style="font-weight:700">' + fmtEjecutivo(r.dolares) + '</td>'
         + '<td><span class="pipe-mini-badge" style="background:' + pStyle.bg + ';color:' + pStyle.color + '">' + probPct + '</span></td>'
         + '<td><span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[r.estado] + ';color:' + PIPE_ESTADO_COLOR[r.estado] + '"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[r.estado] + '</span>' + r.estado + '</span></td>'
         + '<td>' + mesLbl + '</td>'
         + '</tr>';
     });
-    if (!body) body = '<tr><td colspan="6" style="text-align:center;color:var(--ts);padding:20px">Sin oportunidades NO AGRO activas en ' + y + '</td></tr>';
+    if (!body) body = '<tr><td colspan="6" style="text-align:center;color:var(--ts);padding:20px">Sin oportunidades ' + agro + ' activas en ' + y + '</td></tr>';
     var bodyEl = document.getElementById('pipeDivTableBody');
     if (bodyEl) bodyEl.innerHTML = body;
   }
 
   function renderDivAll() {
+    renderDivAgroSel();
     renderDivYearSel();
     renderDivKpis();
     renderDivSectorChart();

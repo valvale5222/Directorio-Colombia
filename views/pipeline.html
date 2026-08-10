@@ -104,20 +104,23 @@
   <!-- ===== VISTA · DIVERSIFICACIÓN ===== -->
   <div class="pipe-view" id="pipeViewDiversificacion">
     <div class="pipe-div-header">
-      <div class="pipe-div-header-ttl"><span class="material-symbols-rounded" aria-hidden="true">hub</span>Diversificación del Pipeline NO AGRO</div>
-      <div id="pipeDivYearSel"></div>
+      <div class="pipe-div-header-ttl"><span class="material-symbols-rounded" aria-hidden="true">hub</span>Diversificación del Pipeline</div>
+      <div class="pipe-div-header-sels">
+        <div id="pipeDivAgroSel"></div>
+        <div id="pipeDivYearSel"></div>
+      </div>
     </div>
 
     <div class="kpis k3" id="pipeDivKpis"></div>
 
     <div class="grid2 pipe-fs-grid pipe-div-grid">
       <div class="card pipe-card-anim">
-        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">bar_chart</span>Pipeline NO AGRO por sector</div>
+        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">bar_chart</span><span id="pipeDivSectorTitle">Pipeline NO AGRO por sector</span></div>
         <div class="pipe-card-sub">Importe activo por sector · <span id="pipeDivSectorYearLbl"></span></div>
         <div class="div-bar-list" id="pipeDivSectorChart"></div>
       </div>
       <div class="card pipe-card-anim">
-        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">timeline</span>Madurez del pipeline NO AGRO</div>
+        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">timeline</span><span id="pipeDivMaturityTitle">Madurez del pipeline NO AGRO</span></div>
         <div class="pipe-card-sub">Distribución por etapa · <span id="pipeDivMaturityYearLbl"></span></div>
         <div class="div-bar-list" id="pipeDivMaturityChart"></div>
       </div>
@@ -128,7 +131,7 @@
       <div class="pipe-div-tbl-wrap">
         <table class="pipe-div-tbl">
           <thead>
-            <tr><th>Cliente</th><th>Sector</th><th class="r">Importe</th><th>Probabilidad</th><th>Estado</th><th>Fecha de cierre</th></tr>
+            <tr><th>Cliente</th><th>Sector/Producto</th><th class="r">Importe</th><th>Probabilidad</th><th>Estado</th><th>Fecha de cierre</th></tr>
           </thead>
           <tbody id="pipeDivTableBody"></tbody>
         </table>
