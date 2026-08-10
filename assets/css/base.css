@@ -15,11 +15,13 @@
 body{transition:background-color .2s ease,color .2s ease}
 *{box-sizing:border-box;margin:0;padding:0}
 
-/* ── Cursor personalizado — isotipo de Friopacking (engranaje + copo de
-   nieve), aplicado a toda la app para que el puntero refuerce la marca en
-   vez del cursor nativo del sistema. Se degrada a 'auto' si el navegador no
-   soporta cursores SVG. ── */
-html,body,body *{cursor:url("assets/img/cursor-isotipo.svg") 18 18,auto!important}
+/* ── Cursor personalizado — isotipo real de Friopacking (PNG 40x40, fondo
+   transparente, proporción original), aplicado a toda la app —incluidos
+   botones, cards, tabs y enlaces vía "body *" + !important— para que el
+   puntero refuerce la marca en vez del cursor nativo del sistema. Hotspot
+   en el centro geométrico de la imagen (20,20) para que el punto de clic
+   se sienta natural. Se degrada a 'auto' si el recurso no carga. ── */
+html,body,body *{cursor:url("../img/Friopacking_40x40.png") 20 20,auto!important}
 .material-symbols-rounded{font-family:'Material Symbols Rounded';font-weight:normal;font-style:normal;
   font-size:inherit;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;
   white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-smoothing:antialiased;

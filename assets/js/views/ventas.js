@@ -177,6 +177,85 @@ function _vtExternalTooltip(ctx) {
   el.style.top = top + 'px';
 }
 
+/* Tooltip externo de "Evolución de ventas por año" (chVentasAnualBar) — al
+   total de la barra le agrega el detalle real de clientes de ese año, tomado
+   de ventasFull (misma fuente que alimenta el propio gráfico). */
+function _vtYearBarExternalTooltip(ctx) {
+  const chart = ctx.chart;
+  const tooltip = ctx.tooltip;
+  const wrap = chart.canvas.parentNode;
+
+  let el = wrap.querySelector('.vt-ext-tip-bar');
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'vt-ext-tip vt-ext-tip-bar';
+    wrap.appendChild(el);
+  }
+
+  if (!tooltip.dataPoints || !tooltip.dataPoints.length || tooltip.opacity === 0) {
+    el.style.opacity = '0';
+    return;
+  }
+
+  const dp = tooltip.dataPoints[0];
+  const idx = dp.dataIndex;
+  const yr = agg.VT_YEARS[idx];
+  const label = dp.label || String(yr);
+  const total = dp.parsed.y;
+  const isCurrentYear = idx === agg.VT_YEARS.length - 1;
+
+  const byCli = new Map();
+  (ventasFull || []).forEach((r) => {
+    if (r.anio !== yr) return;
+    byCli.set(r.cliente, (byCli.get(r.cliente) || 0) + r.importe);
+  });
+  const clients = Array.from(byCli, ([cliente, importe]) => ({ cliente, importe }))
+    .sort((a, b) => b.importe - a.importe);
+
+  const MAX_ROWS = 8;
+  const shown = clients.slice(0, MAX_ROWS);
+  const restCount = clients.length - shown.length;
+  const restTotal = restCount > 0 ? clients.slice(MAX_ROWS).reduce((s, c) => s + c.importe, 0) : 0;
+
+  let html = '<div class="vt-tip-hdr">' + label + '</div>'
+    + '<div class="vt-tip-rows">'
+    + '<div class="vt-tip-row star"><span class="vt-tip-yr">Ventas</span><span class="vt-tip-val">' + fmtEjecutivo(total) + '</span></div>'
+    + '</div>';
+  if (isCurrentYear) html += '<div class="vt-tip-note">Disponible al ' + agg.VT_LAST_SALE_TXT + '</div>';
+
+  html += '<div class="vt-tip-sep"></div><div class="vt-tip-detail-hdr">Detalle de ventas</div>';
+  if (!clients.length) {
+    html += '<div class="vt-tip-detail-empty">Sin registros en la base</div>';
+  } else {
+    html += '<div class="vt-tip-detail-list">' + shown.map((c) =>
+      '<div class="vt-tip-detail-row"><span class="vt-tip-detail-cli">' + c.cliente + '</span>'
+      + '<span class="vt-tip-detail-val">' + fmtEjecutivo(c.importe) + '</span></div>'
+    ).join('') + '</div>';
+    if (restCount > 0) {
+      html += '<div class="vt-tip-detail-row vt-tip-detail-more"><span class="vt-tip-detail-cli">+' + restCount
+        + ' cliente' + (restCount === 1 ? '' : 's') + ' m&aacute;s</span>'
+        + '<span class="vt-tip-detail-val">' + fmtEjecutivo(restTotal) + '</span></div>';
+    }
+  }
+
+  el.innerHTML = html;
+  el.style.opacity = '1';
+
+  const wW = wrap.offsetWidth;
+  const wH = wrap.offsetHeight;
+  const tipW = el.offsetWidth || 230;
+  const tipH = el.offsetHeight || 160;
+  const cx = tooltip.caretX;
+  const cy = tooltip.caretY;
+
+  let left = (cx + tipW + 20 > wW) ? (cx - tipW - 12) : (cx + 16);
+  left = Math.max(0, Math.min(left, wW - tipW));
+  const top = Math.max(0, Math.min(cy - Math.round(tipH / 2), wH - tipH));
+
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+}
+
 /* ── Ventas: shared Chart.js options (outside guard, used in modals too) ── */
 const _vtSharedOpts = {
   responsive: true, maintainAspectRatio: false,
@@ -646,17 +725,7 @@ export const ready = (async function init() {
           plugins: {
             legend: { display: false },
             vtBarValue: { fmt: fmtEjecutivo },
-            tooltip: {
-              backgroundColor: 'rgba(9,12,30,.95)', padding: { top: 11, bottom: 11, left: 13, right: 13 }, cornerRadius: 10,
-              borderColor: 'rgba(62,198,172,.25)', borderWidth: 1,
-              titleColor: 'rgba(255,255,255,.4)', titleFont: { size: 9.5, weight: '700' },
-              bodyColor: 'rgba(255,255,255,.85)', bodyFont: { size: 12, weight: '600' },
-              callbacks: {
-                title: (items) => items.length ? items[0].label : '',
-                label: (ctx) => 'Ventas: ' + fmtEjecutivo(ctx.parsed.y),
-                afterLabel: (ctx) => ctx.dataIndex === agg.VT_YEARS.length - 1 ? ('Disponible al ' + agg.VT_LAST_SALE_TXT) : null
-              }
-            }
+            tooltip: { enabled: false, external: _vtYearBarExternalTooltip }
           },
           scales: {
             x: { grid: { display: false }, border: { display: false }, ticks: { font: { size: 10 }, color: '#94a3b8' } },

@@ -55,6 +55,23 @@
 .vt-tip-row.star .vt-tip-yr{color:rgba(255,255,255,.9);font-weight:800}
 .vt-tip-row.star .vt-tip-val{color:#fff;font-size:14px;font-weight:800}
 
+/* Variante ancha — tooltip de "Evolución de ventas por año" con detalle de
+   clientes; permite salto de línea (la base es nowrap) y acota el ancho. */
+.vt-ext-tip-bar{white-space:normal;min-width:220px;max-width:260px}
+.vt-tip-note{font-size:10px;color:rgba(255,255,255,.4);font-style:italic;margin-top:6px}
+.vt-tip-sep{height:1px;background:rgba(255,255,255,.08);margin:11px 0}
+.vt-tip-detail-hdr{font-size:9px;font-weight:700;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:1.1px;margin-bottom:8px}
+.vt-tip-detail-list{display:flex;flex-direction:column;gap:6px}
+.vt-tip-detail-row{display:flex;align-items:baseline;gap:10px}
+.vt-tip-detail-cli{font-size:11px;font-weight:600;color:rgba(255,255,255,.75);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.vt-tip-detail-val{margin-left:auto;padding-left:8px;font-size:11.5px;font-weight:700;
+  color:rgba(255,255,255,.92);white-space:nowrap;flex-shrink:0;font-variant-numeric:tabular-nums}
+.vt-tip-detail-more .vt-tip-detail-cli,.vt-tip-detail-more .vt-tip-detail-val{
+  color:rgba(255,255,255,.5);font-weight:600;font-style:italic}
+.vt-tip-detail-empty{font-size:11px;color:rgba(255,255,255,.4);font-style:italic}
+
 /* ── Modal flip — stable / no reflow ── */
 .mdl-flip{perspective:1300px}
 .mdl-flip-inner{
