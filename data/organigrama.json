@@ -5,14 +5,14 @@
     {
       "key": "direccion",
       "nombre": "Dirección",
-      "icon": "workspace_premium",
+      "icon": "👑",
       "color": "navy",
       "descripcion": "Liderazgo general y de operaciones"
     },
     {
       "key": "operaciones",
       "nombre": "Operaciones",
-      "icon": "engineering",
+      "icon": "⚙️",
       "color": "green",
       "agrupaPor": "area",
       "descripcion": "Logística, Servicio Técnico y Operaciones · reportan a Eduardo Narro"
@@ -20,7 +20,7 @@
     {
       "key": "sst",
       "nombre": "SSOMA",
-      "icon": "health_and_safety",
+      "icon": "🦺",
       "color": "red",
       "especial": true,
       "descripcion": "Seguridad, Salud Ocupacional y Medio Ambiente"
@@ -28,7 +28,7 @@
     {
       "key": "ingenieria",
       "nombre": "Ingeniería y Presupuestos",
-      "icon": "design_services",
+      "icon": "📐",
       "color": "purple",
       "soporte": true,
       "descripcion": "Jefe de Ingeniería y Presupuestos · soporte a Operaciones y Comercial"
@@ -36,14 +36,14 @@
     {
       "key": "comercial",
       "nombre": "Ejecutivo Comercial",
-      "icon": "handshake",
+      "icon": "🤝",
       "color": "cyan",
       "descripcion": "Ejecutiva Comercial · reporta a Misael Estrada"
     },
     {
       "key": "planner",
       "nombre": "Planner Comercial",
-      "icon": "assignment_ind",
+      "icon": "🗒️",
       "color": "brand",
       "soporte": true,
       "descripcion": "Soporte directo de Gerencia General"
@@ -51,7 +51,7 @@
     {
       "key": "backoffice",
       "nombre": "Back Office",
-      "icon": "domain",
+      "icon": "🏢",
       "color": "amber",
       "soporte": true,
       "agrupaPor": "sede",
@@ -219,7 +219,7 @@
       "reportaA": null,
       "grupoDe": "misael-estrada",
       "esArea": true,
-      "icono": "architecture",
+      "icono": "📐",
       "foto": null
     },
     {
@@ -232,7 +232,7 @@
       "reportaA": null,
       "grupoDe": "misael-estrada",
       "esArea": true,
-      "icono": "diversity_3",
+      "icono": "👥",
       "foto": null
     },
     {
@@ -245,7 +245,7 @@
       "reportaA": null,
       "grupoDe": "misael-estrada",
       "esArea": true,
-      "icono": "gavel",
+      "icono": "⚖️",
       "foto": null
     },
     {
@@ -258,7 +258,7 @@
       "reportaA": null,
       "grupoDe": "misael-estrada",
       "esArea": true,
-      "icono": "calculate",
+      "icono": "🧮",
       "foto": null
     }
   ]

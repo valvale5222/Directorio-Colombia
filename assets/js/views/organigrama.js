@@ -68,7 +68,7 @@ function iniciales(nombre) {
 // iniciales para personas reales sin foto todavía cargada (foto null).
 function fotoBlock(p) {
   if (p.foto) return `<img src="${p.foto}" alt="${esc(p.nombre)}" loading="lazy">`;
-  if (p.esArea) return `<span class="og-avatar-fb"><span class="material-symbols-rounded" aria-hidden="true">${p.icono || 'apartment'}</span></span>`;
+  if (p.esArea) return `<span class="og-avatar-fb"><span aria-hidden="true">${p.icono || '🏢'}</span></span>`;
   return `<span class="og-avatar-fb">${esc(iniciales(p.nombre))}</span>`;
 }
 
@@ -119,7 +119,7 @@ function cuerpoAgrupado(personas, campo, opts = {}) {
 function accordionArea(deptKey, label, icon, count, bodyHtml, extra = '') {
   return `<details class="og-area-acc${extra ? ' ' + extra : ''}" data-dept="${deptKey}">
     <summary>
-      <span class="material-symbols-rounded og-area-acc-ic" aria-hidden="true">${icon}</span>
+      <span class="og-area-acc-ic" aria-hidden="true">${icon}</span>
       <span class="txt">${esc(label)}</span>
       <span class="og-col-count">${count}</span>
       <span class="material-symbols-rounded og-area-acc-chev" aria-hidden="true">expand_more</span>
@@ -136,7 +136,7 @@ function heroCardHtml(persona, { tagIcon, tagLabel, soporte, estatico, dept, car
     <span class="og-sheen" aria-hidden="true"></span>
     <div class="og-hero-photo">${fotoBlock(persona)}</div>
     <div class="og-hero-body">
-      <div class="og-tag${soporte ? ' og-tag--soporte' : ''}"><span class="material-symbols-rounded" aria-hidden="true">${tagIcon}</span>${esc(tagLabel)}</div>
+      <div class="og-tag${soporte ? ' og-tag--soporte' : ''}"><span aria-hidden="true">${tagIcon}</span>${esc(tagLabel)}</div>
       <div class="og-hero-name">${esc(persona.nombre)}</div>
       <div class="og-hero-role">${esc(cargo)}</div>
     </div>
@@ -190,11 +190,11 @@ function renderGeneral() {
   const opsGrupos = agrupar(opsPersonas, 'area');
   const accOps = (label) => {
     const items = opsGrupos.get(label) || [];
-    return items.length ? accordionArea('operaciones', label, 'engineering', items.length, items.map(miniCard).join('')) : '';
+    return items.length ? accordionArea('operaciones', label, '⚙️', items.length, items.map(miniCard).join('')) : '';
   };
 
   const { coord: sstCoord, subs: sstSubs } = jerarquiaInterna(sstPersonas);
-  const areaSst = accordionArea('sst', 'SSOMA', 'health_and_safety', sstPersonas.length, `${miniCard(sstCoord)}
+  const areaSst = accordionArea('sst', 'SSOMA', '🦺', sstPersonas.length, `${miniCard(sstCoord)}
     <div class="og-subtree">
       <div class="og-connector" style="height:14px"></div>
       <div class="og-subtree-branch">${sstSubs.map(s => `<div class="og-subcol">${miniCard(s)}</div>`).join('')}</div>
@@ -205,21 +205,21 @@ function renderGeneral() {
 
   // Back Office: Gestión Administrativa por país, cada uno plegable también.
   const areasBackoffice = [...agrupar(boPersonas, 'sede')].map(([label, items]) =>
-    accordionArea('backoffice', `Gestión Administrativa ${label}`, 'domain', items.length, items.map(miniCard).join(''))
+    accordionArea('backoffice', `Gestión Administrativa ${label}`, '🏢', items.length, items.map(miniCard).join(''))
   ).join('');
 
   const peerEduardo = peerAccSlot(gp, {
-    tagIcon: 'supervisor_account', tagLabel: 'Dirección', dept: 'direccion', cargo: gp.cargo, onId: gp.id,
+    tagIcon: '👑', tagLabel: 'Dirección', dept: 'direccion', cargo: gp.cargo, onId: gp.id,
     bodyHtml: areasOperaciones,
   });
   const peerVivian = peerSlot(vivian, { tagIcon: comercialDept.icon, tagLabel: comercialDept.nombre, dept: 'comercial', cargo: vivian.cargo, onId: vivian.id });
-  const peerMario = peerSlot(mario, { tagIcon: 'hub', tagLabel: 'Soporte', soporte: true, dept: 'ingenieria', cargo: mario.cargo, onId: mario.id });
+  const peerMario = peerSlot(mario, { tagIcon: '🧩', tagLabel: 'Soporte', soporte: true, dept: 'ingenieria', cargo: mario.cargo, onId: mario.id });
   const peerBackoffice = peerAccSlot({ esArea: true, icono: boDept.icon, nombre: boDept.nombre }, {
-    tagIcon: 'hub', tagLabel: 'Soporte', soporte: true, estatico: true, dept: 'backoffice', cargo: 'Áreas de soporte',
+    tagIcon: '🧩', tagLabel: 'Soporte', soporte: true, estatico: true, dept: 'backoffice', cargo: 'Áreas de soporte',
     bodyHtml: areasBackoffice,
   });
 
-  const peerValeria = peerSlot(valeria, { tagIcon: 'hub', tagLabel: 'Soporte', soporte: true, estatico: true, dept: 'planner', cargo: valeria.cargo, branch: true });
+  const peerValeria = peerSlot(valeria, { tagIcon: '🧩', tagLabel: 'Soporte', soporte: true, estatico: true, dept: 'planner', cargo: valeria.cargo, branch: true });
 
   return `<div class="og-tree">
     <div class="og-top-row">
@@ -280,7 +280,7 @@ function renderDepto(d) {
       ${ancestros.map((a, i) => `${bcCard(a)}${i < ancestros.length - 1 ? '<span class="material-symbols-rounded og-bc-arrow" aria-hidden="true">chevron_right</span>' : ''}`).join('')}
     </div>
     <div class="og-dept-head" data-dept="${d.key}">
-      <div class="og-dept-icon"><span class="material-symbols-rounded" aria-hidden="true">${d.icon}</span></div>
+      <div class="og-dept-icon"><span aria-hidden="true">${d.icon}</span></div>
       <div class="og-dept-titles">
         <div class="og-dept-name">${d.nombre}${d.soporte ? '<span class="og-soporte-badge">Soporte</span>' : ''}</div>
         <div class="og-dept-desc">${d.descripcion}</div>
@@ -312,7 +312,7 @@ function openOrgPerson(id) {
     <div class="og-modal-hdr" data-dept="${p.depto}">
       <div class="og-modal-photo">${fotoBlock(p)}</div>
       <div class="og-modal-hdr-info">
-        <div class="og-tag"><span class="material-symbols-rounded" aria-hidden="true">${d.icon}</span>${d.nombre}</div>
+        <div class="og-tag"><span aria-hidden="true">${d.icon}</span>${d.nombre}</div>
         <div class="og-modal-name">${esc(p.nombre)}</div>
         <div class="og-modal-role-txt">${esc(p.cargo)}</div>
       </div>
@@ -395,8 +395,8 @@ export const ready = (async function init() {
   const colaboradores = PERSONAS.filter(p => !p.esArea).length;
 
   const tabsHtml = [
-    `<button class="og-tab active" data-k="general" onclick="switchOrgTab('general')"><span class="material-symbols-rounded" aria-hidden="true">hub</span>Vista General<span class="og-tab-badge">${colaboradores}</span></button>`,
-    ...tabDepts.map(d => `<button class="og-tab" data-k="${d.key}" onclick="switchOrgTab('${d.key}')"><span class="material-symbols-rounded" aria-hidden="true">${d.icon}</span>${d.nombre}<span class="og-tab-badge">${PERSONAS.filter(p => p.depto === d.key).length}</span></button>`),
+    `<button class="og-tab active" data-k="general" onclick="switchOrgTab('general')"><span class="og-tab-emoji" aria-hidden="true">🧭</span>Vista General<span class="og-tab-badge">${colaboradores}</span></button>`,
+    ...tabDepts.map(d => `<button class="og-tab" data-k="${d.key}" onclick="switchOrgTab('${d.key}')"><span class="og-tab-emoji" aria-hidden="true">${d.icon}</span>${d.nombre}<span class="og-tab-badge">${PERSONAS.filter(p => p.depto === d.key).length}</span></button>`),
   ].join('');
   document.getElementById('ogTabs').innerHTML = tabsHtml;
 

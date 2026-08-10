@@ -13,10 +13,10 @@
 
   <!-- Mini-tabs internos -->
   <div class="pipe-tabs pipe-tabs-main" id="pipeViewTabs">
-    <div class="pipe-tab active" data-view="resumen"><span class="material-symbols-rounded" aria-hidden="true">donut_large</span>Resumen Embudo</div>
-    <div class="pipe-tab" data-view="forecast"><span class="material-symbols-rounded" aria-hidden="true">insights</span>Forecast</div>
-    <div class="pipe-tab" data-view="diversificacion"><span class="material-symbols-rounded" aria-hidden="true">hub</span>Diversificación</div>
-    <div class="pipe-tab" data-view="clientes"><span class="material-symbols-rounded" aria-hidden="true">folder_shared</span>Clientes por Etapa</div>
+    <div class="pipe-tab active" data-view="resumen"><span class="pipe-tab-emoji" aria-hidden="true">🎯</span>Resumen Embudo</div>
+    <div class="pipe-tab" data-view="forecast"><span class="pipe-tab-emoji" aria-hidden="true">🔮</span>Forecast</div>
+    <div class="pipe-tab" data-view="diversificacion"><span class="pipe-tab-emoji" aria-hidden="true">🧩</span>Diversificación</div>
+    <div class="pipe-tab" data-view="clientes"><span class="pipe-tab-emoji" aria-hidden="true">🗂️</span>Clientes por Etapa</div>
   </div>
 
   <!-- ===== VISTA 1 · RESUMEN EMBUDO ===== -->
@@ -24,7 +24,7 @@
     <div class="kpis k4" id="pipeKpiFixed"></div>
     <div class="grid2 pipe-fs-grid">
       <div class="card pipe-card-anim">
-        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">filter_alt</span>Embudo de Oportunidades</div>
+        <div class="card-h pipe-card-title"><span class="pipe-lead-ic" aria-hidden="true">🎯</span>Embudo de Oportunidades</div>
         <div class="pipe-card-sub">Estado actual · cantidad e importe total por etapa</div>
         <div class="funnel-v2" id="funnelV2"></div>
       </div>
@@ -67,7 +67,7 @@
 
     <div class="grid2 pipe-fs-grid">
       <div class="card pipe-card-anim">
-        <div class="vt-card-ttl"><span class="material-symbols-rounded" aria-hidden="true">bar_chart</span>Forecast mensual por etapa</div>
+        <div class="vt-card-ttl"><span class="pipe-lead-ic" aria-hidden="true">📊</span>Forecast mensual por etapa</div>
         <div class="vt-card-sub" style="margin-bottom:14px">Importe de oportunidades según mes estimado de cierre</div>
         <div class="chart-wrap" id="pipeSeasChartWrap" style="height:clamp(260px,22vw,360px)"><canvas id="chPipeSeas"></canvas></div>
         <div class="pipe-empty" id="pipeSeasEmpty" hidden>
@@ -78,7 +78,7 @@
       </div>
       <div class="card pipe-card-anim" style="padding:0;overflow:hidden;display:flex;flex-direction:column">
         <div style="padding:14px 16px 10px">
-          <div class="vt-card-ttl"><span class="material-symbols-rounded" aria-hidden="true">table_rows</span>Resumen mensual</div>
+          <div class="vt-card-ttl"><span class="pipe-lead-ic" aria-hidden="true">📋</span>Resumen mensual</div>
           <div class="vt-card-sub" id="pipeForecastTblInfo"></div>
         </div>
         <div class="vt26-wrap" style="max-height:360px;border-radius:0;border-left:none;border-right:none;border-bottom:none;flex:1">
@@ -104,7 +104,7 @@
   <!-- ===== VISTA · DIVERSIFICACIÓN ===== -->
   <div class="pipe-view" id="pipeViewDiversificacion">
     <div class="pipe-div-header">
-      <div class="pipe-div-header-ttl"><span class="material-symbols-rounded" aria-hidden="true">hub</span>Diversificación del Pipeline</div>
+      <div class="pipe-div-header-ttl"><span class="pipe-lead-ic" aria-hidden="true">🧩</span>Diversificación del Pipeline</div>
       <div class="pipe-div-header-sels">
         <div id="pipeDivAgroSel"></div>
         <div id="pipeDivYearSel"></div>
@@ -115,19 +115,19 @@
 
     <div class="grid2 pipe-fs-grid pipe-div-grid">
       <div class="card pipe-card-anim">
-        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">bar_chart</span><span id="pipeDivSectorTitle">Pipeline NO AGRO por sector</span></div>
+        <div class="card-h pipe-card-title"><span class="pipe-lead-ic" aria-hidden="true">📊</span><span id="pipeDivSectorTitle">Pipeline NO AGRO por sector</span></div>
         <div class="pipe-card-sub">Importe activo por sector · <span id="pipeDivSectorYearLbl"></span></div>
         <div class="div-bar-list" id="pipeDivSectorChart"></div>
       </div>
       <div class="card pipe-card-anim">
-        <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">timeline</span><span id="pipeDivMaturityTitle">Madurez del pipeline NO AGRO</span></div>
+        <div class="card-h pipe-card-title"><span class="pipe-lead-ic" aria-hidden="true">🌳</span><span id="pipeDivMaturityTitle">Madurez del pipeline NO AGRO</span></div>
         <div class="pipe-card-sub">Distribución por etapa · <span id="pipeDivMaturityYearLbl"></span></div>
         <div class="div-bar-list" id="pipeDivMaturityChart"></div>
       </div>
     </div>
 
     <div class="card pipe-card-anim">
-      <div class="card-h pipe-card-title"><span class="material-symbols-rounded" aria-hidden="true">table_rows</span><span id="pipeDivTableTitle">Oportunidades NO AGRO</span></div>
+      <div class="card-h pipe-card-title"><span class="pipe-lead-ic" aria-hidden="true">📋</span><span id="pipeDivTableTitle">Oportunidades NO AGRO</span></div>
       <div class="pipe-div-tbl-wrap">
         <table class="pipe-div-tbl">
           <thead>

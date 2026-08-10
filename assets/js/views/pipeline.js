@@ -21,13 +21,13 @@ const PIPE_ESTADO_BG = {
   'Perdido':'rgba(216,90,48,.12)'
 };
 const PIPE_ESTADO_ICON = {
-  'Prospecto':'person_search',
-  'En proceso de cotización':'request_quote',
-  'En análisis':'query_stats',
-  'Negociación':'handshake',
-  'Postpuesto':'pause_circle',
-  'Cancelado':'cancel',
-  'Perdido':'trending_down'
+  'Prospecto':'🔍',
+  'En proceso de cotización':'🧾',
+  'En análisis':'🔬',
+  'Negociación':'🤝',
+  'Postpuesto':'⏸️',
+  'Cancelado':'❌',
+  'Perdido':'📉'
 };
 /* Años habilitados para la segmentación de Forecast / Clientes por Etapa */
 const YEARS_ALLOWED = [2026, 2027];
@@ -65,7 +65,7 @@ export const ready = (async function init() {
   function kpiCard(color, label, val, ctx, barPct, icon) {
     var track = (barPct == null) ? '' :
       '<div class="kv3-bar-track"><div class="kv3-bar-fill" style="width:' + Math.min(barPct,100).toFixed(1) + '%;background:' + color + '"></div></div>';
-    var iconHtml = icon ? '<span class="material-symbols-rounded kv3-icon" aria-hidden="true" style="color:' + color + '">' + icon + '</span>' : '';
+    var iconHtml = icon ? '<span class="kv3-icon" aria-hidden="true" style="color:' + color + '">' + icon + '</span>' : '';
     return '<div class="kpi-v3" style="--accent:' + color + ';cursor:default">'
       + iconHtml
       + '<div class="kv3-lbl">' + label + '</div>'
@@ -235,13 +235,13 @@ export const ready = (async function init() {
     var perdAgg = agg(rows.filter(function(r){ return r.estado==='Perdido'; }));
     var actAgg = agg(activeRows());
     var html = ''
-      + '<div class="pipe-hkpi"><span class="material-symbols-rounded pipe-hkpi-ic" aria-hidden="true">handshake</span><div class="pipe-hkpi-l">Oportunidades en Negociación</div>'
+      + '<div class="pipe-hkpi"><span class="pipe-hkpi-ic" aria-hidden="true">🤝</span><div class="pipe-hkpi-l">Oportunidades en Negociación</div>'
       + '<div class="pipe-hkpi-v">' + fmtEjecutivo(negAgg.importe) + '</div>'
       + '<div class="pipe-hkpi-s">' + negAgg.count + ' oportunidades</div></div>'
-      + '<div class="pipe-hkpi"><span class="material-symbols-rounded pipe-hkpi-ic" aria-hidden="true">trending_up</span><div class="pipe-hkpi-l">Pipeline Activo</div>'
+      + '<div class="pipe-hkpi"><span class="pipe-hkpi-ic" aria-hidden="true">📈</span><div class="pipe-hkpi-l">Pipeline Activo</div>'
       + '<div class="pipe-hkpi-v">' + fmtEjecutivo(actAgg.importe) + '</div>'
       + '<div class="pipe-hkpi-s">' + actAgg.count + ' oportunidades activas</div></div>'
-      + '<div class="pipe-hkpi"><span class="material-symbols-rounded pipe-hkpi-ic" aria-hidden="true" style="color:#F0997B">trending_down</span><div class="pipe-hkpi-l">Oportunidades Perdidas</div>'
+      + '<div class="pipe-hkpi"><span class="pipe-hkpi-ic" aria-hidden="true">📉</span><div class="pipe-hkpi-l">Oportunidades Perdidas</div>'
       + '<div class="pipe-hkpi-v" style="color:#F0997B">' + perdAgg.count + '</div>'
       + '<div class="pipe-hkpi-s">' + fmtEjecutivo(perdAgg.importe) + ' en importe</div></div>';
     var el = document.getElementById('pipeHeroKpis');
@@ -264,10 +264,10 @@ export const ready = (async function init() {
     var ticket = a.count ? a.importe / a.count : 0;
     var pAvg = avgProb(act);
     var html = ''
-      + kpiCard('#3EC6AC', 'Pipeline Total', fmtEjecutivo(a.importe), 'Importe de oportunidades activas', null, 'account_balance_wallet')
-      + kpiCard('#1E3A5F', 'Oportunidades Activas', String(a.count), 'Excluye vendido, perdido y postpuesto', null, 'workspaces')
-      + kpiCard('#0F6E56', 'Probabilidad Promedio', pAvg.toFixed(2) + '%', 'Lectura comercial de cierre con nosotros', null, 'percent')
-      + kpiCard('#D97706', 'Ticket Promedio', fmtEjecutivo(ticket), 'Pipeline total / oportunidades activas', null, 'payments');
+      + kpiCard('#3EC6AC', 'Pipeline Total', fmtEjecutivo(a.importe), 'Importe de oportunidades activas', null, '💰')
+      + kpiCard('#1E3A5F', 'Oportunidades Activas', String(a.count), 'Excluye vendido, perdido y postpuesto', null, '📦')
+      + kpiCard('#0F6E56', 'Probabilidad Promedio', pAvg.toFixed(2) + '%', 'Lectura comercial de cierre con nosotros', null, '🎯')
+      + kpiCard('#D97706', 'Ticket Promedio', fmtEjecutivo(ticket), 'Pipeline total / oportunidades activas', null, '💳');
     var el = document.getElementById('pipeKpiFixed');
     if (el) el.innerHTML = html;
   }
@@ -293,7 +293,7 @@ export const ready = (async function init() {
       var w = a.count ? Math.max(12, a.count/maxN*100) : 4;
       var c = PIPE_ESTADO_COLOR[nm];
       fh += '<div class="fstage-v2' + (nm===_pipeStageSel?' sel':'') + '" data-etapa="' + nm + '" style="--stage-c:' + c + '">'
-        + '<div class="fv2-label-wrap"><span class="material-symbols-rounded fv2-icon" aria-hidden="true" style="color:' + c + '">' + PIPE_ESTADO_ICON[nm] + '</span>'
+        + '<div class="fv2-label-wrap"><span class="fv2-icon" aria-hidden="true" style="color:' + c + '">' + PIPE_ESTADO_ICON[nm] + '</span>'
         + '<div><div class="fv2-label">' + nm + '</div><div class="fv2-count">' + a.count + ' oportunidad' + (a.count===1?'':'es') + '</div></div></div>'
         + '<div class="fv2-bar-wrap"><div class="fv2-bar" style="width:' + w + '%;background:linear-gradient(90deg,' + c + 'b3,' + c + ')"></div></div>'
         + '<div class="fv2-meta">' + fmtEjecutivo(a.importe) + '</div></div>';
@@ -322,7 +322,7 @@ export const ready = (async function init() {
     var top5 = stageRows.slice().sort(function(x,y){ return (y.dolares||0)-(x.dolares||0); }).slice(0,5);
     var html = ''
       + '<div class="psd-hdr"><div><div class="psd-name">' + nm + '</div><div class="psd-sub">' + a.count + ' oportunidades &middot; ' + fmtEjecutivo(a.importe) + '</div></div>'
-      + '<span class="psd-badge" style="background:' + PIPE_ESTADO_BG[nm] + ';color:' + PIPE_ESTADO_COLOR[nm] + '"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[nm] + '</span>' + nm + '</span></div>'
+      + '<span class="psd-badge" style="background:' + PIPE_ESTADO_BG[nm] + ';color:' + PIPE_ESTADO_COLOR[nm] + '"><span aria-hidden="true">' + PIPE_ESTADO_ICON[nm] + '</span>' + nm + '</span></div>'
       + '<div class="psd-stats">'
       + '<div class="psd-stat"><div class="psd-stat-l">Importe</div><div class="psd-stat-v">' + fmtEjecutivo(a.importe) + '</div></div>'
       + '<div class="psd-stat"><div class="psd-stat-l">Ticket Promedio</div><div class="psd-stat-v">' + fmtEjecutivo(ticket) + '</div></div>'
@@ -371,10 +371,10 @@ export const ready = (async function init() {
   }
   function renderEstadoChips() {
     var el = document.getElementById('pfEstado'); if (!el) return;
-    var items = [['all','Todas','apps']].concat(PIPE_ESTADOS.map(function(e){ return [e, e, PIPE_ESTADO_ICON[e]]; }));
+    var items = [['all','Todas','🌐']].concat(PIPE_ESTADOS.map(function(e){ return [e, e, PIPE_ESTADO_ICON[e]]; }));
     el.innerHTML = items.map(function(it) {
       var active = _pipeEstadoSel.has(it[0]);
-      return '<div class="pf-chip' + (active?' active':'') + '" data-estado="' + it[0] + '"><span class="material-symbols-rounded" aria-hidden="true">' + it[2] + '</span>' + it[1] + '</div>';
+      return '<div class="pf-chip' + (active?' active':'') + '" data-estado="' + it[0] + '"><span class="pf-chip-emoji" aria-hidden="true">' + it[2] + '</span>' + it[1] + '</div>';
     }).join('');
   }
   var pfProbEl = document.getElementById('pfProb');
@@ -397,10 +397,10 @@ export const ready = (async function init() {
     var fixedA = agg(activeRows().filter(function(r){ return r.anio === yearActive; }));
     var weightedImporte = fRows.reduce(function(s, r){ return s + (r.dolares||0) * (r.probabilidad||0); }, 0);
     var html = ''
-      + kpiCard('#1E3A5F', 'Pipeline Bruto ' + (yearActive || ''), fmtEjecutivo(fixedA.importe), 'Importe de oportunidades activas en ' + (yearActive || '—'), null, 'account_balance_wallet')
-      + kpiCard('#0F6E56', 'Forecast', fmtEjecutivo(a.importe), a.count + ' oportunidades seg&uacute;n filtro', null, 'insights')
-      + kpiCard('#3EC6AC', 'Oportunidades', String(a.count), 'N&uacute;mero de oportunidades filtradas', null, 'workspaces')
-      + kpiCard('#D97706', 'Importe ponderado', fmtEjecutivo(weightedImporte), 'Importe &times; probabilidad de cada oportunidad', null, 'trending_up');
+      + kpiCard('#1E3A5F', 'Pipeline Bruto ' + (yearActive || ''), fmtEjecutivo(fixedA.importe), 'Importe de oportunidades activas en ' + (yearActive || '—'), null, '💰')
+      + kpiCard('#0F6E56', 'Forecast', fmtEjecutivo(a.importe), a.count + ' oportunidades seg&uacute;n filtro', null, '🔮')
+      + kpiCard('#3EC6AC', 'Oportunidades', String(a.count), 'N&uacute;mero de oportunidades filtradas', null, '📦')
+      + kpiCard('#D97706', 'Importe ponderado', fmtEjecutivo(weightedImporte), 'Importe &times; probabilidad de cada oportunidad', null, '📈');
     var el = document.getElementById('pipeKpiForecast');
     if (el) el.innerHTML = html;
   }
@@ -525,7 +525,7 @@ export const ready = (async function init() {
       Object.keys(byE).forEach(function(e){ if (byE[e] > domV) { domV = byE[e]; domE = e; } });
       totCount += a.count; totImporte += a.importe;
       mr.forEach(function(r){ if (r.probabilidad != null) { totProbSum += r.probabilidad; totProbN += 1; } });
-      var domBadge = domE === '—' ? '—' : ('<span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[domE] + ';color:' + PIPE_ESTADO_COLOR[domE] + '"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[domE] + '</span>' + domE + '</span>');
+      var domBadge = domE === '—' ? '—' : ('<span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[domE] + ';color:' + PIPE_ESTADO_COLOR[domE] + '"><span aria-hidden="true">' + PIPE_ESTADO_ICON[domE] + '</span>' + domE + '</span>');
       body += '<tr><td>' + meses[m-1] + '</td><td class="r">' + a.count + '</td>'
         + '<td class="r" style="font-weight:700">' + fmtEjecutivo(a.importe) + '</td><td>' + domBadge + '</td><td class="r">' + pAvg.toFixed(2) + '%</td></tr>';
     });
@@ -574,7 +574,7 @@ export const ready = (async function init() {
         }).join('');
       }
       return '<div class="pf-stage-card" style="--accent:' + PIPE_ESTADO_COLOR[estado] + '">'
-        + '<div class="pf-stage-head"><span class="pf-stage-name"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[estado] + '</span>' + estado + '</span>'
+        + '<div class="pf-stage-head"><span class="pf-stage-name"><span class="pipe-lead-ic" aria-hidden="true">' + PIPE_ESTADO_ICON[estado] + '</span>' + estado + '</span>'
         + '<span class="pf-stage-count">' + stageRows.length + '</span></div>'
         + '<div class="pf-stage-list">' + listHtml + '</div>'
         + '</div>';
@@ -620,12 +620,12 @@ export const ready = (async function init() {
   function renderClienteTabs() {
     var el = document.getElementById('pipeClienteTabs'); if (!el) return;
     var base = rows.filter(clienteInSegment);
-    var items = [['all','Todas', base.length, 'apps']].concat(PIPE_ESTADOS.map(function(e) {
+    var items = [['all','Todas', base.length, '🌐']].concat(PIPE_ESTADOS.map(function(e) {
       return [e, e, base.filter(function(r){ return r.estado===e; }).length, PIPE_ESTADO_ICON[e]];
     }));
     el.innerHTML = items.map(function(it) {
       var active = _pipeClienteFocus === it[0];
-      return '<div class="pipe-tab' + (active?' active':'') + '" data-etapa="' + it[0] + '"><span class="material-symbols-rounded" aria-hidden="true">' + it[3] + '</span>' + it[1] + ' <span class="pt-count">' + it[2] + '</span></div>';
+      return '<div class="pipe-tab' + (active?' active':'') + '" data-etapa="' + it[0] + '"><span class="pipe-tab-emoji" aria-hidden="true">' + it[3] + '</span>' + it[1] + ' <span class="pt-count">' + it[2] + '</span></div>';
     }).join('');
   }
   var clienteTabsEl = document.getElementById('pipeClienteTabs');
@@ -679,7 +679,7 @@ export const ready = (async function init() {
 
       html += '<div class="pipe-etapa-group">'
         + '<div class="pipe-etapa-hdr">'
-        + '<span class="material-symbols-rounded peh-icon" aria-hidden="true" style="color:' + PIPE_ESTADO_COLOR[nm] + '">' + PIPE_ESTADO_ICON[nm] + '</span>'
+        + '<span class="peh-icon" aria-hidden="true" style="color:' + PIPE_ESTADO_COLOR[nm] + '">' + PIPE_ESTADO_ICON[nm] + '</span>'
         + '<span class="peh-name" style="color:' + PIPE_ESTADO_COLOR[nm] + '">' + nm + '</span>'
         + '<span class="peh-meta">' + a.count + ' oportunidad' + (a.count===1?'':'es') + ' &middot; ' + part.toFixed(2) + '% participaci&oacute;n &middot; ' + fmtEjecutivo(a.importe) + ' importe total</span>'
         + '</div>'
@@ -717,8 +717,8 @@ export const ready = (async function init() {
   var DIV_AGRO_TYPES = ['NO AGRO', 'AGRO'];
   var _pipeDivAgro = DIV_AGRO_TYPES[0];
   var DIV_AGRO_META = {
-    'NO AGRO': { icon: 'inventory_2' },
-    'AGRO': { icon: 'eco' }
+    'NO AGRO': { icon: '🏭' },
+    'AGRO': { icon: '🌾' }
   };
 
   var DIV_SECTOR_COLOR = {
@@ -727,12 +727,12 @@ export const ready = (async function init() {
     'Lácteos / derivados': '#3EC6AC'
   };
   var DIV_SECTOR_ICON = {
-    'Centros logísticos / CEDI': 'warehouse',
-    'Cárnicos': 'kebab_dining',
-    'Lácteos / derivados': 'water_drop'
+    'Centros logísticos / CEDI': '🏭',
+    'Cárnicos': '🥩',
+    'Lácteos / derivados': '🥛'
   };
   function divSectorColor(s) { return DIV_SECTOR_COLOR[s] || '#7B8DB0'; }
-  function divSectorIcon(s) { return DIV_SECTOR_ICON[s] || 'category'; }
+  function divSectorIcon(s) { return DIV_SECTOR_ICON[s] || '📦'; }
   /* Deriva el sector comercial NO AGRO a partir de PRODUCTO — la base no
      trae una columna de sector propia. Sólo agrupa sinónimos observados;
      cualquier producto no reconocido conserva su propio nombre como sector. */
@@ -753,11 +753,11 @@ export const ready = (async function init() {
     'Otros': '#7B8DB0'
   };
   var DIV_AGRO_CAT_ICON = {
-    'Aguacate': 'eco',
-    'Plátano': 'nutrition',
-    'Arándanos': 'water_drop',
-    'Flores': 'local_florist',
-    'Otros': 'category'
+    'Aguacate': '🥑',
+    'Plátano': '🍌',
+    'Arándanos': '🫐',
+    'Flores': '🌸',
+    'Otros': '📦'
   };
   function stripAccents(s) { return String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,''); }
   /* Categoría AGRO — sólo Aguacate/Plátano/Arándanos/Flores; cualquier otro
@@ -772,7 +772,7 @@ export const ready = (async function init() {
   }
   function divCategoryFromProducto(producto, agro) { return agro === 'AGRO' ? agroCategoryFromProducto(producto) : sectorFromProducto(producto); }
   function divCategoryColor(cat, agro) { return agro === 'AGRO' ? (DIV_AGRO_CAT_COLOR[cat] || '#7B8DB0') : divSectorColor(cat); }
-  function divCategoryIcon(cat, agro) { return agro === 'AGRO' ? (DIV_AGRO_CAT_ICON[cat] || 'category') : divSectorIcon(cat); }
+  function divCategoryIcon(cat, agro) { return agro === 'AGRO' ? (DIV_AGRO_CAT_ICON[cat] || '📦') : divSectorIcon(cat); }
 
   function divRowsYear(y) { return rows.filter(function(r){ return r.anio === y; }); }
   function divActiveRows(y) { return divRowsYear(y).filter(function(r){ return r.estado!=='Perdido' && r.estado!=='Cancelado' && r.estado!=='Postpuesto'; }); }
@@ -784,7 +784,7 @@ export const ready = (async function init() {
     el.innerHTML = '<div class="ym-years" role="tablist" aria-label="Categoría">'
       + DIV_AGRO_TYPES.map(function(a) {
           return '<button type="button" class="ym-year' + (a===_pipeDivAgro?' active':'') + '" data-agro="' + a + '" role="tab" aria-selected="' + (a===_pipeDivAgro) + '">'
-            + '<span class="material-symbols-rounded" aria-hidden="true">' + DIV_AGRO_META[a].icon + '</span><span>' + a + '</span></button>';
+            + '<span class="ym-year-emoji" aria-hidden="true">' + DIV_AGRO_META[a].icon + '</span><span>' + a + '</span></button>';
         }).join('')
       + '</div>';
   }
@@ -831,9 +831,9 @@ export const ready = (async function init() {
       .reduce(function(s, r){ return s + (r.dolares||0) * r.probabilidad; }, 0);
 
     var html = ''
-      + kpiCard('#3EC6AC', 'Pipeline ' + agro + ' activo', fmtEjecutivo(agroA.importe), agroA.count + ' oportunidad' + (agroA.count===1?'':'es') + ' &middot; ' + y, null, 'workspaces')
-      + kpiCard('#1E3A5F', 'Participaci&oacute;n ' + agro, participacion.toFixed(1) + '%', fmtEjecutivo(agroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), 'donut_large')
-      + kpiCard('#D97706', 'Pipeline ' + agro + ' ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;' + Math.round(threshold*100) + '%', null, 'trending_up');
+      + kpiCard('#3EC6AC', 'Pipeline ' + agro + ' activo', fmtEjecutivo(agroA.importe), agroA.count + ' oportunidad' + (agroA.count===1?'':'es') + ' &middot; ' + y, null, '📦')
+      + kpiCard('#1E3A5F', 'Participaci&oacute;n ' + agro, participacion.toFixed(1) + '%', fmtEjecutivo(agroA.importe) + ' de ' + fmtEjecutivo(totalA.importe) + ' activos', Math.min(participacion,100), '🥧')
+      + kpiCard('#D97706', 'Pipeline ' + agro + ' ponderado', fmtEjecutivo(weighted), 'Oportunidades &ge;' + Math.round(threshold*100) + '%', null, '📈');
     var el = document.getElementById('pipeDivKpis');
     if (el) el.innerHTML = html;
   }
@@ -846,7 +846,7 @@ export const ready = (async function init() {
       var pct = totalImporte ? (it.importe/totalImporte*100) : 0;
       var w = it.importe ? Math.max(6, it.importe/maxV*100) : 3;
       return '<div class="div-bar-row" style="--stage-c:' + it.color + '">'
-        + '<div class="div-bar-label"><span class="material-symbols-rounded div-bar-icon" aria-hidden="true" style="color:' + it.color + '">' + it.icon + '</span>' + it.label + '</div>'
+        + '<div class="div-bar-label"><span class="div-bar-icon" aria-hidden="true" style="color:' + it.color + '">' + it.icon + '</span>' + it.label + '</div>'
         + '<div class="div-bar-track"><div class="div-bar-fill" style="width:' + w + '%;background:linear-gradient(90deg,' + it.color + 'b3,' + it.color + ')"></div></div>'
         + '<div class="div-bar-meta">' + fmtEjecutivo(it.importe) + ' <span class="div-bar-pct">&middot; ' + pct.toFixed(1) + '%</span></div>'
         + '</div>';
@@ -915,7 +915,7 @@ export const ready = (async function init() {
         + '<td><span class="pipe-mini-badge" style="background:' + sc + '22;color:' + sc + '">' + cat + '</span></td>'
         + '<td class="r" style="font-weight:700">' + fmtEjecutivo(r.dolares) + '</td>'
         + '<td><span class="pipe-mini-badge" style="background:' + pStyle.bg + ';color:' + pStyle.color + '">' + probPct + '</span></td>'
-        + '<td><span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[r.estado] + ';color:' + PIPE_ESTADO_COLOR[r.estado] + '"><span class="material-symbols-rounded" aria-hidden="true">' + PIPE_ESTADO_ICON[r.estado] + '</span>' + r.estado + '</span></td>'
+        + '<td><span class="pipe-mini-badge" style="background:' + PIPE_ESTADO_BG[r.estado] + ';color:' + PIPE_ESTADO_COLOR[r.estado] + '"><span aria-hidden="true">' + PIPE_ESTADO_ICON[r.estado] + '</span>' + r.estado + '</span></td>'
         + '<td>' + mesLbl + '</td>'
         + '</tr>';
     });

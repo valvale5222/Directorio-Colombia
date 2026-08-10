@@ -25,6 +25,7 @@
   transition:background .18s ease,border-color .18s ease,color .18s ease,transform .12s ease,box-shadow .18s ease;
   background:var(--card);color:var(--ts);white-space:nowrap;display:inline-flex;align-items:center;gap:7px;user-select:none}
 .pipe-tab .material-symbols-rounded{font-size:16px}
+.pipe-tab-emoji{font-size:15px;line-height:1;flex-shrink:0}
 .pipe-tab:not(.active):hover{border-color:var(--brand);color:var(--brand-d);transform:translateY(-1px)}
 .pipe-tab.active{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 4px 14px rgba(10,10,30,.22)}
 .pipe-tabs-main .pipe-tab{padding:9px 18px;font-size:12px}
@@ -66,7 +67,7 @@
 .psd-name{font-size:15px;font-weight:800;color:var(--t)}
 .psd-sub{font-size:11px;color:var(--ts);margin-top:2px}
 .psd-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap}
-.psd-badge .material-symbols-rounded{font-size:13px}
+.psd-badge .material-symbols-rounded,.psd-badge>span:first-child{font-size:13px}
 .psd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .psd-stat{background:var(--soft);border-radius:9px;padding:9px 11px;border:1px solid var(--border);transition:border-color .18s,background .18s}
 .psd-stat:hover{border-color:var(--brand);background:rgba(62,198,172,.08)}
@@ -110,6 +111,7 @@
   font-weight:600;cursor:pointer;transition:background .16s,border-color .16s,color .16s,transform .12s;background:var(--card);color:var(--ts);white-space:nowrap;
   display:inline-flex;align-items:center;gap:6px;user-select:none}
 .pf-chip .material-symbols-rounded{font-size:14px}
+.pf-chip-emoji{font-size:13px;line-height:1}
 .pf-chip:hover{border-color:var(--brand);color:var(--brand-d);transform:translateY(-1px)}
 .pf-chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
 
@@ -145,6 +147,7 @@
   background:transparent;color:var(--tm);font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;
   transition:background .18s ease,color .18s ease,box-shadow .18s ease}
 .ym-year .material-symbols-rounded{font-size:15px;opacity:.7}
+.ym-year-emoji{font-size:14px;line-height:1}
 .ym-year:hover{color:var(--brand-d)}
 .ym-year.active{background:var(--navy);color:#fff;box-shadow:0 3px 10px rgba(10,10,30,.22)}
 .ym-year.active .material-symbols-rounded{opacity:1;color:var(--brand)}
@@ -179,7 +182,7 @@
 
 /* ═══ Badges pequeños reutilizados en tablas (etapa dominante) ═══ */
 .pipe-mini-badge{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;padding:3px 9px;border-radius:14px;font-weight:700;white-space:nowrap}
-.pipe-mini-badge .material-symbols-rounded{font-size:11px}
+.pipe-mini-badge .material-symbols-rounded,.pipe-mini-badge>span:first-child{font-size:11px}
 
 /* ═══ Grupos de Clientes por Etapa ═══ */
 .pipe-etapa-group{border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:14px;
@@ -218,7 +221,7 @@
   padding-bottom:9px;margin-bottom:8px;border-bottom:1px solid var(--border);flex-shrink:0}
 .pf-stage-name{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
   color:var(--tm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pf-stage-name .material-symbols-rounded{font-size:15px;color:var(--accent);flex-shrink:0}
+.pf-stage-name .pipe-lead-ic{font-size:15px;color:var(--accent);flex-shrink:0}
 .pf-stage-count{font-size:10px;font-weight:700;color:#fff;background:var(--accent);
   padding:2px 8px;border-radius:20px;flex-shrink:0}
 .pf-stage-list{flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
@@ -248,10 +251,7 @@
 #pipeline .peh-icon,
 #pipeline .kpi-v3 .kv3-icon,
 #pipeline .div-bar-icon,
-#pipeline .pipe-card-title .material-symbols-rounded,
-#pipeline .vt-card-ttl .material-symbols-rounded,
-#pipeline .pipe-div-header-ttl .material-symbols-rounded,
-#pipeline .pf-stage-name .material-symbols-rounded{
+#pipeline .pipe-lead-ic{
   display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
   width:2em;height:2em;border-radius:9px;
   background:linear-gradient(150deg,color-mix(in srgb,currentColor 22%,var(--card)),color-mix(in srgb,currentColor 6%,var(--card)));
@@ -262,7 +262,7 @@
 }
 #pipeline .kpi-v3 .kv3-icon{font-size:19px;margin-bottom:10px}
 #pipeline .fv2-icon,#pipeline .peh-icon{font-size:15px}
-#pipeline .div-bar-icon,#pipeline .pf-stage-name .material-symbols-rounded{width:1.7em;height:1.7em;border-radius:8px}
+#pipeline .div-bar-icon,#pipeline .pf-stage-name .pipe-lead-ic{width:1.7em;height:1.7em;border-radius:8px}
 /* Ícono del hero (fondo navy oscuro): mantiene su propia placa, sin tinte de
    acento — mezclar con var(--card) (claro) desentonaría sobre el hero oscuro. */
 #pipeline .pipe-hkpi-ic{
@@ -276,10 +276,9 @@
 #pipeline .pipe-etapa-group:hover .peh-icon,
 #pipeline .kpi-v3:hover .kv3-icon,
 #pipeline .div-bar-row:hover .div-bar-icon,
-#pipeline .card:hover .pipe-card-title .material-symbols-rounded,
-#pipeline .card:hover .vt-card-ttl .material-symbols-rounded,
-#pipeline .pipe-div-header:hover .pipe-div-header-ttl .material-symbols-rounded,
-#pipeline .pf-stage-card:hover .pf-stage-name .material-symbols-rounded{
+#pipeline .card:hover .pipe-lead-ic,
+#pipeline .pipe-div-header:hover .pipe-lead-ic,
+#pipeline .pf-stage-card:hover .pf-stage-name .pipe-lead-ic{
   transform:translateY(-2px) scale(1.08) rotate(-4deg);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 10px 22px color-mix(in srgb,currentColor 30%,transparent);
 }
