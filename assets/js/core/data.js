@@ -16,3 +16,4 @@ export const getPipeline = () => load('data/pipeline.json');
 export const getObjetivos = () => load('data/objetivos.json');
 export const getParticipacion = () => load('data/participacion.json');
 export const getOrganigrama = () => load('data/organigrama.json');
+export const getProyectos = () => load('data/proyectos.json');

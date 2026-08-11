@@ -1,0 +1,310 @@
+{
+  "fuente": "DIRECTORIO OPERACIONES COLOMBIA rev3.pdf",
+  "proyectos": [
+    {
+      "key": "dreamberries",
+      "nombre": "Dream Berries",
+      "subtitulo": "Empacadora de Arándanos",
+      "emoji": "🫐",
+      "cliente": "AGROVENTURE CAPITAL",
+      "ubicacion": "Tocancipá, Cundinamarca",
+      "sector": "Zona Franca",
+      "estado": "En Proceso",
+      "corte": "16/07/2026",
+      "img": {
+        "isometrico": "assets/img/proyectos/dreamberries/isometrico.jpg",
+        "plano": "assets/img/proyectos/dreamberries/plano.jpg",
+        "fotos": [
+          "assets/img/proyectos/dreamberries/foto-1.jpg",
+          "assets/img/proyectos/dreamberries/foto-2.jpg",
+          "assets/img/proyectos/dreamberries/foto-3.jpg",
+          "assets/img/proyectos/dreamberries/foto-4.jpg"
+        ]
+      },
+      "avance": {
+        "real": "24,19 %",
+        "programado": "vs. programado 24,72 %",
+        "desviacionCronograma": "- 0,53 %",
+        "desviacionNota": "Atraso de medio día",
+        "margenEstimado": "17,97 %",
+        "margenEstimadoNota": "Base presupuesto inicial",
+        "margenActual": "19,45 %",
+        "margenActualNota": "A la fecha de corte",
+        "diasEnObra": "74",
+        "diasEnObraNota": "de 153 días contractuales",
+        "curvaSDuracion": "23 semanas"
+      },
+      "staff": {
+        "supervisoresProyecto": [{ "rol": "LÍDER", "nombre": "Juan Felipe Toro Ruiz" }],
+        "supervisoresSst": [{ "rol": "LÍDER", "nombre": "Juan Esteban Gómez" }]
+      },
+      "hitos": [
+        { "fecha": "18/07", "texto": "Llegada de condensadores a obra es ruta crítica." },
+        { "fecha": "15/07", "texto": "Firma de contrato." }
+      ],
+      "contrato": {
+        "valor": "$ 749.435,99",
+        "modalidad": "Renting",
+        "interventoria": "No"
+      },
+      "fechasClave": {
+        "firmaContrato": "Sin firmar",
+        "inicioObra": "02/05/2026",
+        "finProgramado": "02/10/2026",
+        "finProyectado": "02/10/2026",
+        "diasTranscurridos": "74 transc. / 79 rest."
+      },
+      "sst": {
+        "diasSinAccidentes": "24",
+        "incidentesMes": "0",
+        "charlasSeguridad": "14",
+        "cumplimientoEpp": "100 %"
+      },
+      "pagos": {
+        "anticipoPagado": "$ 15.000 USD/mes",
+        "facturadoFecha": "$ 30.000 USD",
+        "pendienteFacturar": "$ 719.436",
+        "retencionGarantia": "N/A"
+      },
+      "contratistas": [
+        { "nombre": "SAE Refrigeración SAS", "alcance": "Paneles", "estado": "En Ejecución" },
+        { "nombre": "[Nombre contratista]", "alcance": "Instalación Mecánica", "estado": "Por definir" }
+      ],
+      "personal": {
+        "corteSemana": "Semana actual (corte): 6 al 9/07/2026 (corte: jueves)",
+        "promedio": "6.4",
+        "especialidades": [
+          { "especialidad": "Paneles", "semanaActual": "5", "picoMaximo": "7" }
+        ],
+        "resumen": { "directoFriopacking": "2", "contratistas": "7", "totalEnObra": "9" }
+      },
+      "equiposCriticos": [
+        { "equipo": "Evaporadores", "fechaOc": "01/07/2026", "fechaEstPlanta": "10/08/2026", "estado": "A tiempo" },
+        { "equipo": "Condensadores", "fechaOc": "22/06/2026", "fechaEstPlanta": "15/09/2026", "estado": "En riesgo" },
+        { "equipo": "Rack de compresores", "fechaOc": "12/06/2026", "fechaEstPlanta": "20/08/2026", "estado": "A tiempo" },
+        { "equipo": "Puertas herméticas", "fechaOc": "03/06/2026", "fechaEstPlanta": "10/08/2026", "estado": "A tiempo" }
+      ],
+      "complicaciones": [
+        { "nivel": "ALTO", "texto": "Condensadores: Tiempo de llegada de los condensadores." }
+      ],
+      "riesgos": [
+        { "riesgo": "Pagar adelanto contratista mecánico", "prob": "Alta", "impacto": "Alto" },
+        { "riesgo": "Programar llegada de tubería inox y accesorios", "prob": "Alta", "impacto": "Alto" },
+        { "riesgo": "Planos de tableros eléctricos", "prob": "Alta", "impacto": "Media" }
+      ],
+      "adicionales": [
+        { "descripcion": "Puerta seccional 3.60x3.60 motorizada (01 Recepción)", "costo": "$ 5522,69", "estado": "Pendiente" },
+        { "descripcion": "Puerta seccional 3.00x3.00 motorizada (01 Recepción y 02 Despacho)", "costo": "$ 4867,00", "estado": "Pendiente" },
+        { "descripcion": "Puerta seccional 3.00x3.00 manual (01 Almacén y 01 Exterior) con pórtico para sujeción con instalación", "costo": "$ 4505,89", "estado": "Pendiente" },
+        { "descripcion": "Puertas de lonas para cargador de baterías", "costo": "$ 1000,00", "estado": "Pendiente" },
+        { "descripcion": "Puerta corredera 2.50x3.00 (01 Recep, 02 CMP, 03 SP y 02 CPT)", "costo": "$ 3292,42", "estado": "Pendiente" }
+      ],
+      "adicionalesNota": "Se adiciona en venta un valor de $ 20.219."
+    },
+    {
+      "key": "cartama",
+      "nombre": "Cartama",
+      "subtitulo": "Construcción Packing Aguacate",
+      "emoji": "🥑",
+      "cliente": "AVOFRUIT SAS",
+      "ubicacion": "Támesis, Antioquia",
+      "sector": "Támesis",
+      "estado": "En Proceso",
+      "corte": "12/07/2026",
+      "img": {
+        "isometrico": "assets/img/proyectos/cartama/isometrico.jpg",
+        "plano": "assets/img/proyectos/cartama/plano.jpg",
+        "fotos": [
+          "assets/img/proyectos/cartama/foto-1.jpg",
+          "assets/img/proyectos/cartama/foto-2.jpg",
+          "assets/img/proyectos/cartama/foto-3.jpg",
+          "assets/img/proyectos/cartama/foto-4.jpg",
+          "assets/img/proyectos/cartama/foto-5.jpg",
+          "assets/img/proyectos/cartama/foto-6.jpg",
+          "assets/img/proyectos/cartama/foto-7.jpg",
+          "assets/img/proyectos/cartama/foto-8.jpg",
+          "assets/img/proyectos/cartama/foto-9.jpg",
+          "assets/img/proyectos/cartama/foto-10.jpg",
+          "assets/img/proyectos/cartama/foto-11.jpg",
+          "assets/img/proyectos/cartama/foto-12.jpg"
+        ]
+      },
+      "avance": {
+        "real": "24.00 %",
+        "programado": "vs. programado 24 %",
+        "desviacionCronograma": "0 %",
+        "desviacionNota": "Al día",
+        "margenEstimado": "18.84 %",
+        "margenEstimadoNota": "Base presupuesto inicial",
+        "margenActual": "20.00 %",
+        "margenActualNota": "A la fecha de corte",
+        "diasEnObra": "129",
+        "diasEnObraNota": "",
+        "avanceLlegadaEquipos": "78.05 %",
+        "avanceLlegadaEquiposNota": "No afecta la curva S — solo referencia",
+        "curvaSDuracion": "54 semanas"
+      },
+      "staff": {
+        "supervisoresProyecto": [
+          { "rol": "LÍDER", "nombre": "JOSÉ FLORES" },
+          { "rol": "", "nombre": "CRISTIAN RESTREPO" }
+        ],
+        "supervisoresSst": [{ "rol": "LÍDER", "nombre": "JULIAN LOPEZ" }]
+      },
+      "hitos": [
+        { "fecha": "24/07", "texto": "[Pago de Cartama]." }
+      ],
+      "contrato": {
+        "valor": "$ 5,150,424.63",
+        "modalidad": "AIU",
+        "interventoria": "DINPRO"
+      },
+      "fechasClave": {
+        "firmaContrato": "03/03/2025",
+        "inicioObra": "09/03/2026",
+        "finProgramado": "17/12/2026",
+        "finProyectado": "17/12/2026",
+        "diasTranscurridos": "129"
+      },
+      "sst": {
+        "diasSinAccidentes": "37",
+        "incidentesMes": "0",
+        "charlasSeguridad": "02",
+        "cumplimientoEpp": "100 %"
+      },
+      "pagos": {
+        "anticipoPagado": "$ 1,552,327.39",
+        "facturadoFecha": "$ 1,999,594.32",
+        "pendienteFacturar": "$ 1,598,502.92",
+        "retencionGarantia": "N/A"
+      },
+      "contratistas": [
+        { "nombre": "INMONTEC SAS", "alcance": "Montaje mecánico", "estado": "En Ejecución" },
+        { "nombre": "PRIME REFRIGERACION SAS", "alcance": "Paneles", "estado": "En Ejecución" },
+        { "nombre": "FRIVERY", "alcance": "[Eléctrico SADEMA y Termometría]", "estado": "Stand By" },
+        { "nombre": "TRIVOLT", "alcance": "[Eléctrico USUARIOS]", "estado": "Stand By" }
+      ],
+      "personal": {
+        "corteSemana": "Semana actual (corte): 6 al 9/07/2026 (corte: jueves)",
+        "promedio": "13.2",
+        "especialidades": [
+          { "especialidad": "Paneles", "semanaActual": "12", "picoMaximo": "15" },
+          { "especialidad": "Mecánico NH3", "semanaActual": "3", "picoMaximo": "6" },
+          { "especialidad": "Mecánico glicol", "semanaActual": "6", "picoMaximo": "8" }
+        ],
+        "resumen": { "directoFriopacking": "3", "contratistas": "21", "totalEnObra": "24" }
+      },
+      "equiposCriticos": [
+        { "equipo": "Puertas HERMETICA", "fechaOc": "15/06/2026", "fechaEstPlanta": "24/08/2026", "estado": "A tiempo" }
+      ],
+      "complicaciones": [
+        { "nivel": "MEDIO", "texto": "[Paneles/cámaras]: [Dificultad para realizar soldadura para montaje de paneles en cámaras con racks montados]." }
+      ],
+      "riesgos": [
+        { "riesgo": "[Pago de adelanto de adicionales]", "prob": "[Media]", "impacto": "[Medio]" },
+        { "riesgo": "[Pago de Cartama segunda quincena de julio]", "prob": "[Alta]", "impacto": "[Medio]" },
+        { "riesgo": "[Instalación eléctrica]", "prob": "[Baja]", "impacto": "[Alto]" },
+        { "riesgo": "[Fabricación de soporte para tableros eléctricos - Cartama]", "prob": "[Media]", "impacto": "[Medio]" }
+      ],
+      "adicionales": [
+        { "descripcion": "[Sistema de detección y extracción de amoniaco]", "costo": "$ [59,260]", "estado": "Aprobado" },
+        { "descripcion": "[Movimiento y transporte de equipos de Pereira a obra]", "costo": "$ [23,252]", "estado": "Con Orden" },
+        { "descripcion": "[Pruebas de tintas penetrantes]", "costo": "$ [1,225]", "estado": "Aprobado" },
+        { "descripcion": "[Gastos generales por extensión de obra]", "costo": "$ [62,499]", "estado": "Pendiente" },
+        { "descripcion": "[Lavaojos]", "costo": "$ [2,469]", "estado": "Con Orden" }
+      ],
+      "adicionalesNota": "Cambios, extras o adicionales al alcance u obra original del contrato."
+    },
+    {
+      "key": "packing",
+      "nombre": "Packing de Aguacate",
+      "subtitulo": "Packing de Aguacate",
+      "emoji": "📦",
+      "cliente": "WESTPAK AVOCADO",
+      "ubicacion": "Girardota, Antioquia",
+      "sector": "",
+      "estado": "En Proceso",
+      "corte": "16/07/2026",
+      "img": {
+        "isometrico": "assets/img/proyectos/packing/isometrico.jpg",
+        "plano": "assets/img/proyectos/packing/plano.jpg",
+        "fotos": [
+          "assets/img/proyectos/packing/foto-1.jpg",
+          "assets/img/proyectos/packing/foto-2.jpg"
+        ]
+      },
+      "avance": {
+        "real": "9.00 %",
+        "programado": "vs. programado 9.00 %",
+        "desviacionCronograma": "0%",
+        "desviacionNota": "Atraso de 1 día y medio",
+        "margenEstimado": "17.38 %",
+        "margenEstimadoNota": "Base presupuesto inicial",
+        "margenActual": "20.00%",
+        "margenActualNota": "A la fecha de corte",
+        "diasEnObra": "0",
+        "diasEnObraNota": "de 153 días contractuales",
+        "curvaSDuracion": "12 semanas"
+      },
+      "staff": {
+        "supervisoresProyecto": [{ "rol": "LÍDER", "nombre": "Cristian Restrepo" }],
+        "supervisoresSst": [{ "rol": "LÍDER", "nombre": "Diana Duque" }]
+      },
+      "hitos": [],
+      "contrato": {
+        "valor": "$1'206.011",
+        "modalidad": "Precio fijo",
+        "interventoria": "No"
+      },
+      "fechasClave": {
+        "firmaContrato": "15/05/2026",
+        "inicioObra": "30/07/2026",
+        "finProgramado": "15/11/2026",
+        "finProyectado": "14/11/2026",
+        "diasTranscurridos": "63"
+      },
+      "sst": {
+        "diasSinAccidentes": "0",
+        "incidentesMes": "0",
+        "charlasSeguridad": "0",
+        "cumplimientoEpp": "0"
+      },
+      "pagos": {
+        "anticipoPagado": "$ 361.803",
+        "facturadoFecha": "$ 361.803",
+        "pendienteFacturar": "$ 844.208",
+        "retencionGarantia": "N/A"
+      },
+      "contratistas": [
+        { "nombre": "AR RACKING", "alcance": "ESTANTERÍA", "estado": "En Ejecución" },
+        { "nombre": "SAE Refrigeración", "alcance": "PANELERÍA Y PUERTAS", "estado": "En Ejecución" },
+        { "nombre": "— (sin asignar)", "alcance": "INSTALACIÓN MECÁNICA", "estado": "Por definir" },
+        { "nombre": "— (sin asignar)", "alcance": "INSTALACIÓN ELÉCTRICA", "estado": "Por definir" }
+      ],
+      "personal": {
+        "corteSemana": "Semana actual (corte): 13 al 16/07/2026 (corte: jueves)",
+        "promedio": "",
+        "especialidades": [],
+        "resumen": { "directoFriopacking": "2", "contratistas": "0", "totalEnObra": "0" }
+      },
+      "equiposCriticos": [
+        { "equipo": "Evaporadores", "fechaOc": "16/06/2026", "fechaEstPlanta": "10/10/2026", "estado": "A tiempo" },
+        { "equipo": "Unidades condensadoras", "fechaOc": "26/06/2026", "fechaEstPlanta": "29/08/2026", "estado": "A tiempo" },
+        { "equipo": "Puertas Rápidas", "fechaOc": "03/07/2026", "fechaEstPlanta": "24/10/2026", "estado": "A tiempo" },
+        { "equipo": "Estantería", "fechaOc": "11/06/2026", "fechaEstPlanta": "25/08/2026", "estado": "A tiempo" },
+        { "equipo": "Ventiladores Túneles", "fechaOc": "23/06/2026", "fechaEstPlanta": "30/10/2026", "estado": "A tiempo" },
+        { "equipo": "Paneles", "fechaOc": "03/07/2026", "fechaEstPlanta": "30/07/2026", "estado": "A tiempo" }
+      ],
+      "complicaciones": [
+        { "nivel": "MEDIO", "texto": "PANELERÍA: CERRAR CON LA CONTRATISTA SAE .." },
+        { "nivel": "MEDIO", "texto": "INGENIERÍA: PLANO DE ESTRUCTURA EVAPORADORES.." }
+      ],
+      "riesgos": [
+        { "riesgo": "RETRASO DE VENTILADORES", "prob": "MEDIA", "impacto": "ALTO" },
+        { "riesgo": "RETRASO DE EVAPORADORES", "prob": "MEDIA", "impacto": "MEDIO" }
+      ],
+      "adicionales": [],
+      "adicionalesNota": "Cambios, extras o adicionales al alcance u obra original del contrato. Sin adicionales registrados a la fecha de corte."
+    }
+  ]
+}

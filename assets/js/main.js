@@ -7,7 +7,7 @@ import { applyChartDefaults, syncChartsTheme } from './core/charts.js';
 import { closeModal } from './core/modal.js';
 import { initTheme } from './core/theme.js';
 
-const VIEWS = ['portada', 'resumen', 'ventas', 'moventas', 'pipeline', 'clientes', 'participacion', 'objetivos', 'organigrama'];
+const VIEWS = ['portada', 'resumen', 'ventas', 'moventas', 'pipeline', 'clientes', 'participacion', 'objetivos', 'proyectos', 'organigrama'];
 
 async function loadPartials() {
   await Promise.all(VIEWS.map(async (v) => {
@@ -21,7 +21,7 @@ async function boot() {
   applyChartDefaults();
   await loadPartials();
 
-  const [, , organigrama, ventas, pipeline, clientes, participacion, objetivos] = await Promise.all([
+  const [, , organigrama, ventas, pipeline, clientes, participacion, objetivos, proyectos] = await Promise.all([
     import('./views/portada.js'),
     import('./views/moventas.js'),
     import('./views/organigrama.js'),
@@ -30,8 +30,9 @@ async function boot() {
     import('./views/clientes.js'),
     import('./views/participacion.js'),
     import('./views/objetivos.js'),
+    import('./views/proyectos.js'),
   ]);
-  await Promise.all([organigrama.ready, ventas.ready, pipeline.ready, clientes.ready, participacion.ready, objetivos.ready]);
+  await Promise.all([organigrama.ready, ventas.ready, pipeline.ready, clientes.ready, participacion.ready, objetivos.ready, proyectos.ready]);
   syncChartsTheme(document.documentElement.getAttribute('data-theme'));
 
   const { initRouter, go } = await import('./core/router.js');
