@@ -1,0 +1,71 @@
+/* ══ PROYECTOS EN CURSO — reutiliza .pipe-hero/.pipe-tab, .od-hero/.od-card/.sc,
+   .card, .kpis, .grid2 y .sb-* ya definidos en components.css/objetivos.css/pipeline.css.
+   Aquí solo se agregan las piezas propias de esta vista: header de proyecto,
+   staff, notas de complicaciones y la galería fotográfica con lightbox. ══ */
+
+#proyectos .pipe-view{display:none}
+#proyectos .pipe-view.active{display:block;animation:fadeUp .32s cubic-bezier(.22,.8,.32,1)}
+
+/* ── Header de proyecto (cliente / ubicación / estado) ── */
+.py-sub-hero{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--sh)}
+.py-sub-hero-l{display:flex;align-items:center;gap:14px;min-width:0}
+.py-sub-emoji{font-size:34px;line-height:1;flex-shrink:0}
+.py-sub-name{font-size:17px;font-weight:800;color:var(--t);line-height:1.3}
+.py-sub-subtitle{font-weight:600;color:var(--ts);font-size:13px}
+.py-sub-meta{font-size:12px;color:var(--ts);margin-top:4px}
+.py-sub-hero-r{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.py-sub-corte{font-size:11px;color:var(--ts);font-weight:600;white-space:nowrap}
+
+/* ── Cards de imagen (isométrico / plano) ── */
+.py-img-card img{width:100%;border-radius:10px;border:1px solid var(--border);margin-top:10px;cursor:zoom-in;
+  display:block;transition:transform .2s ease,box-shadow .2s ease}
+.py-img-card img:hover{transform:scale(1.015);box-shadow:var(--sh2)}
+
+/* ── Staff del proyecto ── */
+.py-staff-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.py-staff-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ts);margin-bottom:8px}
+.py-staff-row{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--t);padding:5px 0}
+.py-staff-role{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#fff;background:var(--navy);
+  padding:2px 8px;border-radius:20px;flex-shrink:0}
+
+/* ── Próximos hitos ── */
+.py-hitos{list-style:none;display:flex;flex-direction:column;gap:8px}
+.py-hitos li{font-size:12.5px;color:var(--t);background:var(--soft);border-left:3px solid var(--brand);
+  border-radius:0 8px 8px 0;padding:8px 12px}
+.py-hitos li strong{color:var(--brand-d);margin-right:8px}
+
+/* ── Notas / complicaciones por nivel de severidad ── */
+.py-note{font-size:12px;color:var(--ts);background:var(--soft);border-radius:8px;padding:9px 13px;
+  line-height:1.6;border-left:3px solid var(--border);margin-bottom:8px}
+.py-note:last-child{margin-bottom:0}
+.py-note strong{color:var(--t)}
+.py-note-alto{border-left-color:#dc2626;background:rgba(220,38,38,.07)}
+.py-note-alto strong{color:#dc2626}
+.py-note-medio{border-left-color:#d97706;background:rgba(217,119,6,.07)}
+.py-note-medio strong{color:#d97706}
+.py-note-bajo{border-left-color:#16a34a;background:rgba(22,163,74,.07)}
+.py-note-bajo strong{color:#16a34a}
+
+/* ── Galería de anexo fotográfico ── */
+.py-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.py-gallery-item{border-radius:10px;overflow:hidden;border:1px solid var(--border);cursor:zoom-in;
+  aspect-ratio:4/3;position:relative;transition:transform .18s ease,box-shadow .18s ease}
+.py-gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+.py-gallery-item:hover{transform:translateY(-3px);box-shadow:var(--sh2);border-color:var(--brand)}
+.py-gallery-item:hover img{transform:scale(1.06)}
+
+/* ── Lightbox de imagen a pantalla completa ── */
+.py-lightbox{position:fixed;inset:0;background:rgba(5,8,20,.9);z-index:300;display:none;
+  align-items:center;justify-content:center;padding:40px;flex-direction:column;gap:14px}
+.py-lightbox.open{display:flex;animation:fade .18s ease}
+.py-lightbox img{max-width:100%;max-height:82vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5);object-fit:contain}
+.py-lightbox-cap{color:rgba(255,255,255,.75);font-size:12.5px;font-weight:600;text-align:center}
+.py-lightbox-close{position:absolute;top:18px;right:26px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;width:38px;height:38px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer}
+.py-lightbox-close:hover{background:rgba(255,255,255,.2)}
+
+@media(max-width:760px){
+  .py-staff-grid{grid-template-columns:1fr}
+  .py-sub-hero{flex-direction:column;align-items:flex-start}
+}
