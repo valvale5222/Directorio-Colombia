@@ -395,8 +395,8 @@ export const ready = (async function init() {
   const colaboradores = PERSONAS.filter(p => !p.esArea).length;
 
   const tabsHtml = [
-    `<button class="og-tab active" data-k="general" onclick="switchOrgTab('general')"><span class="og-tab-emoji" aria-hidden="true">🧭</span>Vista General<span class="og-tab-badge">${colaboradores}</span></button>`,
-    ...tabDepts.map(d => `<button class="og-tab" data-k="${d.key}" onclick="switchOrgTab('${d.key}')"><span class="og-tab-emoji" aria-hidden="true">${d.icon}</span>${d.nombre}<span class="og-tab-badge">${PERSONAS.filter(p => p.depto === d.key).length}</span></button>`),
+    `<button class="og-tab active" data-k="general" onclick="switchOrgTab('general')"><span class="og-tab-emoji" aria-hidden="true">🧭</span>Vista General<span class="og-tab-badge">11</span></button>`,
+    ...tabDepts.map(d => `<button class="og-tab" data-k="${d.key}" onclick="switchOrgTab('${d.key}')"><span class="og-tab-emoji" aria-hidden="true">${d.icon}</span>${d.nombre}<span class="og-tab-badge">${d.count}</span></button>`),
   ].join('');
   document.getElementById('ogTabs').innerHTML = tabsHtml;
 

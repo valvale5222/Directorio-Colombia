@@ -7,7 +7,8 @@
       "nombre": "Dirección",
       "icon": "👑",
       "color": "navy",
-      "descripcion": "Liderazgo general y de operaciones"
+      "descripcion": "Liderazgo general y de operaciones",
+      "count" : "1"
     },
     {
       "key": "operaciones",
@@ -15,7 +16,8 @@
       "icon": "⚙️",
       "color": "green",
       "agrupaPor": "area",
-      "descripcion": "Logística, Servicio Técnico y Operaciones · reportan a Eduardo Narro"
+      "descripcion": "Logística, Servicio Técnico y Operaciones · reportan a Eduardo Narro",
+      "count" : "6"
     },
     {
       "key": "sst",
@@ -23,7 +25,8 @@
       "icon": "🦺",
       "color": "red",
       "especial": true,
-      "descripcion": "Seguridad, Salud Ocupacional y Medio Ambiente"
+      "descripcion": "Seguridad, Salud Ocupacional y Medio Ambiente",
+      "count" : "3"
     },
     {
       "key": "ingenieria",
@@ -31,14 +34,16 @@
       "icon": "📐",
       "color": "purple",
       "soporte": true,
-      "descripcion": "Jefe de Ingeniería y Presupuestos · soporte a Operaciones y Comercial"
+      "descripcion": "Jefe de Ingeniería y Presupuestos · soporte a Operaciones y Comercial",
+      "count" : "1"
     },
     {
       "key": "comercial",
       "nombre": "Ejecutivo Comercial",
       "icon": "🤝",
       "color": "cyan",
-      "descripcion": "Ejecutiva Comercial · reporta a Misael Estrada"
+      "descripcion": "Ejecutiva Comercial · reporta a Misael Estrada",
+      "count" : "1"
     },
     {
       "key": "planner",
@@ -46,7 +51,8 @@
       "icon": "🗒️",
       "color": "brand",
       "soporte": true,
-      "descripcion": "Soporte directo de Gerencia General"
+      "descripcion": "Soporte directo de Gerencia General",
+      "count" : "1"
     },
     {
       "key": "backoffice",
@@ -55,7 +61,8 @@
       "color": "amber",
       "soporte": true,
       "agrupaPor": "sede",
-      "descripcion": "Áreas de soporte administrativo, legal y contable · Perú y Colombia"
+      "descripcion": "Áreas de soporte administrativo, legal y contable · Perú y Colombia",
+      "count" : "5"
     }
   ],
   "personas": [
@@ -238,7 +245,7 @@
     {
       "id": "backoffice-legal",
       "nombre": "Legal",
-      "cargo": "Mayo Asesoría y Litigios",
+      "cargo": "Lloreda y Camacho",
       "depto": "backoffice",
       "area": "Back Office",
       "sede": "Colombia",
@@ -251,7 +258,7 @@
     {
       "id": "backoffice-contabilidad",
       "nombre": "Contabilidad",
-      "cargo": "Lloreda y Camacho",
+      "cargo": "Mayo Asesoría y Litigios",
       "depto": "backoffice",
       "area": "Back Office",
       "sede": "Colombia",
