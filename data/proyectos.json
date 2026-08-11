@@ -22,13 +22,13 @@
         ]
       },
       "avance": {
-        "real": "24,19 %",
-        "programado": "vs. programado 24,72 %",
-        "desviacionCronograma": "- 0,53 %",
+        "real": "24.19 %",
+        "programado": "vs. programado 24.72 %",
+        "desviacionCronograma": "- 0.53 %",
         "desviacionNota": "Atraso de medio día",
-        "margenEstimado": "17,97 %",
+        "margenEstimado": "17.97 %",
         "margenEstimadoNota": "Base presupuesto inicial",
-        "margenActual": "19,45 %",
+        "margenActual": "19.45 %",
         "margenActualNota": "A la fecha de corte",
         "diasEnObra": "74",
         "diasEnObraNota": "de 153 días contractuales",

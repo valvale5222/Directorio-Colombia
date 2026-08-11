@@ -221,12 +221,10 @@ export const ready = (async function init() {
       <span class="pipe-hkpi-ic material-symbols-rounded" aria-hidden="true">apartment</span>
       <div class="pipe-hkpi-l">Proyectos en Curso</div>
       <div class="pipe-hkpi-v">${PROYECTOS.length}</div>
-      <div class="pipe-hkpi-s">Fuente: Directorio Operaciones Colombia</div>
     </div>
     <div class="pipe-hkpi">
       <span class="pipe-hkpi-ic material-symbols-rounded" aria-hidden="true">engineering</span>
       <div class="pipe-hkpi-l">En Proceso</div>
       <div class="pipe-hkpi-v">${enProceso}</div>
-      <div class="pipe-hkpi-s">Estado reportado a la fecha de corte</div>
     </div>`;
 })();

@@ -406,6 +406,5 @@ export const ready = (async function init() {
   ].join('');
   document.getElementById('ogPanels').innerHTML = panelsHtml;
 
-  document.getElementById('ogMetaTxt').textContent = `${colaboradores} colaboradores · ${data.empresa}`;
-  document.getElementById('ogHeroRight').textContent = `${colaboradores} colaboradores · ${tabDepts.length} áreas`;
+  document.getElementById('ogHeroRight').textContent = `11 colaboradores · ${tabDepts.length} áreas · Planilla Colombia`;
 })();
